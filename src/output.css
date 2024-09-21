@@ -1148,6 +1148,10 @@ video {
     right: 2.5rem;
   }
 
+  .md\:left-36{
+    left: 9rem;
+  }
+
   .md\:ml-0{
     margin-left: 0px;
   }

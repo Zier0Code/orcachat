@@ -17,7 +17,7 @@ const LoginDropdown = () => {
 
     return (
         <>
-            <div className="absolute mt-56 left-0 bg-[#303030] rounded-lg shadow-lg w-48 min-w-[284px] min-h-[168]">
+            <div className="absolute mt-56 left-0 md:left-36 bg-[#303030] rounded-lg shadow-lg w-48 min-w-[284px] min-h-[168]">
                 <div className='flex justify-start py-6 px-4 text-white'>
                     <div>
                         <h1 className='font-semibold text-[14px]'>Login To Try some other Features</h1>
