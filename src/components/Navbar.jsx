@@ -93,8 +93,8 @@ const Navbar = () => {
                     </nav>
                 ) : (
                     <div className='absolute h-[50px] bg-inherit w-full'>
-                        <nav className='shadow-md sticky top-0 h-full md:pl-36 md:flex md:justify-between'>
-                            <div className="relative flex items-center">
+                        <nav className='items-center shadow-md sticky top-0 h-full md:pl-36 pl-8 flex md:justify-between'>
+                            <div className="flex items-center">
                                 <button onClick={toggleDropdown} className='flex items-center'>
                                     <div className='flex-shrink-0 flex items-center'>
                                         <img className="h-8 w-auto" src={orca} alt="Logo" />
@@ -113,25 +113,6 @@ const Navbar = () => {
                             </div >
                         </nav>
                     </div>
-                    // <nav className="bg-inherit h-[50px] flex justify-between items-center md:px-20 shadow-md shadow-black/25 ml-4">
-                    // <div className="relative">
-                    //     <button onClick={toggleDropdown} className='flex items-center'>
-                    //         <div className='flex-shrink-0 flex items-center'>
-                    //             <img className="h-8 w-auto" src={orca} alt="Logo" />
-                    //             <div className='mx-2 flex'>
-                    //                 <h1 className='font-lemon mt-1 text-white' > ORCA</h1>
-                    //                 {
-                    //                     isDropdownOpen ? (<Up />) : (<ArrowUp />)
-                    //                 }
-                    //             </div>
-                    //         </div >
-                    //     </button >
-
-                    //     {isDropdownOpen && (
-                    //         <LoginDropdown />
-                    //     )}
-                    // </div >
-                    // </nav >
                 )
             }
 

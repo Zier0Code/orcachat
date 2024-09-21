@@ -684,6 +684,10 @@ video {
   margin-top: 2rem;
 }
 
+.mt-11{
+  margin-top: 2.75rem;
+}
+
 .flex{
   display: flex;
 }
@@ -910,6 +914,10 @@ video {
   padding: 1.5rem;
 }
 
+.p-10{
+  padding: 2.5rem;
+}
+
 .px-20{
   padding-left: 5rem;
   padding-right: 5rem;
@@ -937,6 +945,18 @@ video {
 
 .pl-12{
   padding-left: 3rem;
+}
+
+.pl-16{
+  padding-left: 4rem;
+}
+
+.pl-11{
+  padding-left: 2.75rem;
+}
+
+.pl-8{
+  padding-left: 2rem;
 }
 
 .text-center{
@@ -1116,6 +1136,10 @@ video {
 }
 
 @media (min-width: 768px){
+  .md\:relative{
+    position: relative;
+  }
+
   .md\:left-10{
     left: 2.5rem;
   }
