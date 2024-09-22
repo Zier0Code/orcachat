@@ -22,7 +22,8 @@ export default {
         customLightBlue: "#34BDCA",
         customCyan: "#34BDCA",
         customBGDark: "#212121",
-        customBGWhite: "bg-slate-200"
+        customBGWhite: "bg-slate-200",
+        customColorIput: "#303030",
       },
     },
   },

@@ -37,7 +37,7 @@ const Navbar = () => {
         <>
             {
                 customer ? (
-                    <nav className="bg-inherit h-[50px] flex justify-between items-center md:px-20 shadow-md shadow-black/25">
+                    <nav className="bg-inherit h-[50px] flex justify-between items-center md:px-20 shadow-md shadow-black/25 fixed inset-0 top-0">
                         <div className="relative">
                             <button onClick={toggleDropdown} className='flex items-center'>
                                 <div className='flex-shrink-0 flex items-center'>

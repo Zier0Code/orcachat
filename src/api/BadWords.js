@@ -1,0 +1,21 @@
+export const badWordsPH = [
+    'putangina',
+    'gago',
+    'tanga',
+    'bobo',
+    'pakyu',
+    'tarantado',
+    'ulol',
+    'gagi',
+    'tangina',
+    'siraulo',
+    'baliw',
+    'abnoy',
+    'engot',
+    'buwisit',
+    'manyakis',
+    'bastos',
+    'chaka',
+    'pabibo',
+    'malandi'
+];
