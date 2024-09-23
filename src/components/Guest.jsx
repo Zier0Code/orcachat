@@ -6,7 +6,7 @@ import {
 } from "@mui/icons-material"
 import { Filter } from 'bad-words'
 import { badWordsPH } from '../api/BadWords';
-
+import orca from '../assets/images/Logo Middle Customer.png'
 
 const Guest = () => {
     // FOR WORDS FILTERing
@@ -78,32 +78,51 @@ const Guest = () => {
         <>
             <div className='min-h-screen dark:bg-customBGDark'>
                 <Navbar />
-                <div className='flex flex-col justify-end items-center w-full min-h-screen pb-20'>
+                <div className='flex flex-col justify-end md:items-center w-full min-h-screen pb-20'>
                     <div className='mx-10 md:w-[700px]'>
-                        <div className="flex-grow flex flex-col">
-                            <div className="p-2 m-2 rounded-full  px-4 text-white/70 self-start">
-                                Hello i am orca how can i Help you?
-                            </div>
+                        <div className="flex flex-col md:w-auto">
+                            {
+                                messages.length === 0 && (
+                                    <div className="rounded-full mb-2 text-white/70 self-end">
+                                        Welcome to ORCA Bot! 🐋
+                                        <hr className='mb-5 mt-1 border-white/50' />
+                                        I’m here to answer your inquiries instantly. Whether it’s about admissions, courses, registrar, just ask away! Let’s get started!
+                                    </div>)
+                            }
                             {messages.map((message, index) => (
                                 <div
                                     key={index}
-                                    className={`p-2 m-2 rounded-full ${message.sender === 'user'
+                                    className={`p-2 m-2  rounded-full ${message.sender === 'user'
                                         ? 'bg-customColorIput px-4 text-white self-end'
-                                        : ' text-white/70 self-start'
+                                        : ' text-white/70 self-start flex'
                                         }`}
                                 >
-                                    {message.text}
+                                    {message.sender === 'bot' && (
+                                        <img
+                                            src={orca}
+                                            alt="Bot"
+                                            className="size-6 md:mr-2 rounded-full"
+                                        />
+                                    )}
+                                    <p className='ml-2'>
+                                        {message.text}
+                                    </p>
                                 </div>
                             ))}
                             {isTyping && (
-                                <div className="p-2 m-2 text-white/70 self-start">
+                                <div className="p-2 m-2 text-white/70 self-start flex">
+                                    <img
+                                        src={orca} // Replace with the actual path to the bot image
+                                        alt="Bot"
+                                        className="w-8 h-8 mr-2 rounded-full"
+                                    />
                                     {typingMessage}
                                 </div>
                             )}
                         </div>
                     </div>
-                    <div className="fixed bottom-0 left-0 w-full p-4 bg-white dark:bg-customBGDark shadow-lg">
-                        <div className="max-w-2xl mx-auto flex items-center">
+                    <div className="fixed bottom-0 w-full p-4 bg-white dark:bg-customBGDark shadow-lg pb-6">
+                        <div className="pr-6 md:pr-0 max-w-2xl mx-auto flex items-center">
                             <input
                                 autoFocus
                                 type="text"
