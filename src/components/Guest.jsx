@@ -36,7 +36,7 @@ const Guest = () => {
             setTypingMessage('');
 
             try {
-                const response = await fetch('https://ce92-103-36-19-168.ngrok-free.app/predict', {
+                const response = await fetch('http://127.0.0.1:5000/predict', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
