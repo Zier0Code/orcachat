@@ -13,8 +13,7 @@ import { toast } from 'react-toastify';
 import { login } from '../redux/customerAuthSlice';
 
 
-const LoginModal = () => {
-    const [isLoginOpen, setIsLoginOpen] = useState(true);
+const LoginModal = (props) => {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [cookies, setCookie, removeCookies] = useCookies()
@@ -24,7 +23,7 @@ const LoginModal = () => {
     const [loading, setLoading] = useState(false)
 
     const toggleLogin = () => {
-        setIsLoginOpen(!isLoginOpen)
+        props.setIsLoginOpen(false)
     };
 
     const submitForm = (e) => {
@@ -38,7 +37,7 @@ const LoginModal = () => {
                 if (res?.ok) {
                     setCookie("customer_authToken", res.data.token)
                     dispatch(login(res?.data))
-                    navigate('/orca/chat')
+                    navigate('/')
                 } else {
                     toast.error(res?.message ?? "Invalid Input!")
                     setWarnings(res?.errors)
@@ -50,7 +49,7 @@ const LoginModal = () => {
     }
     return (
         <>{
-            isLoginOpen && (
+            props.isLoginOpen && (
                 <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50">
                     <div className="bg-[#212121] rounded-lg p-6 w-96 text-white">
                         <div className='flex items-center flex-col'>

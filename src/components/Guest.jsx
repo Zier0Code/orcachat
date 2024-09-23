@@ -6,7 +6,7 @@ import {
 } from "@mui/icons-material"
 import { Filter } from 'bad-words'
 import { badWordsPH } from '../api/BadWords';
-
+import { py_url } from '../api/configuration'
 
 const Guest = () => {
     // FOR WORDS FILTERing
@@ -36,7 +36,7 @@ const Guest = () => {
             setTypingMessage('');
 
             try {
-                const response = await fetch('https://ce92-103-36-19-168.ngrok-free.app/predict', {
+                const response = await fetch(py_url, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

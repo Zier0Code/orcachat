@@ -5,14 +5,14 @@ import SignUpModal from './SignUpModal';
 
 
 const LoginDropdown = () => {
-    const [isSignUpnOpen, setIsSignUpnOpen] = useState(false);
+    const [isSignUpOpen, setIsSignUpOpen] = useState(false);
     const [isLoginOpen, setIsLoginOpen] = useState(false);
 
     const toggleLogin = () => {
         setIsLoginOpen(!isLoginOpen)
     };
     const toggleSignUp = () => {
-        setIsSignUpnOpen(!isSignUpnOpen)
+        setIsSignUpOpen(!isSignUpOpen)
     };
 
     return (
@@ -30,19 +30,16 @@ const LoginDropdown = () => {
                     </div>
                 </div>
             </div>
-            {isLoginOpen && (
-                <LoginModal />
-            )}
             {
-                isSignUpnOpen && (
-                    <SignUpModal />
+                isLoginOpen && (
+                    <LoginModal isLoginOpen={isLoginOpen} setIsLoginOpen={setIsLoginOpen} />
                 )
             }
-            {/* {isLoginOpen && (
-                <div onClick={() => { setIsLoginOpen(false) }} className="absolute left-0 top-0 h-screen max-w-[1444px w-] bg-black/20 flex justify-center items-center">
-                    
-                </div>
-            )} */}
+            {
+                isSignUpOpen && (
+                    <SignUpModal isSignUpOpen={isSignUpOpen} setIsSignUpOpen={setIsSignUpOpen} />
+                )
+            }
 
         </>
     )
