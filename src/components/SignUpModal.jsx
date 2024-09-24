@@ -37,7 +37,7 @@ const SignUpModal = (props) => {
                     toast.success(res?.message ?? "Account has been Registered")
                     setCookie("customer_authToken", res.data.token)
                     dispatch(login(res?.data))
-                    navigate('/orca/chat')
+                    navigate('/')
                 } else {
                     toast.error(res?.message ?? "Something Went Wrong.")
                     setWarnings(res?.errors)

@@ -77,7 +77,7 @@ const Guest = () => {
     return (
         <>
             <div className='min-h-screen dark:bg-customBGDark'>
-                <Navbar />
+                <Navbar setMessages={setMessages} isTyping={isTyping} />
                 <div className='flex flex-col justify-end md:items-center w-full min-h-screen pb-20'>
                     <div className='mx-10 md:w-[700px]'>
                         <div className="flex flex-col md:w-auto">
@@ -149,14 +149,6 @@ const Guest = () => {
                             >
                                 {isTyping ? <DoDisturbIcon /> : <SendIcon sx={{ width: 20, height: 20, }} />}
                             </button>
-                            {
-                                /* <button
-                                            className="p-2 bg-red-500 text-white rounded-md hover:bg-red-700 ml-2"
-                                            onClick={() => setMessages([])}
-                                        >
-                                            Clear All
-                                        </button> */
-                            }
                         </div>
                     </div>
                 </div>

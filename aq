@@ -1,0 +1,78 @@
+[33mcommit d9a996fd4cabed7e525d22fd82f5a5f476aecbd5[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m
+Merge: 147de1f 9cbc5de
+Author: Zier0Code <ziero030@gmail.com>
+Date:   Tue Sep 24 08:45:28 2024 +0800
+
+    Merge branch 'NavBar'
+
+[33mcommit 9cbc5dedab246265c4e9a2e63c3187dd7d37bd7e[m[33m ([m[1;31morigin/NavBar[m[33m, [m[1;32mNavBar[m[33m)[m
+Author: Zier0Code <ziero030@gmail.com>
+Date:   Tue Sep 24 08:44:56 2024 +0800
+
+    fixed Sign up and login modal
+
+[33mcommit 147de1fa5f0a2057d725ac05dad0dcac61fed1a8[m[33m ([m[1;31morigin/Bugs[m[33m, [m[1;32mBugs[m[33m)[m
+Author: Zier0Code <ziero030@gmail.com>
+Date:   Tue Sep 24 08:36:21 2024 +0800
+
+    bug signup
+
+[33mcommit 0f96e18aa7e73f2fc53cd1ba9db3cd0868dc36c6[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mGuestPage[m[33m)[m
+Author: Zier0Code <ziero030@gmail.com>
+Date:   Mon Sep 23 15:23:57 2024 +0800
+
+    Added Time at the bottom of Text message
+
+[33mcommit baf92b437f8976f77e1ef5d575bf907047a7f6f8[m[33m ([m[1;31morigin/GuestPage[m[33m)[m
+Author: Zier0Code <ziero030@gmail.com>
+Date:   Mon Sep 23 14:53:12 2024 +0800
+
+    Responsiveness and added image
+
+[33mcommit 6e57921ff0fede99205b0af0e25f025cea5da643[m
+Author: Zier0Code <ziero030@gmail.com>
+Date:   Mon Sep 23 12:15:19 2024 +0800
+
+    bug: Fixed navbar Fixed on top
+
+[33mcommit 1a7b082a977d6578dd9177adca3b6cc644b9d672[m
+Author: Zier0Code <ziero030@gmail.com>
+Date:   Mon Sep 23 01:49:42 2024 +0800
+
+    fix the url backend 1
+
+[33mcommit 3ab25eadf658e60a558298657665593a56a889f3[m
+Author: Zier0Code <ziero030@gmail.com>
+Date:   Mon Sep 23 01:47:06 2024 +0800
+
+    fix the url backend
+
+[33mcommit 4f5a4899bc6fdb0d1917c1408100b554019b4fde[m
+Author: Zier0Code <ziero030@gmail.com>
+Date:   Mon Sep 23 01:16:36 2024 +0800
+
+    Hello
+
+[33mcommit 80ffa99a4d543e2f1ed6341af815fee5da5df9e0[m[33m ([m[1;31morigin/Deploy1[m[33m, [m[1;32mDeploy1[m[33m)[m
+Author: Zier0Code <ziero030@gmail.com>
+Date:   Mon Sep 23 01:02:59 2024 +0800
+
+    Deploy1
+
+[33mcommit a68c7a4cf97f62f324f9ddb03a8c5c8ca8ad2afe[m
+Author: Zier0Code <ziero030@gmail.com>
+Date:   Sat Sep 21 17:12:49 2024 +0800
+
+    fix left model to 36
+
+[33mcommit 25ec6c5f4007a274183a150b9e5bbe460826cfc7[m
+Author: Zier0Code <ziero030@gmail.com>
+Date:   Sat Sep 21 17:00:59 2024 +0800
+
+    Fix navbar REsponsiveness
+
+[33mcommit ab311e96ce9e23fba6316923a962f17080fd9756[m
+Author: Zier0Code <ziero030@gmail.com>
+Date:   Sat Sep 21 16:50:27 2024 +0800
+
+    first commit main

@@ -15,7 +15,7 @@ import { toast } from 'react-toastify';
 import { logout } from '../redux/customerAuthSlice';
 
 
-const Navbar = () => {
+const Navbar = ({ isTyping, setMessages }) => {
     const customer = useSelector((state) => state.c_auth.customer)
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(true);
@@ -95,6 +95,7 @@ const Navbar = () => {
                     <nav className='fixed top-0 left-0 w-full bg-inherit shadow-md z-50'>
                         <div className='h-[50px] flex items-center md:pl-36 pl-8 md:justify-between'>
                             <div className="flex items-center">
+
                                 <button onClick={toggleDropdown} className='flex items-center'>
                                     <div className='flex-shrink-0 flex items-center'>
                                         <img className="h-8 w-auto" src={orca} alt="Logo" />
@@ -106,6 +107,16 @@ const Navbar = () => {
                                         </div>
                                     </div>
                                 </button>
+                                {
+                                    !isTyping && (
+                                        <button
+                                            className="p-2 bg-inherit text-white/50 hover:text-white rounded-full hover:bg-black/50 hover:font-medium ml-2"
+                                            onClick={() => setMessages([])}
+                                        >
+                                            <span className=''>New Chat</span>
+                                        </button>
+                                    )
+                                }
 
                                 {isDropdownOpen && (
                                     <LoginDropdown />
