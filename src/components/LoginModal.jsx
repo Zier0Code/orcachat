@@ -81,7 +81,7 @@ const LoginModal = (props) => {
                                 }
                             </div>
                             <div className='flex items-center flex-col'>
-                                <button type="submit" className='font-bold bg-customLightBlue p-2 w-full rounded-full hover:bg-customLightBlue/80'>Login</button>
+                                <button type="submit" className='font-bold bg-customLightBlue p-2 w-full rounded-full hover:bg-customLightBlue/80'>Logi</button>
                                 {/* <button className="text-white w-full h-[42px] bg-customBtn rounded-xl hover:shadow-customBtn hover:bg-customBtn50" disabled={loading} type="submit"><span className='font-semibold text-[20px] sm:text-2xl tracking-wider'>Login</span></button> */}
                                 <button
                                     type="button"
