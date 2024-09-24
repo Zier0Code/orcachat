@@ -115,17 +115,17 @@ const Guest = () => {
                                             className="size-6 md:mr-2 rounded-full"
                                         />
                                     )}
-                                    <p className='ml-2'>
+                                    <p className='ml-2 text-xs sm:text-base'>
                                         <NextLine message={message.text} />
                                     </p>
                                 </div>
                             ))}
                             {isTyping && (
-                                <div className="p-2 m-2 text-white/70 self-start flex">
+                                <div className="p-2 m-2 text-white/70 self-start flex text-xs sm:text-base">
                                     <img
                                         src={orca}
                                         alt="Bot"
-                                        className="w-8 h-8 mr-2 rounded-full"
+                                        className="size-7 mr-2 rounded-full animate-pulse"
                                     />
                                     {typingMessage}
 
@@ -139,7 +139,7 @@ const Guest = () => {
                             <input
                                 autoFocus
                                 type="text"
-                                className="pl-9 flex-grow p-2 border text-md dark:text-white bg-customColorIput border-black/50 focus:outline-none focus:border-white/20 rounded-full"
+                                className="pl-9 flex-grow p-2 border text-xs  md:text-md dark:text-white bg-customColorIput border-black/50 focus:outline-none focus:border-white/20 rounded-full"
                                 placeholder="Type your inquiries here..."
                                 onKeyDown={(e) => {
                                     if (e.key === "Enter" && !isTyping) {
