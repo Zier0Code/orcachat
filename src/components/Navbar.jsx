@@ -8,11 +8,13 @@ import checkAuth from '../hoc/checkAuthCustomer';
 import { useDispatch, useSelector } from 'react-redux';
 import {
     Logout as LogoutIcon,
-    Settings as SettingsIcon
+    Settings as SettingsIcon,
+    DriveFileRenameOutline as DriveFileRenameOutlineIcon
 } from '@mui/icons-material';
 import { useCookies } from 'react-cookie';
 import { toast } from 'react-toastify';
 import { logout } from '../redux/customerAuthSlice';
+import { Tooltip } from '@mui/material';
 
 
 const Navbar = ({ isTyping, setMessages }) => {
@@ -66,7 +68,7 @@ const Navbar = ({ isTyping, setMessages }) => {
                                                 className="p-2 bg-inherit text-white/50 hover:text-white rounded-md hover:bg-black/20 hover:font-medium ml-2"
                                                 onClick={() => setMessages([])}
                                             >
-                                                <span className=''>New Chat</span>
+                                                <DriveFileRenameOutlineIcon />
                                             </button>
                                         )
                                     }
@@ -124,7 +126,9 @@ const Navbar = ({ isTyping, setMessages }) => {
                                             className="p-2 bg-inherit text-white/50 hover:text-white rounded-md hover:bg-black/20 hover:font-medium ml-2"
                                             onClick={() => setMessages([])}
                                         >
-                                            <span className=''>New Chat</span>
+                                            <Tooltip title="Create New Chat">
+                                                <DriveFileRenameOutlineIcon />
+                                            </Tooltip>
                                         </button>
                                     )
                                 }
