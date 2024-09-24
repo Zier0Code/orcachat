@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Navbar from '../components/Navbar';
 import {
     Send as SendIcon,
@@ -6,7 +6,7 @@ import {
 } from "@mui/icons-material"
 import { Filter } from 'bad-words'
 import { badWordsPH } from '../api/BadWords';
-import { py_url } from '../api/configuration'
+
 
 const Guest = () => {
     // FOR WORDS FILTERing
@@ -17,6 +17,15 @@ const Guest = () => {
     const [messages, setMessages] = useState([]);
     const [isTyping, setIsTyping] = useState(false);
     const [typingMessage, setTypingMessage] = useState('');
+    const messagesEndRef = useRef(null);
+
+    const scrollToBottom = () => {
+        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    };
+
+    useEffect(() => {
+        scrollToBottom();
+    }, [messages]);
 
     const handleSendMessage = async (message) => {
         // CLEAN MESSAGE
@@ -63,7 +72,7 @@ const Guest = () => {
                             ]);
                             setIsTyping(false);
                         }
-                    }, 40);
+                    }, 10);
                 } else {
                     console.error('Error fetching response from server');
                 }
@@ -77,37 +86,68 @@ const Guest = () => {
     return (
         <>
             <div className='min-h-screen dark:bg-customBGDark'>
-                <Navbar />
-                <div className='flex flex-col justify-end items-center w-full min-h-screen pb-20'>
+                <Navbar setMessages={setMessages} isTyping={isTyping} />
+                <div className='flex flex-col justify-end md:items-center w-full min-h-screen pb-20'>
                     <div className='mx-10 md:w-[700px]'>
-                        <div className="flex-grow flex flex-col">
-                            <div className="p-2 m-2 rounded-full  px-4 text-white/70 self-start">
-                                Hello i am orca how can i Help you?
-                            </div>
+                        <div className="flex flex-col md:w-auto">
+                            {
+                                messages.length === 0 && (
+                                    <div className="rounded-full mb-2 text-white/70 self-end text-sm sm:text-base">
+                                        Welcome to ORCA Bot! 🐋
+                                        <hr className='mb-5 mt-1 border-white/50' />
+                                        I’m here to answer your inquiries instantly. Whether it’s about admissions, courses, registrar, just ask away! Let’s get started!
+                                    </div>)
+                            }
                             {messages.map((message, index) => (
-                                <div
-                                    key={index}
-                                    className={`p-2 m-2 rounded-full ${message.sender === 'user'
-                                        ? 'bg-customColorIput px-4 text-white self-end'
-                                        : ' text-white/70 self-start'
-                                        }`}
-                                >
-                                    {message.text}
+                                <div className='flex flex-col md:w-auto'>
+                                    <div
+                                        key={index}
+                                        className={` rounded-full ${message.sender === 'user'
+                                            ? 'p-2 mx-2 mt-2 bg-customColorIput px-4 text-white self-end'
+                                            : 'pr-2 py-2 mt-2 text-white/70 self-start flex'
+                                            }`}
+                                    >
+                                        {message.sender === 'bot' && (
+                                            <img
+                                                src={orca}
+                                                alt="Bot"
+                                                className="size-6 md:mr-2 rounded-full"
+                                            />
+                                        )}
+                                        <p className='ml-2 text-sm sm:text-base'>
+                                            <NextLine message={message.text} />
+                                        </p>
+                                    </div>
+                                    <div>
+                                        {message.sender === 'user' && (
+                                            <div className="text-xs text-gray-500 ml-2 flex mr-4 justify-end">Time here</div>
+                                        )}
+                                        {message.sender === 'bot' && (
+                                            <div className="text-xs text-gray-500 flex ml-8 md:ml-10 justify-start">Time here</div>
+                                        )}
+                                    </div>
                                 </div>
                             ))}
                             {isTyping && (
-                                <div className="p-2 m-2 text-white/70 self-start">
+                                <div className="pr-2 py-2 mt-2 text-white/70 self-start flex text-sm sm:text-base">
+                                    <img
+                                        src={orca}
+                                        alt="Bot"
+                                        className="size-7 mr-2 rounded-full animate-pulse"
+                                    />
                                     {typingMessage}
+
                                 </div>
                             )}
+                            <div ref={messagesEndRef} />
                         </div>
                     </div>
-                    <div className="fixed bottom-0 left-0 w-full p-4 bg-white dark:bg-customBGDark shadow-lg">
-                        <div className="max-w-2xl mx-auto flex items-center">
+                    <div className="fixed bottom-0 w-full p-4 bg-white dark:bg-customBGDark shadow-lg pb-6">
+                        <div className="pr-6 md:pr-0 max-w-2xl mx-auto flex items-center">
                             <input
                                 autoFocus
                                 type="text"
-                                className="pl-9 flex-grow p-2 border text-md dark:text-white bg-customColorIput border-black/50 focus:outline-none focus:border-white/20 rounded-full"
+                                className="pl-9 flex-grow p-2 border text-sm  md:text-md dark:text-white bg-customColorIput border-black/50 focus:outline-none focus:border-white/20 rounded-full"
                                 placeholder="Type your inquiries here..."
                                 onKeyDown={(e) => {
                                     if (e.key === "Enter" && !isTyping) {
@@ -130,14 +170,6 @@ const Guest = () => {
                             >
                                 {isTyping ? <DoDisturbIcon /> : <SendIcon sx={{ width: 20, height: 20, }} />}
                             </button>
-                            {
-                                /* <button
-                                            className="p-2 bg-red-500 text-white rounded-md hover:bg-red-700 ml-2"
-                                            onClick={() => setMessages([])}
-                                        >
-                                            Clear All
-                                        </button> */
-                            }
                         </div>
                     </div>
                 </div>

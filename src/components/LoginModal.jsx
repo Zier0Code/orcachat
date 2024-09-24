@@ -13,7 +13,8 @@ import { toast } from 'react-toastify';
 import { login } from '../redux/customerAuthSlice';
 
 
-const LoginModal = (props) => {
+const LoginModal = () => {
+    const [isLoginOpen, setIsLoginOpen] = useState(true);
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [cookies, setCookie, removeCookies] = useCookies()

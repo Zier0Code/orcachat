@@ -30,16 +30,19 @@ const LoginDropdown = () => {
                     </div>
                 </div>
             </div>
+            {isLoginOpen && (
+                <LoginModal />
+            )}
             {
-                isLoginOpen && (
-                    <LoginModal isLoginOpen={isLoginOpen} setIsLoginOpen={setIsLoginOpen} />
+                isSignUpnOpen && (
+                    <SignUpModal />
                 )
             }
-            {
-                isSignUpOpen && (
-                    <SignUpModal isSignUpOpen={isSignUpOpen} setIsSignUpOpen={setIsSignUpOpen} />
-                )
-            }
+            {/* {isLoginOpen && (
+                <div onClick={() => { setIsLoginOpen(false) }} className="absolute left-0 top-0 h-screen max-w-[1444px w-] bg-black/20 flex justify-center items-center">
+                    
+                </div>
+            )} */}
 
         </>
     )
