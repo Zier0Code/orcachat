@@ -15,7 +15,7 @@ import { toast } from 'react-toastify';
 import { logout } from '../redux/customerAuthSlice';
 
 
-const Navbar = () => {
+const Navbar = ({ isTyping, setMessages }) => {
     const customer = useSelector((state) => state.c_auth.customer)
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(true);
@@ -106,6 +106,16 @@ const Navbar = () => {
                                         </div>
                                     </div>
                                 </button>
+                                {
+                                    !isTyping && (
+                                        <button
+                                            className="p-2 bg-inherit text-white/50 hover:text-white rounded-md hover:bg-black/20 hover:font-medium ml-2"
+                                            onClick={() => setMessages([])}
+                                        >
+                                            <span className=''>New Chat</span>
+                                        </button>
+                                    )
+                                }
 
                                 {isDropdownOpen && (
                                     <LoginDropdown />
