@@ -25,7 +25,7 @@ const LoginDropdown = () => {
                             Talk to Admin Support</p>
                         <div className='flex justify-around'>
                             <button onClick={(toggleLogin)} className='w-[113px] h-[30px] bg-customBlue hover:bg-customBlue/80 text-white dark:hover:bg-[#D9D9D9]/70 dark:bg-[#D9D9D9] dark:text-black rounded-full font-semibold'>Login</button>
-                            <button onClick={(toggleSignUp)} className='w-[113px] h-[30px] bg-black/30 hover:bg-black/40 dark:hover:text-white/50 dark:bg-customBGDark rounded-full border-solid border-2 font-semibold hover:text-black text-black/50 hover:font-medium dark:border-white dark:hover:border-white/50'>Sign Up</button>
+                            <button onClick={(toggleSignUp)} className='w-[113px] h-[30px] bg-black/30 hover:bg-black/40 dark:hover:text-white/50 dark:bg-customBGDark rounded-full border-solid border-2 font-semibold hover:text-black text-black/50 hover:font-medium dark:text-white/40 dark:font-normal dark:border-white/50 dark:hover:border-white dark:hover:text-white'>Sign Up</button>
                         </div>
                     </div>
                 </div>
