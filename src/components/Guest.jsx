@@ -8,6 +8,7 @@ import { Filter } from 'bad-words'
 import { badWordsPH } from '../api/BadWords';
 import orca from '../assets/images/Logo Middle Customer.png'
 import NextLine from './NextLine';
+import { py_url } from '../api/configuration';
 
 const Guest = () => {
     // FOR WORDS FILTERing
@@ -46,7 +47,7 @@ const Guest = () => {
             setTypingMessage('');
 
             try {
-                const response = await fetch('http://127.0.0.1:5000/predict', {
+                const response = await fetch(py_url, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
