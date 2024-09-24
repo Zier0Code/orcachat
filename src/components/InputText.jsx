@@ -3,6 +3,7 @@ import {
     Send as SendIcon,
     DoDisturb as DoDisturbIcon
 } from "@mui/icons-material"
+import { Tooltip } from '@mui/material';
 
 const InputText = ({ handleSendMessage, isTyping }) => {
     return (
@@ -21,22 +22,23 @@ const InputText = ({ handleSendMessage, isTyping }) => {
                             }
                         }}
                     />
-
-                    <button
-                        className={`p-2 text-white hover:bg-customColorIput/50 rounded-full
+                    <Tooltip title="Send">
+                        <button
+                            className={`p-2 text-white hover:bg-customColorIput/50 rounded-full
                                             ${isTyping ? 'cursor-not-allowed' : ''}`
-                        }
-                        onClick={() => {
-                            const input = document.querySelector('input');
-                            handleSendMessage(input.value);
-                            input.value = '';
-                        }}
-                        disabled={isTyping}
-                    >
-                        {isTyping ? <DoDisturbIcon /> : <SendIcon sx={{ width: 20, height: 20, }} />}
-                    </button>
+                            }
+                            onClick={() => {
+                                const input = document.querySelector('input');
+                                handleSendMessage(input.value);
+                                input.value = '';
+                            }}
+                            disabled={isTyping}
+                        >
+                            {isTyping ? <DoDisturbIcon /> : <SendIcon sx={{ width: 20, height: 20, }} />}
+                        </button>
+                    </Tooltip>
                 </div>
-            </div>
+            </div >
         </>
     )
 }
