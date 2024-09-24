@@ -101,7 +101,7 @@ const Guest = () => {
                                     </div>)
                             }
                             {messages.map((message, index) => (
-                                <div className='flex flex-col md:w-auto'>
+                                <div key={index} className='flex flex-col md:w-auto'>
                                     <div
                                         key={index}
                                         className={` rounded-full ${message.sender === 'user'
@@ -116,9 +116,7 @@ const Guest = () => {
                                                 className="size-6 md:mr-2 rounded-full"
                                             />
                                         )}
-                                        <p className='ml-2 text-sm sm:text-base'>
-                                            <NextLine message={message.text} />
-                                        </p>
+                                        <NextLine message={message.text} />
                                     </div>
                                     <div>
                                         {message.sender === 'user' && (
