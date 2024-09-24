@@ -15,6 +15,7 @@ import { useCookies } from 'react-cookie';
 import { toast } from 'react-toastify';
 import { logout } from '../redux/customerAuthSlice';
 import { Tooltip } from '@mui/material';
+import DarkButton from './DarkButton';
 
 
 const Navbar = ({ isTyping, setMessages }) => {
@@ -42,7 +43,7 @@ const Navbar = ({ isTyping, setMessages }) => {
             {
                 customer ? (
                     <nav className='fixed top-0 left-0 w-full bg-inherit shadow-md z-50'>
-                        <div className='h-[50px] flex items-center md:pl-36 pl-8 md:justify-between'>
+                        <div className='h-[50px] flex items-center md:pl-36 pl-8 md:justify-between dark:bg-customBGDark shadow-black/50 shadow-md bg-customBlue'>
                             <div className="flex items-center justify-between w-full">
                                 <div className='flex'>
                                     <button onClick={toggleDropdown} className='flex items-center'>
@@ -56,7 +57,7 @@ const Navbar = ({ isTyping, setMessages }) => {
                                     {
                                         !isDropdownOpen && (
                                             <div className="absolute mt-4 left-2 md:left-40 bg-[#303030] rounded-lg shadow-lg w-48 min-w-[154px] min-h-[168] cursor-default top-10 ">
-                                                <div className='flex justify-start py-6 px-4 text-white font-medium'>
+                                                <div className='flex justify-start py-6 px-4 text-black bg-white shadow-md dark:text-white font-medium dark:bg-inherit'>
                                                     Orca Version 1.0
                                                 </div>
                                             </div>
@@ -80,22 +81,25 @@ const Navbar = ({ isTyping, setMessages }) => {
                                 {
                                     !isUserDropdownOpen && (
 
-                                        <div className="absolute mt-4 right-2 md:right-10 bg-[#303030] rounded-lg shadow-lg w-48 min-w-[154px] min-h-[168] cursor-default top-10 ">
-                                            <div className='flex justify-start py-6 px-4 text-white'>
+                                        <div className="absolute mt-4 right-2 md:right-10 bg-white dark:bg-customBGDark rounded-lg shadow-lg w-48 min-w-[154px] min-h-[168] cursor-default top-10">
+                                            <div className='flex justify-start py-6 px-4 text-black dark:text-white'>
                                                 <ul className='w-full'>
                                                     <li>
-                                                        <button className='hover:bg-black/70 w-full p-2 flex justify-start'>
+                                                        <button className='hover:bg-black/20 dark:hover:bg-black/70 w-full p-2 flex justify-start'>
                                                             <SettingsIcon />
                                                             <p className='ml-2 '>Settings</p>
                                                         </button>
                                                     </li>
                                                     <li>
-                                                        <button onClick={onLogOut} className='hover:bg-black/70 w-full p-2 flex justify-start'>
+                                                        <button onClick={onLogOut} className=' hover:bg-black/20 dark:hover:bg-black/70 w-full p-2 flex justify-start'>
                                                             <LogoutIcon />
                                                             <p className='ml-2'>
                                                                 Log out
                                                             </p>
                                                         </button>
+                                                    </li>
+                                                    <li>
+                                                        <DarkButton />
                                                     </li>
                                                 </ul>
                                             </div>
@@ -107,7 +111,7 @@ const Navbar = ({ isTyping, setMessages }) => {
                     </nav >
                 ) : (
                     <nav className='fixed top-0 left-0 w-full bg-inherit shadow-md z-50'>
-                        <div className='h-[50px] flex items-center md:pl-36 pl-8 md:justify-between'>
+                        <div className='h-[50px] flex items-center md:pl-36 pl-8 md:justify-between dark:bg-customBGDark bg-customBlue'>
                             <div className="flex items-center">
                                 <button onClick={toggleDropdown} className='flex items-center'>
                                     <div className='flex-shrink-0 flex items-center'>

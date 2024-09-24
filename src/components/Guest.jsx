@@ -55,7 +55,7 @@ const Guest = () => {
                 // Check if there is a response
                 if (response) {
                     const data = await response.json();
-                    console.log("server response:", data.response)
+                    console.log("server response:", data, messages)
                     // SIMULATE BOT RESPONSE
                     let index = -1;
 
@@ -85,7 +85,7 @@ const Guest = () => {
     };
     return (
         <>
-            <div className='min-h-screen dark:bg-customBGDark'>
+            <div className='min-h-screen bg-customBGWhite dark:bg-customBGDark'>
                 <Navbar setMessages={setMessages} isTyping={isTyping} />
                 <div className='flex flex-col justify-end md:items-center w-full min-h-screen pb-20'>
                     <div className='mx-10 md:w-[700px]'>

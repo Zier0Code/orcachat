@@ -4,10 +4,9 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
+  darkMode: 'selector',
   theme: {
-
     extend: {
-      darkMode: 'selector',
       fontFamily: {
         sans: ['Poppins', 'sans-serif'],
         lemon: ['Lemon', 'sans-serif'],
@@ -22,8 +21,8 @@ export default {
         customLightBlue: "#34BDCA",
         customCyan: "#34BDCA",
         customBGDark: "#212121",
-        customBGWhite: "bg-slate-200",
-        customColorIput: "#303030",
+        customBGWhite: "#f5f5f5",
+        customColorInput: "#303030",
       },
     },
   },

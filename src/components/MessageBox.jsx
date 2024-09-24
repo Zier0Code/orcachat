@@ -9,8 +9,8 @@ const MessageBox = ({ messages }) => {
                     <div
                         key={index}
                         className={` rounded-full ${message.sender === 'user'
-                            ? 'p-2 mx-2 mt-2 bg-customColorIput px-4 text-white self-end'
-                            : 'pr-2 py-2 mt-2 text-white/70 self-start flex'
+                            ? 'p-2 mx-2 mt-2 bg-white/50 shadow-md dark:bg-customColorInput px-4 text-black dark:text-white self-end'
+                            : 'pr-2 py-2 mt-2 text-black/80 dark:text-white/70 self-start flex'
                             }`}
                     >
                         {message.sender === 'bot' && (

@@ -8,12 +8,12 @@ import { Tooltip } from '@mui/material';
 const InputText = ({ handleSendMessage, isTyping }) => {
     return (
         <>
-            <div className="fixed bottom-0 w-full p-4 bg-white dark:bg-customBGDark shadow-lg pb-6">
+            <div className="fixed bottom-0 w-full p-4 shadow-lg pb-6">
                 <div className="pr-6 md:pr-0 max-w-2xl mx-auto flex items-center">
                     <input
                         autoFocus
                         type="text"
-                        className="pl-9 flex-grow p-2 border text-sm  md:text-md dark:text-white bg-customColorIput border-black/50 focus:outline-none focus:border-white/20 rounded-full"
+                        className="shadow-md dark:text-white shadow-gray-500 dark:shadow-none pl-9 flex-grow p-2 text-sm mb-2 md:text-mddark:text-white dark:bg-customColorIput focus:outline-none border dark:border-none focus:border-customBlue rounded-full dark:bg-customColorInput"
                         placeholder="Type your inquiries here..."
                         onKeyDown={(e) => {
                             if (e.key === "Enter" && !isTyping) {
