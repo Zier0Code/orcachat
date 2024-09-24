@@ -32,6 +32,7 @@ const Navbar = ({ isTyping, setMessages }) => {
     const onLogOut = () => {
         removeCookie("customer_authToken", null)
         setIsUserDropdownOpen(!isUserDropdownOpen);
+        toast.error("Logged Out Successfully", { autoClose: 2000 })
         dispatch(logout())
     }
     return (

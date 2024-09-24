@@ -38,6 +38,7 @@ const LoginModal = (props) => {
                 if (res?.ok) {
                     setCookie("customer_authToken", res.data.token)
                     dispatch(login(res?.data))
+                    toast.success(res?.message ?? "Logged In Successfully", { position: "bottom-left", autoClose: 2000 })
                     navigate('/')
                 } else {
                     toast.error(res?.message ?? "Invalid Input!")
