@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Navbar from '../components/Navbar';
 import {
     Send as SendIcon,
@@ -7,6 +7,7 @@ import {
 import { Filter } from 'bad-words'
 import { badWordsPH } from '../api/BadWords';
 import orca from '../assets/images/Logo Middle Customer.png'
+import NextLine from './NextLine';
 
 const Guest = () => {
     // FOR WORDS FILTERing
@@ -17,6 +18,15 @@ const Guest = () => {
     const [messages, setMessages] = useState([]);
     const [isTyping, setIsTyping] = useState(false);
     const [typingMessage, setTypingMessage] = useState('');
+    const messagesEndRef = useRef(null);
+
+    const scrollToBottom = () => {
+        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    };
+
+    useEffect(() => {
+        scrollToBottom();
+    }, [messages]);
 
     const handleSendMessage = async (message) => {
         // CLEAN MESSAGE
@@ -63,7 +73,7 @@ const Guest = () => {
                             ]);
                             setIsTyping(false);
                         }
-                    }, 40);
+                    }, 10);
                 } else {
                     console.error('Error fetching response from server');
                 }
@@ -105,20 +115,22 @@ const Guest = () => {
                                         />
                                     )}
                                     <p className='ml-2'>
-                                        {message.text}
+                                        <NextLine message={message.text} />
                                     </p>
                                 </div>
                             ))}
                             {isTyping && (
                                 <div className="p-2 m-2 text-white/70 self-start flex">
                                     <img
-                                        src={orca} // Replace with the actual path to the bot image
+                                        src={orca}
                                         alt="Bot"
                                         className="w-8 h-8 mr-2 rounded-full"
                                     />
                                     {typingMessage}
+
                                 </div>
                             )}
+                            <div ref={messagesEndRef} />
                         </div>
                     </div>
                     <div className="fixed bottom-0 w-full p-4 bg-white dark:bg-customBGDark shadow-lg pb-6">
