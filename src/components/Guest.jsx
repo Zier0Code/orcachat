@@ -1,14 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react'
 import Navbar from '../components/Navbar';
-import {
-    Send as SendIcon,
-    DoDisturb as DoDisturbIcon
-} from "@mui/icons-material"
 import { Filter } from 'bad-words'
 import { badWordsPH } from '../api/BadWords';
-import orca from '../assets/images/Logo Middle Customer.png'
-import NextLine from './NextLine';
 import { py_url } from '../api/configuration';
+import InputText from './InputText';
+import MessageBox from './MessageBox';
+import BotImage from './BotImage';
+import WelcomeChat from './WelcomeChat';
 
 const Guest = () => {
     // FOR WORDS FILTERing
@@ -94,84 +92,17 @@ const Guest = () => {
                         <div className="flex flex-col md:w-auto">
                             {
                                 messages.length === 0 && (
-                                    <div className="rounded-full mb-2 text-white/70 self-end text-sm sm:text-base">
-                                        Welcome to ORCA Bot! 🐋
-                                        <hr className='mb-5 mt-1 border-white/50' />
-                                        I’m here to answer your inquiries instantly. Whether it’s about admissions, courses, registrar, just ask away! Let’s get started!
-                                    </div>)
+                                    <WelcomeChat />
+                                )
                             }
-                            {messages.map((message, index) => (
-                                <div key={index} className='flex flex-col md:w-auto'>
-                                    <div
-                                        key={index}
-                                        className={` rounded-full ${message.sender === 'user'
-                                            ? 'p-2 mx-2 mt-2 bg-customColorIput px-4 text-white self-end'
-                                            : 'pr-2 py-2 mt-2 text-white/70 self-start flex'
-                                            }`}
-                                    >
-                                        {message.sender === 'bot' && (
-                                            <img
-                                                src={orca}
-                                                alt="Bot"
-                                                className="size-6 md:mr-2 rounded-full"
-                                            />
-                                        )}
-                                        <NextLine message={message.text} />
-                                    </div>
-                                    <div>
-                                        {message.sender === 'user' && (
-                                            <div className="text-xs text-gray-500 ml-2 flex mr-4 justify-end">Time here</div>
-                                        )}
-                                        {message.sender === 'bot' && (
-                                            <div className="text-xs text-gray-500 flex ml-8 md:ml-10 justify-start">Time here</div>
-                                        )}
-                                    </div>
-                                </div>
-                            ))}
+                            <MessageBox messages={messages} />
                             {isTyping && (
-                                <div className="pr-2 py-2 mt-2 text-white/70 self-start flex text-sm sm:text-base">
-                                    <img
-                                        src={orca}
-                                        alt="Bot"
-                                        className="size-7 mr-2 rounded-full animate-pulse"
-                                    />
-                                    {typingMessage}
-
-                                </div>
+                                <BotImage message={typingMessage} />
                             )}
                             <div ref={messagesEndRef} />
                         </div>
                     </div>
-                    <div className="fixed bottom-0 w-full p-4 bg-white dark:bg-customBGDark shadow-lg pb-6">
-                        <div className="pr-6 md:pr-0 max-w-2xl mx-auto flex items-center">
-                            <input
-                                autoFocus
-                                type="text"
-                                className="pl-9 flex-grow p-2 border text-sm  md:text-md dark:text-white bg-customColorIput border-black/50 focus:outline-none focus:border-white/20 rounded-full"
-                                placeholder="Type your inquiries here..."
-                                onKeyDown={(e) => {
-                                    if (e.key === "Enter" && !isTyping) {
-                                        handleSendMessage(e.target.value);
-                                        e.target.value = '';
-                                    }
-                                }}
-                            />
-
-                            <button
-                                className={`p-2 text-white hover:bg-customColorIput/50 rounded-full
-                                            ${isTyping ? 'cursor-not-allowed' : ''}`
-                                }
-                                onClick={() => {
-                                    const input = document.querySelector('input');
-                                    handleSendMessage(input.value);
-                                    input.value = '';
-                                }}
-                                disabled={isTyping}
-                            >
-                                {isTyping ? <DoDisturbIcon /> : <SendIcon sx={{ width: 20, height: 20, }} />}
-                            </button>
-                        </div>
-                    </div>
+                    <InputText handleSendMessage={handleSendMessage} isTyping={isTyping} />
                 </div>
             </div>
         </>
