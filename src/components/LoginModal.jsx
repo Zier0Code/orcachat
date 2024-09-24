@@ -13,7 +13,7 @@ import { toast } from 'react-toastify';
 import { login } from '../redux/customerAuthSlice';
 
 
-const LoginModal = () => {
+const LoginModal = (props) => {
     const [isLoginOpen, setIsLoginOpen] = useState(true);
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
@@ -24,7 +24,7 @@ const LoginModal = () => {
     const [loading, setLoading] = useState(false)
 
     const toggleLogin = () => {
-        setIsLoginOpen(!isLoginOpen)
+        props.setIsLoginOpen(false)
     };
 
     const submitForm = (e) => {
@@ -50,7 +50,7 @@ const LoginModal = () => {
     }
     return (
         <>{
-            isLoginOpen && (
+            props.isLoginOpen && (
                 <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50">
                     <div className="bg-[#212121] rounded-lg p-6 w-96 text-white">
                         <div className='flex items-center flex-col'>
