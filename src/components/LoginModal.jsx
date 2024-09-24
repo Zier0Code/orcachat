@@ -38,7 +38,7 @@ const LoginModal = (props) => {
                 if (res?.ok) {
                     setCookie("customer_authToken", res.data.token)
                     dispatch(login(res?.data))
-                    navigate('/orca/chat')
+                    navigate('/')
                 } else {
                     toast.error(res?.message ?? "Invalid Input!")
                     setWarnings(res?.errors)
