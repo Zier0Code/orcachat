@@ -9,8 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import { login } from '../redux/customerAuthSlice';
 
-const SignUpModal = () => {
-    const [isSignUpnOpen, setIsSignUpnOpen] = useState(true);
+const SignUpModal = (props) => {
     const [cookies, setCookie, removeCookies] = useCookies()
     const navigate = useNavigate()
     const [warnings, setWarnings] = useState({})
@@ -18,7 +17,7 @@ const SignUpModal = () => {
     const [loading, setLoading] = useState(false)
 
     const toggleSignUp = () => {
-        setIsSignUpnOpen(!isSignUpnOpen)
+        props.setIsSignUpOpen(false)
     };
 
     const submitForm = (e) => {
@@ -52,7 +51,7 @@ const SignUpModal = () => {
 
     return (
         <>{
-            isSignUpnOpen && (
+            props.isSignUpOpen && (
                 <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50">
                     <div className="bg-[#212121] rounded-lg p-6 w-96 text-white">
                         <div className='flex items-center flex-col'>
@@ -111,7 +110,6 @@ const SignUpModal = () => {
                                 </button>
                             </div>
                         </form>
-
                     </div>
                 </div>
             )

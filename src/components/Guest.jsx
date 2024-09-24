@@ -90,36 +90,23 @@ const Guest = () => {
                                     </div>)
                             }
                             {messages.map((message, index) => (
-                                <div className='flex flex-col md:w-auto'>
-                                    <div
-                                        key={index}
-                                        className={`p-2 mx-2 mt-2  rounded-full ${message.sender === 'user'
-                                            ? 'bg-customColorIput px-4 text-white self-end'
-                                            : ' text-white/70 self-start flex'
-                                            }`}
-                                    >
-                                        {message.sender === 'bot' && (
-                                            <img
-                                                src={orca}
-                                                alt="Bot"
-                                                className="size-6 md:mr-2 rounded-full"
-                                            />
-                                        )}
-                                        <p className='ml-2'>
-                                            {message.text}
-                                        </p>
-
-                                    </div>
-                                    <div>
-                                        {message.sender === 'user' && (
-                                            <div className="text-xs text-gray-500 ml-2 flex mr-4 justify-end">Time here</div>
-                                        )}
-                                        {message.sender === 'bot' && (
-                                            <div className="text-xs text-gray-500 flex ml-14 justify-start">Time here</div>
-                                        )}
-                                    </div>
-
-
+                                <div
+                                    key={index}
+                                    className={`p-2 m-2  rounded-full ${message.sender === 'user'
+                                        ? 'bg-customColorIput px-4 text-white self-end'
+                                        : ' text-white/70 self-start flex'
+                                        }`}
+                                >
+                                    {message.sender === 'bot' && (
+                                        <img
+                                            src={orca}
+                                            alt="Bot"
+                                            className="size-6 md:mr-2 rounded-full"
+                                        />
+                                    )}
+                                    <p className='ml-2'>
+                                        {message.text}
+                                    </p>
                                 </div>
                             ))}
                             {isTyping && (
