@@ -8,7 +8,7 @@ const MessageBox = ({ messages }) => {
                 <div key={index} className='flex flex-col md:w-auto'>
                     <div
                         key={index}
-                        className={` rounded-full ${message.sender === 'user'
+                        className={` rounded-full ${message.sender === 'customer'
                             ? 'p-2 mx-2 mt-2 bg-white/50 shadow-md dark:bg-customColorInput px-4 text-black dark:text-white self-end'
                             : 'pr-2 py-2 mt-2 text-black/80 dark:text-white/70 self-start flex'
                             }`}
@@ -23,7 +23,7 @@ const MessageBox = ({ messages }) => {
                         <NextLine message={message.content} />
                     </div>
                     <div>
-                        {message.sender === 'user' && (
+                        {message.sender === 'customer' && (
                             <div className="text-xs text-gray-500 ml-2 flex mr-4 justify-end">Time here</div>
                         )}
                         {message.sender === 'bot' && (

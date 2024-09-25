@@ -17,6 +17,7 @@ import { logout } from '../redux/customerAuthSlice';
 import { Tooltip } from '@mui/material';
 import DarkButton from './DarkButton';
 import lightlogo from '../assets/svgs/logoMain.svg'
+import { create_conversation, storeMessages } from '../api/conversation';
 
 
 const Navbar = ({ messages, isTyping, setMessages }) => {
@@ -41,32 +42,56 @@ const Navbar = ({ messages, isTyping, setMessages }) => {
     }
 
     // ON CREATE MESSAGE
-    // const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(false);
     // const [data, setData] = useState([])
     const [data, setData] = useState([]);
 
+    const [conversationID, setConversationID] = useState(null);
 
-    // const onCreateMessages = () => {
-    //     setData([...messages])
-    //     console.log(data)
-    //     setMessages([])
-    // }
+    const onCreateConversations = () => {
+        try {
+            create_conversation(customer?.id).then(res => {
+                if (res.ok) {
+                    // toast.success(res?.message ?? "Message Stored", { position: "bottom-left", autoClose: 2000 })
+                    setConversationID(res.data.id);
+                } else {
+                    toast.error(res.message ?? "Something went wrong", { autoClose: 1000 });
+                }
+            });
+        } catch (err) {
+            console.log(err);
+        } finally {
 
-    // const onSetData = () => {
-    //     setData(messages)
-    // }
-    const conversation_id = 1; // Example conversation ID
-    const customer_id = 2; // Example customer ID
+        }
+    };
+    useEffect(() => {
+        if (customer) {
+            onCreateConversations();
+        }
+    }, [customer?.id]);
+    const conversation_id = conversationID; // Example conversation ID
+    const customer_id = customer?.id; // Example customer ID
 
     const onCreateMessages = () => {
-        const updatedMessages = messages.map(message => ({
-            ...message,
-            conversation_id,
-            customer_id
-        }));
-        setData(updatedMessages);
-        console.log(updatedMessages);
-        setMessages([]);
+        if (!loading) {
+            setLoading(true);
+            const updatedMessages = messages.map(message => ({
+                ...message,
+                conversation_id,
+                customer_id
+            }));
+            storeMessages(updatedMessages).then(res => {
+                if (res.ok) {
+                    toast.success(res.message ?? "Message Stored", { position: "bottom-left", autoClose: 2000 });
+                } else {
+                    toast.error(res.message ?? "Something went wrong");
+                }
+            }).finally(() => {
+                onCreateConversations();
+                setLoading(false);
+                setMessages([]);
+            });
+        }
     };
 
     const onSetData = () => {
@@ -109,7 +134,8 @@ const Navbar = ({ messages, isTyping, setMessages }) => {
                                     {
                                         !isTyping && (
                                             <button
-                                                className="p-2 bg-inherit text-white/50 hover:text-white rounded-md hover:bg-black/20 hover:font-medium ml-2"
+                                                disabled={loading || messages.length === 0}
+                                                className={`p-2 bg-inherit text-white/50 hover:text-white rounded-md hover:bg-black/20 hover:font-medium ml-2 `}
                                                 onClick={onCreateMessages}
                                             >
                                                 <DriveFileRenameOutlineIcon />

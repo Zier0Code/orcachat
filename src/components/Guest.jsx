@@ -40,7 +40,7 @@ const Guest = () => {
         // IF MESSAGE IS NOT EMPTY THEN ADD TO MESSAGES
         if (cleanMessage.trim()) {
             // ADD USER MESSAGE
-            setMessages([...messages, { content: cleanMessage, sender: 'user' }]);
+            setMessages([...messages, { content: cleanMessage, sender: 'customer' }]);
             setIsTyping(true);
             setTypingMessage('');
 
@@ -55,7 +55,7 @@ const Guest = () => {
                 // Check if there is a response
                 if (response) {
                     const data = await response.json();
-                    console.log("server response:", data, messages)
+                    // console.log("server response:", data, messages)
                     // SIMULATE BOT RESPONSE
 
                     // Extract the tag from the bot's response
@@ -73,7 +73,7 @@ const Guest = () => {
                             setMessages((prevMessages) => {
                                 // Find the last user message and update it with the tag
                                 const updatedMessages = prevMessages.map((message, idx) => {
-                                    if (idx === prevMessages.length - 1 && message.sender === 'user') {
+                                    if (idx === prevMessages.length - 1 && message.sender === 'customer') {
                                         return { ...message, tag };
                                     }
                                     return message;
