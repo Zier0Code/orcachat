@@ -2,6 +2,7 @@ import React from 'react'
 import NextLine from './NextLine'
 import orca from '../assets/images/Logo Middle Customer.png'
 const MessageBox = ({ messages }) => {
+    const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     return (
         <>
             {messages.map((message, index) => (
@@ -24,10 +25,10 @@ const MessageBox = ({ messages }) => {
                     </div>
                     <div>
                         {message.sender === 'customer' && (
-                            <div className="text-xs text-gray-500 ml-2 flex mr-4 justify-end">Time here</div>
+                            <div className="text-xs text-gray-500 ml-2 flex mr-4 justify-end">{currentTime}</div>
                         )}
                         {message.sender === 'bot' && (
-                            <div className="text-xs text-gray-500 flex ml-8 md:ml-10 justify-start">Time here</div>
+                            <div className="text-xs text-gray-500 flex ml-8 md:ml-10 justify-start">{currentTime}</div>
                         )}
                     </div>
                 </div>
