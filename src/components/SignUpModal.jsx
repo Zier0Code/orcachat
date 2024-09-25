@@ -62,7 +62,7 @@ const SignUpModal = (props) => {
                             <div className='mb-3 flex flex-col'>
                                 <div className='flex items-center'>
                                     <PersonIcon className="absolute size-2 mt-1 ml-3 text-gray-400" />
-                                    <input className=" bg-white w-full p-2 rounded-full pl-12 text-black dark:text-white border dark:focus:border-customBtn focus:outline-none text-[12px] sm:text-base shadow-lg focus:border-customBlue dark:bg-[#303030]" type="text" id='username' autoFocus autoComplete="true" placeholder='Username' />
+                                    <input className=" dark:border-customColorInput  bg-white w-full p-2 rounded-full pl-12 text-black dark:text-white border dark:focus:border-customBtn focus:outline-none text-[12px] sm:text-base shadow-lg focus:border-customBlue dark:bg-[#303030]" type="text" id='username' autoFocus autoComplete="true" placeholder='Username' />
                                 </div>
                                 {
                                     warnings?.username ? (
@@ -73,7 +73,7 @@ const SignUpModal = (props) => {
                             <div className='mb-3 flex flex-col'>
                                 <div className='flex items-center'>
                                     <MailIcon className="absolute size-2 mt-1 ml-3 text-gray-400" />
-                                    <input className=" bg-white w-full p-2 rounded-full pl-12 text-black dark:text-white border dark:focus:border-customBtn focus:outline-none text-[12px] sm:text-base shadow-lg focus:border-customBlue dark:bg-[#303030]" type="text" id='email' autoFocus autoComplete="true" placeholder='Email' />
+                                    <input className=" dark:border-customColorInput  bg-white w-full p-2 rounded-full pl-12 text-black dark:text-white border dark:focus:border-customBtn focus:outline-none text-[12px] sm:text-base shadow-lg focus:border-customBlue dark:bg-[#303030]" type="text" id='email' autoFocus autoComplete="true" placeholder='Email' />
                                 </div>
                                 {
                                     warnings?.email ? (
@@ -84,7 +84,7 @@ const SignUpModal = (props) => {
                             <div className='flex mb-3 flex-col'>
                                 <div>
                                     <LockIcon className="absolute mt-2 ml-3 text-gray-400" />
-                                    <input className=" bg-white w-full p-2 sm:text-base text-black dark:text-white border text-[12px] rounded-full pl-12 darkfocus:border-customBtn focus:outline-none shadow-lg focus:border-customBlue dark:bg-[#303030]" id='password' type="password" placeholder='Password' />
+                                    <input className=" dark:border-customColorInput  bg-white w-full p-2 sm:text-base text-black dark:text-white border text-[12px] rounded-full pl-12 darkfocus:border-customBtn focus:outline-none shadow-lg focus:border-customBlue dark:bg-[#303030]" id='password' type="password" placeholder='Password' />
                                 </div>
                                 {
                                     warnings?.password ? (
@@ -95,11 +95,11 @@ const SignUpModal = (props) => {
                             <div className='mb-8 flex'>
                                 <div>
                                     <LockIcon className="absolute mt-2 ml-3 text-gray-400" />
-                                    <input className=" bg-white w-full p-2 sm:text-base  text-black dark:text-white border text-[12px] rounded-full pl-12 dark:focus:border-customBtn focus:outline-none shadow-lg focus:border-customBlue dark:bg-[#303030]" id='password_confirmation' type="password" placeholder='Password Confirmation' />
+                                    <input className=" dark:border-customColorInput  bg-white w-full p-2 sm:text-base  text-black dark:text-white border text-[12px] rounded-full pl-12 dark:focus:border-customBtn focus:outline-none shadow-lg focus:border-customBlue dark:bg-[#303030]" id='password_confirmation' type="password" placeholder='Password Confirmation' />
                                 </div>
                             </div>
                             <div className='flex items-center flex-col mt-8'>
-                                <button disabled={loading} type="submit" className='font-bold bg-customBlue hover:bg-customBlue/80 dark:bg-customLightBlue p-2 w-full rounded-full dark:hover:bg-customLightBlue/80'> Sign Up </button>
+                                <button disabled={loading} type="submit" className='font-bold bg-customBlue hover:bg-customBlue/80 dark:bg-customLightBlue p-2 w-full rounded-full dark:hover:bg-customLightBlue/80 '> Sign Up </button>
                                 {/* <button className="text-white w-full h-[42px] bg-customBtn rounded-xl hover:shadow-customBtn hover:bg-customBtn50" disabled={loading} type="submit"><span className='font-semibold text-[20px] sm:text-2xl tracking-wider'>Login</span></button> */}
                                 <button
                                     type="button"

@@ -62,7 +62,7 @@ const LoginModal = (props) => {
                             <div className='mb-3 flex flex-col'>
                                 <div className='flex items-center'>
                                     <MailIcon className="absolute size-2 mt-1 ml-3 text-gray-400" />
-                                    <input className="w-full p-2 rounded-full pl-12 dark:focus:border-customBtn focus:border-customBlue focus:outline-none text-[12px] sm:text-base dark:bg-customColorInput shadow-md text-black dark:text-white border" type="text" autoFocus autoComplete="true" onChange={(e) => setUsername(e.target.value)} placeholder='Username' />
+                                    <input className="w-full p-2 rounded-full pl-12 dark:focus:border-customBtn focus:border-customBlue dark:border-customColorInput focus:outline-none text-[12px] sm:text-base dark:bg-customColorInput shadow-md text-black dark:text-white border" type="text" autoFocus autoComplete="true" onChange={(e) => setUsername(e.target.value)} placeholder='Username' />
                                 </div>
                                 {
                                     warnings?.username ? (
@@ -73,7 +73,7 @@ const LoginModal = (props) => {
                             <div className='mb-8 flex flex-col'>
                                 <div>
                                     <LockIcon className="absolute mt-2 ml-3 text-gray-400" />
-                                    <input className="w-full p-2 sm:text-base text-[12px] rounded-full pl-12 dark:focus:border-customBtn focus:outline-none dark:bg-customColorInput shadow-md dark:text-white text-black focus:border-customBlue border" type="password" onChange={(e) => setPassword(e.target.value)} placeholder='Password' />
+                                    <input className="dark:border-customColorInput w-full p-2 sm:text-base text-[12px] rounded-full pl-12 dark:focus:border-customBtn focus:outline-none dark:bg-customColorInput shadow-md dark:text-white text-black focus:border-customBlue border" type="password" onChange={(e) => setPassword(e.target.value)} placeholder='Password' />
                                 </div>
                                 {
                                     warnings?.password ? (
