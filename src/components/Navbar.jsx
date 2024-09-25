@@ -16,6 +16,7 @@ import { toast } from 'react-toastify';
 import { logout } from '../redux/customerAuthSlice';
 import { Tooltip } from '@mui/material';
 import DarkButton from './DarkButton';
+import lightlogo from '../assets/svgs/logoMain.svg'
 
 
 const Navbar = ({ isTyping, setMessages }) => {
@@ -35,7 +36,7 @@ const Navbar = ({ isTyping, setMessages }) => {
     const onLogOut = () => {
         removeCookie("customer_authToken", null)
         setIsUserDropdownOpen(!isUserDropdownOpen);
-        toast.error("Logged Out Successfully", { autoClose: 2000 })
+        toast.error("You've been Logged Out ", { autoClose: 2000 })
         dispatch(logout())
     }
     return (
@@ -48,7 +49,8 @@ const Navbar = ({ isTyping, setMessages }) => {
                                 <div className='flex'>
                                     <button onClick={toggleDropdown} className='flex items-center'>
                                         <div className='flex-shrink-0 flex items-center'>
-                                            <img className="h-8 w-auto" src={orca} alt="Logo" />
+                                            <img className="h-8 w-auto hidden dark:block" src={orca} alt="Dark mode Logo" />
+                                            <img className="h-8 w-auto dark:hidden" src={lightlogo} alt="Light mode Logo" />
                                             <div className='mx-2 flex'>
                                                 <h1 className='font-lemon mt-1 text-white'>ORCA</h1>
                                             </div>
@@ -115,7 +117,8 @@ const Navbar = ({ isTyping, setMessages }) => {
                             <div className="flex items-center">
                                 <button onClick={toggleDropdown} className='flex items-center'>
                                     <div className='flex-shrink-0 flex items-center'>
-                                        <img className="h-8 w-auto" src={orca} alt="Logo" />
+                                        <img className="h-8 w-auto hidden dark:block" src={orca} alt="Dark mode Logo" />
+                                        <img className="h-8 w-auto dark:hidden" src={lightlogo} alt="Light mode Logo" />
                                         <div className='mx-2 flex'>
                                             <h1 className='font-lemon mt-1 text-white'>ORCA</h1>
                                             {

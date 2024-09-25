@@ -9,11 +9,11 @@ const InputText = ({ handleSendMessage, isTyping }) => {
     return (
         <>
             <div className="fixed bottom-0 w-full p-4 shadow-lg pb-6">
-                <div className="pr-6 md:pr-0 max-w-2xl mx-auto flex items-center">
+                <div className="pr-6 md:pr-0 max-w-2xl mx-auto relative">
                     <input
                         autoFocus
                         type="text"
-                        className="shadow-md dark:text-white shadow-gray-500 dark:shadow-none pl-9 flex-grow p-2 text-sm mb-2 md:text-mddark:text-white dark:bg-customColorIput focus:outline-none border dark:border-none focus:border-customBlue rounded-full dark:bg-customColorInput"
+                        className="shadow-md dark:text-white shadow-gray-500 dark:shadow-none pl-9 flex-grow p-2 text-sm mb-2 md:text-mddark:text-white focus:outline-none border dark:border-none focus:border-customBlue rounded-full dark:bg-customColorInput w-full"
                         placeholder="Type your inquiries here..."
                         onKeyDown={(e) => {
                             if (e.key === "Enter" && !isTyping) {
@@ -24,9 +24,8 @@ const InputText = ({ handleSendMessage, isTyping }) => {
                     />
                     <Tooltip title="Send">
                         <button
-                            className={`p-2 text-white hover:bg-customColorIput/50 rounded-full
-                                            ${isTyping ? 'cursor-not-allowed' : ''}`
-                            }
+                            className={`absolute right-2 top-1/2 transform -translate-y-1/2 pr-7 md:pr-3 pb-3 text-white hover:bg-customColorIput/50 rounded-full
+                            ${isTyping ? 'cursor-not-allowed' : ''}`}
                             onClick={() => {
                                 const input = document.querySelector('input');
                                 handleSendMessage(input.value);
@@ -34,11 +33,11 @@ const InputText = ({ handleSendMessage, isTyping }) => {
                             }}
                             disabled={isTyping}
                         >
-                            {isTyping ? <DoDisturbIcon /> : <SendIcon sx={{ width: 20, height: 20, }} />}
+                            {isTyping ? <DoDisturbIcon /> : <SendIcon sx={{ width: 20, height: 20, color: 'gray', transform: "rotate(-30deg)" }} />}
                         </button>
                     </Tooltip>
                 </div>
-            </div >
+            </div>
         </>
     )
 }

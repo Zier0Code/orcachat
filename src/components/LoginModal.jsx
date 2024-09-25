@@ -86,7 +86,7 @@ const LoginModal = (props) => {
                                 {/* <button className="text-white w-full h-[42px] bg-customBtn rounded-xl hover:shadow-customBtn hover:bg-customBtn50" disabled={loading} type="submit"><span className='font-semibold text-[20px] sm:text-2xl tracking-wider'>Login</span></button> */}
                                 <button
                                     type="button"
-                                    className="text-gray-500 hover:text-gray-70 mt-2 dark:hover:text-white hover:text-black"
+                                    className="text-gray-500 hover:font-semibold hover:text-gray-70 mt-2 dark:hover:text-white hover:text-black"
                                     onClick={toggleLogin}
                                 >
                                     Cancel
