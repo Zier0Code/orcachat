@@ -33,14 +33,14 @@ const Guest = () => {
 
         // CHECK IF MESSAGE IS NOT VALID
         if (cleanMessage !== message) {
-            setMessages([...messages, { text: 'Your message is not valid as it contains illegal words. \n Try Asking again', sender: 'bot' }]);
+            setMessages([...messages, { content: 'Your message is not valid as it contains illegal words. \n Try Asking again', sender: 'bot' }]);
             return;
         }
 
         // IF MESSAGE IS NOT EMPTY THEN ADD TO MESSAGES
         if (cleanMessage.trim()) {
             // ADD USER MESSAGE
-            setMessages([...messages, { text: cleanMessage, sender: 'user' }]);
+            setMessages([...messages, { content: cleanMessage, sender: 'user' }]);
             setIsTyping(true);
             setTypingMessage('');
 
@@ -57,6 +57,10 @@ const Guest = () => {
                     const data = await response.json();
                     console.log("server response:", data, messages)
                     // SIMULATE BOT RESPONSE
+
+                    // Extract the tag from the bot's response
+                    const { tag } = data;
+
                     let index = -1;
 
                     // SIMULATE TYPING
@@ -66,10 +70,21 @@ const Guest = () => {
                             index++;
                         } else {
                             clearInterval(typingInterval);
-                            setMessages((prevMessages) => [
-                                ...prevMessages,
-                                { text: data.response, sender: 'bot' },
-                            ]);
+                            setMessages((prevMessages) => {
+                                // Find the last user message and update it with the tag
+                                const updatedMessages = prevMessages.map((message, idx) => {
+                                    if (idx === prevMessages.length - 1 && message.sender === 'user') {
+                                        return { ...message, tag };
+                                    }
+                                    return message;
+                                });
+
+                                // Add the bot's response with the tag
+                                return [
+                                    ...updatedMessages,
+                                    { content: data.response, sender: 'bot', tag }
+                                ];
+                            });
                             setIsTyping(false);
                         }
                     }, 10);
@@ -86,7 +101,7 @@ const Guest = () => {
     return (
         <>
             <div className='min-h-screen bg-customBGWhite dark:bg-customBGDark'>
-                <Navbar setMessages={setMessages} isTyping={isTyping} />
+                <Navbar messages={messages} setMessages={setMessages} isTyping={isTyping} />
                 <div className='flex flex-col justify-end md:items-center w-full min-h-screen pb-20'>
                     <div className='mx-10 md:w-[700px]'>
                         <div className="flex flex-col md:w-auto">

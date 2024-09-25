@@ -20,7 +20,7 @@ const MessageBox = ({ messages }) => {
                                 className="size-6 md:mr-2 rounded-full"
                             />
                         )}
-                        <NextLine message={message.text} />
+                        <NextLine message={message.content} />
                     </div>
                     <div>
                         {message.sender === 'user' && (

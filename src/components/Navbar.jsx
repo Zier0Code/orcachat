@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import orca from '../assets/images/Orca Landing Customer Logo.png'
 import profile from '../assets/images/no user.jpg'
 import Down from '../assets/svgs/Down';
@@ -19,7 +19,7 @@ import DarkButton from './DarkButton';
 import lightlogo from '../assets/svgs/logoMain.svg'
 
 
-const Navbar = ({ isTyping, setMessages }) => {
+const Navbar = ({ messages, isTyping, setMessages }) => {
     const customer = useSelector((state) => state.c_auth.customer)
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(true);
@@ -39,6 +39,47 @@ const Navbar = ({ isTyping, setMessages }) => {
         toast.error("You've been Logged Out ", { autoClose: 2000 })
         dispatch(logout())
     }
+
+    // ON CREATE MESSAGE
+    // const [loading, setLoading] = useState(false);
+    // const [data, setData] = useState([])
+    const [data, setData] = useState([]);
+
+
+    // const onCreateMessages = () => {
+    //     setData([...messages])
+    //     console.log(data)
+    //     setMessages([])
+    // }
+
+    // const onSetData = () => {
+    //     setData(messages)
+    // }
+    const conversation_id = 1; // Example conversation ID
+    const customer_id = 2; // Example customer ID
+
+    const onCreateMessages = () => {
+        const updatedMessages = messages.map(message => ({
+            ...message,
+            conversation_id,
+            customer_id
+        }));
+        setData(updatedMessages);
+        console.log(updatedMessages);
+        setMessages([]);
+    };
+
+    const onSetData = () => {
+        const updatedMessages = messages.map(message => ({
+            ...message,
+            conversation_id,
+            customer_id
+        }));
+        setData(updatedMessages);
+    };
+
+    useEffect(onSetData, [messages])
+
     return (
         <>
             {
@@ -69,7 +110,7 @@ const Navbar = ({ isTyping, setMessages }) => {
                                         !isTyping && (
                                             <button
                                                 className="p-2 bg-inherit text-white/50 hover:text-white rounded-md hover:bg-black/20 hover:font-medium ml-2"
-                                                onClick={() => setMessages([])}
+                                                onClick={onCreateMessages}
                                             >
                                                 <DriveFileRenameOutlineIcon />
                                             </button>
