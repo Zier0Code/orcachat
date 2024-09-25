@@ -13,7 +13,7 @@ const InputText = ({ handleSendMessage, isTyping }) => {
                     <input
                         autoFocus
                         type="text"
-                        className="shadow-md dark:text-white shadow-gray-500 dark:shadow-none pl-9 flex-grow p-2 text-sm mb-2 md:text-mddark:text-white focus:outline-none border dark:border-none focus:border-customBlue rounded-full dark:bg-customColorInput w-full"
+                        className="shadow-md dark:text-white shadow-gray-500 dark:shadow-none pl-4 pr-9 sm:pr-12 md:pl-9 pr- flex-grow p-2 text-sm mb-2 md:text-mddark:text-white focus:outline-none border dark:border-none focus:border-customBlue rounded-full dark:bg-customColorInput w-full"
                         placeholder="Type your inquiries here..."
                         onKeyDown={(e) => {
                             if (e.key === "Enter" && !isTyping) {
