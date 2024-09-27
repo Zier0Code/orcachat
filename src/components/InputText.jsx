@@ -28,6 +28,8 @@ const InputText = ({ handleSendMessage, isTyping }) => {
                             ${isTyping ? 'cursor-not-allowed' : ''}`}
                             onClick={() => {
                                 const input = document.querySelector('input');
+                                // optional: sanitize the input value
+                                // const sanitizedValue = DOMPurify.sanitize(input.value);
                                 handleSendMessage(input.value);
                                 input.value = '';
                             }}

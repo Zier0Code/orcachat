@@ -1,15 +1,16 @@
 import { url } from "./configuration";
 
 
-export const storeMessages = async (message) => {
+export const storeMessages = async (message, token) => {
     const response = await fetch(`${url}/conversations/messages`, {
         method: "POST",
         headers: {
             Accept: "application/json",
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
         },
         // this convert the object to json string 
-        body: JSON.stringify({ messages: message.toLowerCase() })
+        body: JSON.stringify({ messages: message })
     })
     // This will get the response from api
     return await response.json()

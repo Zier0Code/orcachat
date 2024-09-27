@@ -80,10 +80,12 @@ const Navbar = ({ messages, isTyping, setMessages }) => {
                 conversation_id,
                 customer_id
             }));
-            storeMessages(updatedMessages).then(res => {
+            storeMessages(updatedMessages, cookies.customer_authToken).then(res => {
                 if (res.ok) {
+                    console.log(res);
                     toast.success(res.message ?? "Message Stored", { position: "bottom-left", autoClose: 2000 });
                 } else {
+                    console.log(res);
                     toast.error(res.message ?? "Something went wrong");
                 }
             }).finally(() => {

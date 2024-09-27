@@ -55,22 +55,26 @@ const Guest = () => {
                 // Check if there is a response
                 if (response) {
                     const data = await response.json();
-                    console.log("server response:", data, messages)
                     // SIMULATE BOT RESPONSE
 
                     // Extract the tag from the bot's response
                     const { tag } = data;
 
-                    let index = 0;
+                    let index = -1;
 
                     // SIMULATE TYPING
                     const typingInterval = setInterval(() => {
+                        index++;
+
                         if (index < data.response.length) {
                             setTypingMessage((prev) => prev + data.response[index]);
-                            index++;
                         } else {
                             clearInterval(typingInterval);
                             setMessages((prevMessages) => {
+
+                                // Sanitize the bot's response
+                                // const sanitizedResponse = DOMPurify.sanitize(data.response);
+
                                 // Find the last user message and update it with the tag
                                 const updatedMessages = prevMessages.map((message, idx) => {
                                     if (idx === prevMessages.length - 1 && message.sender === 'customer') {
