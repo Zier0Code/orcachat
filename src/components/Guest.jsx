@@ -50,18 +50,18 @@ const Guest = () => {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ message: cleanMessage }),
+                    body: JSON.stringify({ message: cleanMessage.toLowerCase() }),
                 });
                 // Check if there is a response
                 if (response) {
                     const data = await response.json();
-                    // console.log("server response:", data, messages)
+                    console.log("server response:", data, messages)
                     // SIMULATE BOT RESPONSE
 
                     // Extract the tag from the bot's response
                     const { tag } = data;
 
-                    let index = -1;
+                    let index = 0;
 
                     // SIMULATE TYPING
                     const typingInterval = setInterval(() => {

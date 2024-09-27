@@ -9,7 +9,7 @@ export const storeMessages = async (message) => {
             "Content-Type": "application/json"
         },
         // this convert the object to json string 
-        body: JSON.stringify({ messages: message })
+        body: JSON.stringify({ messages: message.toLowerCase() })
     })
     // This will get the response from api
     return await response.json()
