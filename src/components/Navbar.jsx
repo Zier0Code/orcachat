@@ -9,15 +9,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
     Logout as LogoutIcon,
     Settings as SettingsIcon,
+    Feedback as FeedbackIcon,
     DriveFileRenameOutline as DriveFileRenameOutlineIcon
 } from '@mui/icons-material';
 import { useCookies } from 'react-cookie';
 import { toast } from 'react-toastify';
 import { logout } from '../redux/customerAuthSlice';
-import { Tooltip } from '@mui/material';
+import { Rating, Tooltip } from '@mui/material';
 import DarkButton from './DarkButton';
 import lightlogo from '../assets/svgs/logoMain.svg'
 import { create_conversation, storeMessages } from '../api/conversation';
+import $ from 'jquery'
+import { create_feedback } from '../api/feedback';
 
 
 const Navbar = ({ messages, isTyping, setMessages }) => {
@@ -73,27 +76,36 @@ const Navbar = ({ messages, isTyping, setMessages }) => {
     const customer_id = customer?.id; // Example customer ID
 
     const onCreateMessages = () => {
-        if (!loading) {
-            setLoading(true);
-            const updatedMessages = messages.map(message => ({
-                ...message,
-                conversation_id,
-                customer_id
-            }));
-            storeMessages(updatedMessages, cookies.customer_authToken).then(res => {
-                if (res.ok) {
-                    console.log(res);
-                    toast.success(res.message ?? "Message Stored", { position: "bottom-left", autoClose: 2000 });
-                } else {
-                    console.log(res);
-                    toast.error(res.message ?? "Something went wrong");
-                }
-            }).finally(() => {
-                onCreateConversations();
-                setLoading(false);
-                setMessages([]);
-            });
+        if (messages.length === 0) {
+            toast.warning("Please send a message before starting a new one", { autoClose: 2000 });
+            setCreateLoading(true);
+            setTimeout(() => {
+                setCreateLoading(false);
+            }, 5000);
+        } else {
+            if (!loading) {
+                setLoading(true);
+                const updatedMessages = messages.map(message => ({
+                    ...message,
+                    conversation_id,
+                    customer_id
+                }));
+                storeMessages(updatedMessages, cookies.customer_authToken).then(res => {
+                    if (res.ok) {
+                        console.log(res);
+                        toast.success(res.message ?? "Message Stored", { position: "bottom-left", autoClose: 2000 });
+                    } else {
+                        console.log(res);
+                        toast.error(res.message ?? "Something went wrong");
+                    }
+                }).finally(() => {
+                    onCreateConversations();
+                    setLoading(false);
+                    setMessages([]);
+                });
+            }
         }
+
     };
 
     const onSetData = () => {
@@ -103,6 +115,60 @@ const Navbar = ({ messages, isTyping, setMessages }) => {
             customer_id
         }));
         setData(updatedMessages);
+    };
+
+    const [createLoading, setCreateLoading] = useState(false);
+    const handleCreateNewChat = () => {
+        if (messages.length === 0) {
+            toast.warning("Please send a message before starting a new one", { autoClose: 2000 });
+            setCreateLoading(true);
+            setTimeout(() => {
+                setCreateLoading(false);
+            }, 5000);
+        }
+        setMessages([])
+    };
+
+
+    // FEEDBACK
+    const [feedbackOpen, setFeedbackOpen] = useState(false);
+    const [feedbackSubmitLoading, setFeedbackSubmitLoading] = useState(false);  // Feedback Submit Loading
+    const handleFeedbackClick = () => {
+        setFeedbackOpen(!feedbackOpen);
+    };
+
+    const feedbackClose = () => {
+        setFeedbackOpen(false);
+    };
+
+    const handleSendFeedback = () => {
+        const feedback = $("#feedback").val();
+        if (feedback.length === 0) {
+            toast.warning("Please enter your feedback", { autoClose: 2000 });
+            setFeedbackSubmitLoading(true);
+            setTimeout(() => {
+                setFeedbackSubmitLoading(false);
+            }, 5000);
+        }
+        const body = {
+            message: feedback,
+            customer_id: customer?.id,
+            conversation_id: conversationID,
+            rating: 5
+        };
+
+        create_feedback(body, cookies.customer_authToken).then(res => {
+            if (res.ok) {
+                toast.success(res.message ?? "Feedback Sent", { autoClose: 2000 });
+                setFeedbackOpen(false);
+            } else {
+                toast.error(res.message ?? "Something went wrong", { autoClose: 2000 });
+            }
+        }).finally(() => {
+            setFeedbackSubmitLoading(false);
+        }
+        );
+
     };
 
     useEffect(onSetData, [messages])
@@ -116,13 +182,15 @@ const Navbar = ({ messages, isTyping, setMessages }) => {
                             <div className="flex items-center justify-between w-full">
                                 <div className='flex'>
                                     <button onClick={toggleDropdown} className='flex items-center'>
-                                        <div className='flex-shrink-0 flex items-center'>
-                                            <img className="h-8 w-auto hidden dark:block" src={orca} alt="Dark mode Logo" />
-                                            <img className="h-8 w-auto dark:hidden" src={lightlogo} alt="Light mode Logo" />
-                                            <div className='mx-2 flex'>
-                                                <h1 className='font-lemon mt-1 text-white'>ORCA</h1>
+                                        <Tooltip title="ORCA Version" arrow>
+                                            <div className='flex-shrink-0 flex items-center'>
+                                                <img className="h-8 w-auto hidden dark:block" src={orca} alt="Dark mode Logo" />
+                                                <img className="h-8 w-auto dark:hidden" src={lightlogo} alt="Light mode Logo" />
+                                                <div className='mx-2 flex'>
+                                                    <h1 className='font-lemon mt-1 text-white'>ORCA</h1>
+                                                </div>
                                             </div>
-                                        </div>
+                                        </Tooltip>
                                     </button>
                                     {
                                         !isDropdownOpen && (
@@ -136,18 +204,38 @@ const Navbar = ({ messages, isTyping, setMessages }) => {
                                     {
                                         !isTyping && (
                                             <button
-                                                disabled={loading || messages.length === 0}
-                                                className={`p-2 bg-inherit text-white/50 hover:text-white rounded-md hover:bg-black/20 hover:font-medium ml-2 `}
+                                                disabled={createLoading}
+                                                className={`p-2 bg-inherit text-white/50 hover:text-white rounded-md hover:bg-black/20 hover:font-medium ml-2`}
                                                 onClick={onCreateMessages}
                                             >
-                                                <DriveFileRenameOutlineIcon />
+                                                <Tooltip title="Create New Chat" arrow>
+                                                    <DriveFileRenameOutlineIcon />
+                                                </Tooltip>
                                             </button>
+                                            // <button
+                                            //     disabled={loading || messages.length === 0}
+                                            //     className={`p-2 bg-inherit text-white/50 hover:text-white rounded-md hover:bg-black/20 hover:font-medium ml-2 `}
+                                            //     onClick={onCreateMessages}
+                                            // >
+                                            //     <DriveFileRenameOutlineIcon />
+                                            // </button>
                                         )
                                     }
                                 </div>
-                                <button className='mr-5 sm:mr-20 md:mr-40' onClick={toggleUserDropdown}>
-                                    <img className="h-8 w-8 rounded-full" src={profile} alt="Profile" />
-                                </button>
+                                <div className='flex'>
+                                    <Tooltip title="Give us Feedback" arrow>
+                                        <button className='mr-5 sm:mr-20 md:mr-40 dark:text-white/40 hover:text-white text-gray-400' onClick={handleFeedbackClick}>
+                                            <FeedbackIcon className="h-8 w-8" />
+                                            <span className="ml-2">Feedback</span>
+                                        </button>
+                                    </Tooltip>
+                                    <Tooltip title="Settings" arrow>
+
+                                        <button className='mr-5 sm:mr-20 md:mr-40' onClick={toggleUserDropdown}>
+                                            <img className="h-8 w-8 rounded-full" src={profile} alt="Profile" />
+                                        </button>
+                                    </Tooltip>
+                                </div>
 
                                 {
                                     !isUserDropdownOpen && (
@@ -179,6 +267,33 @@ const Navbar = ({ messages, isTyping, setMessages }) => {
                                 }
                             </div>
                         </div>
+                        <div className={`${feedbackOpen ? "flex" : "hidden"} fixed inset-0 bg-black bg-opacity-50 justify-center items-center z-50`}>
+                            <div className="bg-white dark:bg-customBGDark p-6 rounded-lg shadow-lg w-96">
+                                <h2 className="text-xl font-bold mb-4 text-black dark:text-white">Send us Feedback</h2>
+                                <textarea
+                                    className="w-full p-2 border rounded-lg dark:bg-customColorInput dark:text-white"
+                                    rows="5"
+                                    id='feedback'
+                                    placeholder="Enter your feedback here..."
+                                    autoFocus
+                                ></textarea>
+                                <div className="flex justify-end mt-4">
+                                    <button
+                                        className="bg-gray-500 text-white px-4 py-2 rounded-lg mr-2"
+                                        onClick={feedbackClose}
+                                    >
+                                        Cancel
+                                    </button>
+                                    <button
+                                        className={`${feedbackSubmitLoading ? 'bg-white text-gray-400 border-2 border-gray-400' : 'bg-customBlue text-white'}  px-4 py-2 rounded-lg`}
+                                        onClick={handleSendFeedback}
+                                        disabled={feedbackSubmitLoading}
+                                    >
+                                        Submit
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </nav >
                 ) : (
                     <nav className='fixed top-0 left-0 w-full bg-inherit shadow-md z-50'>
@@ -199,8 +314,9 @@ const Navbar = ({ messages, isTyping, setMessages }) => {
                                 {
                                     !isTyping && (
                                         <button
-                                            className="p-2 bg-inherit text-white/50 hover:text-white rounded-md hover:bg-black/20 hover:font-medium ml-2"
-                                            onClick={() => setMessages([])}
+                                            disabled={createLoading}
+                                            className={`p-2 bg-inherit text-white/50 hover:text-white rounded-md hover:bg-black/20 hover:font-medium ml-2`}
+                                            onClick={handleCreateNewChat}
                                         >
                                             <Tooltip title="Create New Chat">
                                                 <DriveFileRenameOutlineIcon />

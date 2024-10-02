@@ -27,12 +27,22 @@ const DarkButton = () => {
     };
 
     return (
-        <button
-            onClick={toggleDarkMode}
-            className="bg-gray-200 dark:bg-custom_dark_30 text-black dark:text-white px-4 py-2 rounded-md transition-all"
-        >
-            {darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
-        </button>
+        <label className="inline-flex items-center cursor-pointer">
+            <input
+                type="checkbox"
+                className="sr-only"
+                checked={darkMode}
+                onChange={toggleDarkMode}
+            />
+            <div className="relative w-10 h-4 bg-gray-200 rounded-full shadow-inner dark:bg-custom_dark_30 transition-all">
+                <div
+                    className={`absolute w-6 h-6 bg-white rounded-full shadow -left-1 -top-1 transition-transform ${darkMode ? 'transform translate-x-full bg-custom_dark_30' : ''}`}
+                ></div>
+            </div>
+            <span className="ml-3 text-black dark:text-white">
+                {darkMode ? 'Light Mode' : 'Dark Mode'}
+            </span>
+        </label>
     );
 };
 

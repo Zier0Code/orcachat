@@ -41,11 +41,14 @@ const LoginModal = (props) => {
                     toast.success(res?.message ?? "Logged In Successfully", { position: "bottom-left", autoClose: 2000 })
                     navigate('/')
                 } else {
+
                     toast.error(res?.message ?? "Invalid Input!")
                     setWarnings(res?.errors)
                 }
             }).finally(() => {
-                setLoading(false)
+                setTimeout(() => {
+                    setLoading(false)
+                }, 6000);
             })
         }
     }
@@ -82,7 +85,7 @@ const LoginModal = (props) => {
                                 }
                             </div>
                             <div className='flex items-center flex-col'>
-                                <button type="submit" className='font-bold bg-customBlue dark:bg-customLightBlue p-2 w-full rounded-full dark:hover:bg-customLightBlue/80 hover:bg-customBlue/80'>Login</button>
+                                <button disabled={loading} type="submit" className='font-bold bg-customBlue dark:bg-customLightBlue p-2 w-full rounded-full dark:hover:bg-customLightBlue/80 hover:bg-customBlue/80'>Login</button>
                                 {/* <button className="text-white w-full h-[42px] bg-customBtn rounded-xl hover:shadow-customBtn hover:bg-customBtn50" disabled={loading} type="submit"><span className='font-semibold text-[20px] sm:text-2xl tracking-wider'>Login</span></button> */}
                                 <button
                                     type="button"
