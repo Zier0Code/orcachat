@@ -35,7 +35,13 @@ const InputText = ({ handleSendMessage, isTyping }) => {
                             }}
                             disabled={isTyping}
                         >
-                            {isTyping ? <DoDisturbIcon /> : <SendIcon sx={{ width: 20, height: 20, color: 'gray', transform: "rotate(-30deg)" }} />}
+                            {isTyping ?
+                                <div className='text-gray-400 hover:bg-black/20 p-2 rounded-md mt-1 flex justify-center'>
+                                    <DoDisturbIcon fontSize='small' />
+                                </div>
+                                : <div className='text-gray-400 hover:bg-black/20 p-2 rounded-md mt-1 flex justify-center'>
+                                    <SendIcon sx={{ fontSize: "large", transform: "rotate(-30deg)" }} />
+                                </div>}
                         </button>
                     </Tooltip>
                 </div>
