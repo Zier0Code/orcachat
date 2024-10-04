@@ -23,7 +23,7 @@ const MessageBox = ({ messages }) => {
                         )}
                         <NextLine message={message.content} />
                     </div>
-                    <div>
+                    <div>run dev
                         {message.sender === 'customer' && (
                             <div className="text-xs text-gray-500 ml-2 flex mr-4 justify-end">{currentTime}</div>
                         )}

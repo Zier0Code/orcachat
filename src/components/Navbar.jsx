@@ -21,6 +21,7 @@ import lightlogo from '../assets/svgs/logoMain.svg'
 import { create_conversation, storeMessages } from '../api/conversation';
 import $ from 'jquery'
 import { create_feedback } from '../api/feedback';
+import StarRating from './StarRating';
 
 
 const Navbar = ({ messages, isTyping, setMessages }) => {
@@ -154,13 +155,15 @@ const Navbar = ({ messages, isTyping, setMessages }) => {
             message: feedback,
             customer_id: customer?.id,
             conversation_id: conversationID,
-            rating: 5
+            rating: rating
         };
 
         create_feedback(body, cookies.customer_authToken).then(res => {
             if (res.ok) {
                 toast.success(res.message ?? "Feedback Sent", { autoClose: 2000 });
                 setFeedbackOpen(false);
+                $("#feedback").val("")
+                setRating(0)
             } else {
                 toast.error(res.message ?? "Something went wrong", { autoClose: 2000 });
             }
@@ -172,7 +175,7 @@ const Navbar = ({ messages, isTyping, setMessages }) => {
     };
 
     useEffect(onSetData, [messages])
-
+    const [rating, setRating] = useState(0);
     return (
         <>
             {
@@ -276,6 +279,7 @@ const Navbar = ({ messages, isTyping, setMessages }) => {
                                     placeholder="Enter your feedback here..."
                                     autoFocus
                                 ></textarea>
+                                <StarRating setRating={setRating} rating={rating} />
                                 <div className="flex justify-end mt-4">
                                     <button
                                         className="bg-gray-500 text-white px-4 py-2 rounded-lg mr-2"
