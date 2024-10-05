@@ -152,23 +152,26 @@ const Guest = () => {
                                 <BotImage message={typingMessage} />
                             )}
                             {
-                                showOnIdle && (
-                                    <ul className='flex justify-around'>
-                                        {
-                                            randomQuestions.map((question, index) => (
-                                                <li key={index}>
-                                                    <button
-                                                        className='text-black/60 border-black/60 border mt-2 rounded-lg transition-all p-1 text-sm hover:text-black ml-2'
-                                                        onClick={() => handleSendMessage(question)}
-                                                    >
-                                                        {question}
-                                                    </button>
-                                                </li>
-                                            ))
-                                        }
-                                    </ul>
+                                messages.length > 0 && (
+                                    showOnIdle && (
+                                        <ul className='flex justify-around'>
+                                            {
+                                                randomQuestions.map((question, index) => (
+                                                    <li key={index}>
+                                                        <button
+                                                            className='text-black/60 border-black/60 border mt-2 rounded-lg transition-all p-1 text-sm hover:text-black ml-2'
+                                                            onClick={() => handleSendMessage(question)}
+                                                        >
+                                                            {question}
+                                                        </button>
+                                                    </li>
+                                                ))
+                                            }
+                                        </ul>
+                                    )
                                 )
                             }
+
                             <div ref={messagesEndRef} />
                         </div>
                     </div>
