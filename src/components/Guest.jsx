@@ -159,7 +159,7 @@ const Guest = () => {
                                                 randomQuestions.map((question, index) => (
                                                     <li key={index}>
                                                         <button
-                                                            className='text-black/60 border-black/60 border mt-2 rounded-lg transition-all p-1 text-sm hover:text-black ml-2'
+                                                            className='text-black/60 border-black/60 border mt-2 rounded-lg transition-all p-1 text-sm hover:text-black ml-2 dark:hover:text-white dark:text-white/30 dark:border-white/30'
                                                             onClick={() => handleSendMessage(question)}
                                                         >
                                                             {question}

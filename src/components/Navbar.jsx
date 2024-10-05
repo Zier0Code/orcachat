@@ -181,7 +181,7 @@ const Navbar = ({ messages, isTyping, setMessages }) => {
             {
                 customer ? (
                     <nav className='fixed top-0 left-0 w-full bg-inherit shadow-md z-50'>
-                        <div className='h-[50px] flex items-center md:pl-36 pl-8 md:justify-between dark:bg-customBGDark shadow-black/50 shadow-md bg-customBlue'>
+                        <div className='h-[50px] flex items-center md:pl-36 pl-8 md:justify-between dark:bg-customBGDark shadow-black/20 shadow-md bg-customBlue'>
                             <div className="flex items-center justify-between w-full">
                                 <div className='flex'>
                                     <button onClick={toggleDropdown} className='flex items-center'>
