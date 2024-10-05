@@ -2,7 +2,7 @@ import React from 'react'
 
 const NextLine = ({ message }) => {
     return (
-        <div>
+        <div className='flex items-center'>
             <p className='ml-2 text-sm sm:text-base'>
                 {message.split('\n').map((line, index) => (
                     <React.Fragment key={index}>

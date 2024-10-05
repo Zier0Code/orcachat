@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import logo from '../assets/images/Logo Middle Customer.png'
+import logo from '../assets/svgs/orca.svg'
 import {
     Mail as MailIcon,
     Lock as LockIcon
@@ -56,16 +56,24 @@ const LoginModal = (props) => {
         <>{
             props.isLoginOpen && (
                 <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50">
-                    <div className="dark:bg-customBGDark bg-white shadow-lg shadow-black/50 rounded-lg p-6 w-96 text-white">
+                    <div className="dark:bg-customBGDark bg-white shadow-lg shadow-black/50 rounded-lg p-2 md:p-6 w-80 md:w-96 text-white">
                         <div className='flex items-center flex-col'>
-                            <img className="size-12 mb-5" src={logo} alt="Logo Orca" />
-                            <h2 className="animate-pulse text-2xl font-bold mb-4 text-[32px] text-black dark:text-white">Login</h2>
+                            <img className="size-16 md:size-20" src={logo} alt="Logo Orca" />
+                            <h2 className="animate-pulse text-xl md:text-3xl font-bold nd:mb-4 text-[32px] text-black dark:text-white">Login</h2>
                         </div>
-                        <form onSubmit={submitForm} className='mt-5 px-8' >
+                        <form onSubmit={submitForm} className='mt-2 px-8' >
                             <div className='mb-3 flex flex-col'>
                                 <div className='flex items-center'>
                                     <MailIcon className="absolute size-2 mt-1 ml-3 text-gray-400" />
-                                    <input className="w-full p-2 rounded-full pl-12 dark:focus:border-customBtn focus:border-customBlue dark:border-customColorInput focus:outline-none text-[12px] sm:text-base dark:bg-customColorInput shadow-md text-black dark:text-white border" type="text" autoFocus autoComplete="true" onChange={(e) => setUsername(e.target.value)} placeholder='Username' />
+                                    <input
+                                        className="w-full p-2 rounded-full pl-12 dark:focus:border-customBtn focus:border-customBlue dark:border-customColorInput focus:outline-none text-[12px] sm:text-base dark:bg-customColorInput shadow-md text-black dark:text-white border"
+                                        type="text"
+                                        autoFocus
+                                        autoComplete="true"
+                                        onChange={(e) => setUsername(e.target.value)}
+                                        placeholder='Username'
+                                        maxLength="32"
+                                    />
                                 </div>
                                 {
                                     warnings?.username ? (
@@ -76,7 +84,12 @@ const LoginModal = (props) => {
                             <div className='mb-8 flex flex-col'>
                                 <div>
                                     <LockIcon className="absolute mt-2 ml-3 text-gray-400" />
-                                    <input className="dark:border-customColorInput w-full p-2 sm:text-base text-[12px] rounded-full pl-12 dark:focus:border-customBtn focus:outline-none dark:bg-customColorInput shadow-md dark:text-white text-black focus:border-customBlue border" type="password" onChange={(e) => setPassword(e.target.value)} placeholder='Password' />
+                                    <input
+                                        className="dark:border-customColorInput w-full p-2 sm:text-base text-[12px] rounded-full pl-12 dark:focus:border-customBtn focus:outline-none dark:bg-customColorInput shadow-md dark:text-white text-black focus:border-customBlue border"
+                                        type="password"
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        placeholder='Password'
+                                        maxLength="32" />
                                 </div>
                                 {
                                     warnings?.password ? (

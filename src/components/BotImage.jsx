@@ -1,5 +1,5 @@
 import React from 'react'
-import orca from '../assets/images/Logo Middle Customer.png'
+import orca from '../assets/svgs/orca.svg'
 
 const BotImage = ({ message }) => {
     return (
@@ -8,9 +8,11 @@ const BotImage = ({ message }) => {
                 <img
                     src={orca}
                     alt="Bot"
-                    className="size-7 mr-2 rounded-full animate-pulse"
+                    className="size-10 rounded-full animate-pulse"
                 />
-                {message}
+                <p className='ml-2 flex items-center'>
+                    {message}
+                </p>
             </div>
         </>
     )

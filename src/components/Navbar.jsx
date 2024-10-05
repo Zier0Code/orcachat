@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import orca from '../assets/images/Orca Landing Customer Logo.png'
+import orca from '../assets/images/Dark Mode.png'
 import profile from '../assets/images/no user.jpg'
 import Down from '../assets/svgs/Down';
 import Up from '../assets/svgs/Up';
@@ -17,7 +17,7 @@ import { toast } from 'react-toastify';
 import { logout } from '../redux/customerAuthSlice';
 import { Rating, Tooltip } from '@mui/material';
 import DarkButton from './DarkButton';
-import lightlogo from '../assets/svgs/logoMain.svg'
+import lightlogo from '../assets/images/Light Mode.png'
 import { create_conversation, storeMessages } from '../api/conversation';
 import $ from 'jquery'
 import { create_feedback } from '../api/feedback';
@@ -232,7 +232,7 @@ const Navbar = ({ messages, isTyping, setMessages }) => {
                                             <span className="md:text-sm">Feedback</span>
                                         </button>
                                     </Tooltip>
-                                    <Tooltip title="Settings" arrow>
+                                    <Tooltip title="Menu" arrow>
                                         <button className='mr-5 sm:mr-20 md:mr-40' onClick={toggleUserDropdown}>
                                             <img className="h-8 w-8 rounded-full" src={profile} alt="Profile" />
                                         </button>

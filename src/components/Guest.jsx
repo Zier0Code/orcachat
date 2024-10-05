@@ -7,6 +7,7 @@ import InputText from './InputText';
 import MessageBox from './MessageBox';
 import BotImage from './BotImage';
 import WelcomeChat from './WelcomeChat';
+import { arrayofQuestions } from '../api/BadWords';
 
 const Guest = () => {
     // FOR WORDS FILTERing
@@ -18,6 +19,7 @@ const Guest = () => {
     const [isTyping, setIsTyping] = useState(false);
     const [typingMessage, setTypingMessage] = useState('');
     const messagesEndRef = useRef(null);
+    const [showOnIdle, setShowOnIdle] = useState(false);
 
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -25,9 +27,10 @@ const Guest = () => {
 
     useEffect(() => {
         scrollToBottom();
-    }, [messages]);
+    }, [messages, showOnIdle]);
 
     const handleSendMessage = async (message) => {
+        showOnIdle && setShowOnIdle(false);
         // CLEAN MESSAGE
         const cleanMessage = customFilter.clean(message);
 
@@ -102,6 +105,36 @@ const Guest = () => {
             }
         }
     };
+
+    const handleGetStartedClick = () => {
+        setMessages([
+            {
+                content: 'Hello! I am ORCA Chatbot. What inquiries  do you have for me today?',
+                sender: 'bot',
+                tag: 'Greeting',
+            },
+        ]);
+    };
+
+
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            setShowOnIdle(true);
+        }, 10000);
+        if (showOnIdle) {
+            scrollToBottom();
+        }
+        return () => clearTimeout(timeout);
+    }, [messages]);
+
+
+    const getRandomQuestions = (arr, num) => {
+        const shuffled = [...arr].sort(() => 0.5 - Math.random());
+        return shuffled.slice(0, num);
+    };
+
+    const randomQuestions = getRandomQuestions(arrayofQuestions, 3);
+
     return (
         <>
             <div className='min-h-screen bg-customBGWhite dark:bg-customBGDark'>
@@ -111,13 +144,31 @@ const Guest = () => {
                         <div className="flex flex-col md:w-auto">
                             {
                                 messages.length === 0 && (
-                                    <WelcomeChat />
+                                    <WelcomeChat handleGetStartedClick={handleGetStartedClick} />
                                 )
                             }
                             <MessageBox messages={messages} />
                             {isTyping && (
                                 <BotImage message={typingMessage} />
                             )}
+                            {
+                                showOnIdle && (
+                                    <ul className='flex justify-around'>
+                                        {
+                                            randomQuestions.map((question, index) => (
+                                                <li key={index}>
+                                                    <button
+                                                        className='text-black/60 border-black/60 border mt-2 rounded-lg transition-all p-1 text-sm hover:text-black ml-2'
+                                                        onClick={() => handleSendMessage(question)}
+                                                    >
+                                                        {question}
+                                                    </button>
+                                                </li>
+                                            ))
+                                        }
+                                    </ul>
+                                )
+                            }
                             <div ref={messagesEndRef} />
                         </div>
                     </div>

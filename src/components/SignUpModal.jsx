@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import logo from "../assets/images/Logo Middle Customer.png"
+import logo from "../assets/svgs/orca.svg"
 import { Mail as MailIcon, Lock as LockIcon, Person as PersonIcon } from "@mui/icons-material"
 import { toast } from 'react-toastify';
 import { customer_register } from '../api/auth';
@@ -53,16 +53,23 @@ const SignUpModal = (props) => {
         <>{
             props.isSignUpOpen && (
                 <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50">
-                    <div className="bg-white dark:bg-customBGDark rounded-lg p-6 w-96 text-white">
+                    <div className="bg-white dark:bg-customBGDark rounded-lg p-2 md:p-6 w-80 md:w-96 text-white">
                         <div className='flex items-center flex-col'>
-                            <img className="size-12 mb-5" src={logo} alt="Logo Orca" />
-                            <h2 className="text-2xl font-bold mb-4 text-[28px] dark:text-white  text-black animate-pulse">Create An Account</h2>
+                            <img className="size-16 md:size-20" src={logo} alt="Logo Orca" />
+                            <h2 className="text-xl md:text-2xl font-bold mb-4 text-[28px] dark:text-white  text-black animate-pulse">Create An Account</h2>
                         </div>
-                        <form onSubmit={submitForm} className='mt-5 px-8' >
+                        <form onSubmit={submitForm} className='px-8' >
                             <div className='mb-3 flex flex-col'>
                                 <div className='flex items-center'>
                                     <PersonIcon className="absolute size-2 mt-1 ml-3 text-gray-400" />
-                                    <input className=" dark:border-customColorInput  bg-white w-full p-2 rounded-full pl-12 text-black dark:text-white border dark:focus:border-customBtn focus:outline-none text-[12px] sm:text-base shadow-lg focus:border-customBlue dark:bg-[#303030]" type="text" id='username' autoFocus autoComplete="true" placeholder='Username' />
+                                    <input
+                                        className=" dark:border-customColorInput  bg-white w-full p-2 rounded-full pl-12 text-black dark:text-white border dark:focus:border-customBtn focus:outline-none text-[12px] sm:text-base shadow-lg focus:border-customBlue dark:bg-[#303030]"
+                                        type="text"
+                                        id='username'
+                                        autoFocus
+                                        autoComplete="true"
+                                        placeholder='Username'
+                                        maxLength="32" />
                                 </div>
                                 {
                                     warnings?.username ? (
@@ -73,7 +80,7 @@ const SignUpModal = (props) => {
                             <div className='mb-3 flex flex-col'>
                                 <div className='flex items-center'>
                                     <MailIcon className="absolute size-2 mt-1 ml-3 text-gray-400" />
-                                    <input className=" dark:border-customColorInput  bg-white w-full p-2 rounded-full pl-12 text-black dark:text-white border dark:focus:border-customBtn focus:outline-none text-[12px] sm:text-base shadow-lg focus:border-customBlue dark:bg-[#303030]" type="text" id='email' autoFocus autoComplete="true" placeholder='Email' />
+                                    <input className=" dark:border-customColorInput  bg-white w-full p-2 rounded-full pl-12 text-black dark:text-white border dark:focus:border-customBtn focus:outline-none text-[12px] sm:text-base shadow-lg focus:border-customBlue dark:bg-[#303030]" type="text" id='email' autoComplete="true" placeholder='Email' />
                                 </div>
                                 {
                                     warnings?.email ? (
@@ -84,7 +91,13 @@ const SignUpModal = (props) => {
                             <div className='flex mb-3 flex-col'>
                                 <div>
                                     <LockIcon className="absolute mt-2 ml-3 text-gray-400" />
-                                    <input className=" dark:border-customColorInput  bg-white w-full p-2 sm:text-base text-black dark:text-white border text-[12px] rounded-full pl-12 darkfocus:border-customBtn focus:outline-none shadow-lg focus:border-customBlue dark:bg-[#303030]" id='password' type="password" placeholder='Password' />
+                                    <input
+                                        className=" dark:border-customColorInput  bg-white w-full p-2 sm:text-base text-black dark:text-white border text-[12px] rounded-full pl-12 darkfocus:border-customBtn focus:outline-none shadow-lg focus:border-customBlue dark:bg-[#303030]"
+                                        id='password'
+                                        type="password"
+                                        placeholder='Password'
+                                        maxLength="28"
+                                    />
                                 </div>
                                 {
                                     warnings?.password ? (
@@ -93,10 +106,14 @@ const SignUpModal = (props) => {
                                 }
                             </div>
                             <div className='mb-8 flex'>
-                                <div>
-                                    <LockIcon className="absolute mt-2 ml-3 text-gray-400" />
-                                    <input className=" dark:border-customColorInput  bg-white w-full p-2 sm:text-base  text-black dark:text-white border text-[12px] rounded-full pl-12 dark:focus:border-customBtn focus:outline-none shadow-lg focus:border-customBlue dark:bg-[#303030]" id='password_confirmation' type="password" placeholder='Password Confirmation' />
-                                </div>
+                                <LockIcon className="absolute mt-2 ml-3 text-gray-400" />
+                                <input
+                                    className=" dark:border-customColorInput  bg-white w-full p-2 sm:text-base  text-black dark:text-white border text-[12px] rounded-full pl-12 dark:focus:border-customBtn focus:outline-none shadow-lg focus:border-customBlue dark:bg-[#303030]"
+                                    id='password_confirmation'
+                                    type="password"
+                                    placeholder='Password Confirmation'
+                                    maxLength="28"
+                                />
                             </div>
                             <div className='flex items-center flex-col mt-8'>
                                 <button disabled={loading} type="submit" className='font-bold bg-customBlue hover:bg-customBlue/80 dark:bg-customLightBlue p-2 w-full rounded-full dark:hover:bg-customLightBlue/80 '> Sign Up </button>
