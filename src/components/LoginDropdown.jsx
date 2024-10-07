@@ -21,7 +21,7 @@ const LoginDropdown = () => {
                 <div className='flex justify-start py-6 px-4 text-black dark:text-white '>
                     <div>
                         <h1 className='font-semibold text-[14px]'>Login To Try some other Features</h1>
-                        <p className='text-[#AAA text-[12px] my-3 text-[#AAA]'>Save Conversation History, Upload Files
+                        <p className='text-[#AAA text-[12px] my-3 text-[#AAA]'>Save Conversation History, Toggle Light and Dark Mode
                             Talk to Admin Support</p>
                         <div className='flex justify-around'>
                             <button onClick={(toggleLogin)} className='w-[113px] h-[30px] bg-customBlue hover:bg-customBlue/80 text-white dark:hover:bg-[#D9D9D9]/70 dark:bg-[#D9D9D9] dark:text-black rounded-full font-semibold'>Login</button>

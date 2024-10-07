@@ -176,6 +176,14 @@ const Navbar = ({ messages, isTyping, setMessages }) => {
 
     useEffect(onSetData, [messages])
     const [rating, setRating] = useState(0);
+    const [clickAdminSupport, setClickAdminSupport] = useState(false);
+    const requestAdminSupport = () => {
+        toast.warning("Admin Support Requested", { autoClose: 2000 });
+        setClickAdminSupport(true);
+        setTimeout(() => {
+            setClickAdminSupport(false);
+        }, 100000);
+    };
     return (
         <>
             {
@@ -215,17 +223,17 @@ const Navbar = ({ messages, isTyping, setMessages }) => {
                                                     <DriveFileRenameOutlineIcon />
                                                 </Tooltip>
                                             </button>
-                                            // <button
-                                            //     disabled={loading || messages.length === 0}
-                                            //     className={`p-2 bg-inherit text-white/50 hover:text-white rounded-md hover:bg-black/20 hover:font-medium ml-2 `}
-                                            //     onClick={onCreateMessages}
-                                            // >
-                                            //     <DriveFileRenameOutlineIcon />
-                                            // </button>
                                         )
                                     }
                                 </div>
                                 <div className='flex'>
+                                    <div className='flex justify-center mr-2'>
+                                        <button
+                                            onClick={requestAdminSupport}
+                                            className={`${clickAdminSupport ? 'cursor-not-allowed bg-gray-500 dark:hover:bg-gray-500' : ""} px-2 border-white/50 border dark:hover:bg-customBlue dark:hover:border-customBlue dark:text-white/60 dark:hover:text-white hover:text-white text-xs text-white/50 hover:bg-black/20 rounded-full font-semibold`}
+                                            disabled={clickAdminSupport}>
+                                            Admin Support</button>
+                                    </div>
                                     <Tooltip title="Give us Feedback" arrow>
                                         <button className=' sm:mr-5 dark:text-white/40 hover:text-white text-gray-400 flex items-center mr-2' onClick={handleFeedbackClick}>
                                             <FeedbackIcon className="h-8 w-8" />

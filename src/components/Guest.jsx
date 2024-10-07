@@ -120,7 +120,7 @@ const Guest = () => {
     useEffect(() => {
         const timeout = setTimeout(() => {
             setShowOnIdle(true);
-        }, 10000);
+        }, 30000);
         if (showOnIdle) {
             scrollToBottom();
         }
