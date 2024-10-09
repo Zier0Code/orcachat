@@ -21,10 +21,25 @@ export const badWordsPH = [
 ];
 
 export const arrayofQuestions = [
-    'What program do you offer?',
-    'How to transfer to your school?',
+    'What program does STI offer?',
+    'How to enroll as a Transferee?',
     'What are the payment methods?',
     'How to apply for scholarship?',
-    'How to contact the registrar?',
-    'What are the requirements for enrollment?'
+    'how do I apply for first-year college at STI',
+    'What requirements are needed for ALS passers to enter STI College?',
+    "How much is the college fee at STI College?",
+    "What strands for SHS do you offer?",
+    "What documents do I need for Senior High School admission?",
+    "Steps to reserve a slot for new students at STI College",
+    "How do I pay my fees online at STI College",
+    "What happens after I make an online payment at STI College",
+    "I want to report a bullying.",
+    "Where can I find counseling services at STI College",
+    "How can I follow up on a lost item report at STI",
+    "I forgot my Microsoft Teams account email or e-mail.",
+    "My ID won't tap at the gate.",
+    "I can't find my ID.",
+    "How long will it take to replace my ID?",
+    "How do I apply for a job at STI College",
 ];
+

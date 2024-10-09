@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import { customer_register } from '../api/auth';
 import $ from 'jquery'
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import { login } from '../redux/customerAuthSlice';
 
@@ -15,6 +15,7 @@ const SignUpModal = (props) => {
     const [warnings, setWarnings] = useState({})
     const dispatch = useDispatch()
     const [loading, setLoading] = useState(false)
+    const [acceptedTerms, setAcceptedTerms] = useState(false);
 
     const toggleSignUp = () => {
         props.setIsSignUpOpen(false)
@@ -22,6 +23,10 @@ const SignUpModal = (props) => {
 
     const submitForm = (e) => {
         e.preventDefault()
+        if (!acceptedTerms) {
+            setWarnings({ ...warnings, terms: 'You must accept the Terms and Conditions and Privacy Policy.' });
+            return;
+        }
 
         if (!loading) {
 
@@ -71,6 +76,7 @@ const SignUpModal = (props) => {
                                         placeholder='Username'
                                         maxLength="32" />
                                 </div>
+
                                 {
                                     warnings?.username ? (
                                         <p className='text-red-500 text-center mt-1 text-[12px]'>{warnings?.username}</p>
@@ -114,6 +120,18 @@ const SignUpModal = (props) => {
                                     placeholder='Password Confirmation'
                                     maxLength="28"
                                 />
+                            </div>
+                            <div className='mb-3 flex items-center'>
+                                <input
+                                    type="checkbox"
+                                    id="terms"
+                                    checked={acceptedTerms}
+                                    onChange={(e) => setAcceptedTerms(e.target.checked)}
+                                    className="mr-2"
+                                />
+                                <label htmlFor="terms" className="text-black dark:text-white text-[12px] sm:text-xs">
+                                    I accept the <Link to="/terms-and-conditions" target="_blank" className="text-customBlue">Terms and Conditions</Link> and <Link to="/privacy-policy" target="_blank" className="text-customBlue">Privacy Policy</Link>.
+                                </label>
                             </div>
                             <div className='flex items-center flex-col mt-8'>
                                 <button disabled={loading} type="submit" className='font-bold bg-customBlue hover:bg-customBlue/80 dark:bg-customLightBlue p-2 w-full rounded-full dark:hover:bg-customLightBlue/80 '> Sign Up </button>

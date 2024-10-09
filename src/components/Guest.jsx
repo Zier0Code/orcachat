@@ -107,20 +107,15 @@ const Guest = () => {
     };
 
     const handleGetStartedClick = () => {
-        setMessages([
-            {
-                content: 'Hello! I am ORCA Chatbot. What inquiries  do you have for me today?',
-                sender: 'bot',
-                tag: 'Greeting',
-            },
-        ]);
+        const greeting = ['Hello!', "Hi There!", "Hey Bot!", "What's Up!",][Math.floor(Math.random() * 3)];
+        handleSendMessage(greeting);
     };
 
 
     useEffect(() => {
         const timeout = setTimeout(() => {
             setShowOnIdle(true);
-        }, 30000);
+        }, 12000);
         if (showOnIdle) {
             scrollToBottom();
         }
