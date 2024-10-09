@@ -93,8 +93,15 @@ const Guest = () => {
                                 ];
                             });
                             setIsTyping(false);
+                            const timeout = setTimeout(() => {
+                                setShowOnIdle(true);
+                            }, 12000);
+                            if (showOnIdle) {
+                                scrollToBottom();
+                            }
+                            return () => clearTimeout(timeout);
                         }
-                    }, 10);
+                    }, 1);
                 } else {
                     console.error('Error fetching response from server');
                 }
@@ -112,15 +119,15 @@ const Guest = () => {
     };
 
 
-    useEffect(() => {
-        const timeout = setTimeout(() => {
-            setShowOnIdle(true);
-        }, 12000);
-        if (showOnIdle) {
-            scrollToBottom();
-        }
-        return () => clearTimeout(timeout);
-    }, [messages]);
+    // useEffect(() => {
+    //     const timeout = setTimeout(() => {
+    //         setShowOnIdle(true);
+    //     }, 12000);
+    //     if (showOnIdle) {
+    //         scrollToBottom();
+    //     }
+    //     return () => clearTimeout(timeout);
+    // }, [messages]);
 
 
     const getRandomQuestions = (arr, num) => {
@@ -148,25 +155,26 @@ const Guest = () => {
                             )}
                             {
                                 messages.length > 0 && (
-                                    showOnIdle && (
-                                        <ul className='flex justify-around'>
-                                            {
-                                                randomQuestions.map((question, index) => (
-                                                    <li key={index}>
-                                                        <button
-                                                            className='text-black/60 border-black/60 border mt-2 rounded-lg transition-all p-1 text-sm hover:text-black ml-2 dark:hover:text-white dark:text-white/30 dark:border-white/30'
-                                                            onClick={() => handleSendMessage(question)}
-                                                        >
-                                                            {question}
-                                                        </button>
-                                                    </li>
-                                                ))
-                                            }
-                                        </ul>
+                                    !isTyping && (
+                                        showOnIdle && (
+                                            <ul className='flex justify-around'>
+                                                {
+                                                    randomQuestions.map((question, index) => (
+                                                        <li key={index}>
+                                                            <button
+                                                                className='text-black/60 border-black/60 border mt-2 rounded-lg transition-all p-1 text-sm hover:text-black ml-2 dark:hover:text-white dark:text-white/30 dark:border-white/30'
+                                                                onClick={() => handleSendMessage(question)}
+                                                            >
+                                                                {question}
+                                                            </button>
+                                                        </li>
+                                                    ))
+                                                }
+                                            </ul>
+                                        )
                                     )
                                 )
                             }
-
                             <div ref={messagesEndRef} />
                         </div>
                     </div>
