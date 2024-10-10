@@ -18,7 +18,7 @@ const MessageBox = ({ messages }) => {
                             <img
                                 src={orca}
                                 alt="Bot"
-                                className="size-10 dark:border-white/20 border-blue-600 border rounded-full"
+                                className="size-10"
                             />
                         )}
                         <NextLine message={message.content} />
@@ -26,10 +26,10 @@ const MessageBox = ({ messages }) => {
                     <div>
                         {
                             message.sender === 'customer' && (
-                                <div className="text-xs text-gray-500 ml-2 flex mr-4 justify-end mt-2">{currentTime}</div>
+                                <div className="text-xs text-gray-500 ml-2 flex mr-4 justify-end">{currentTime}</div>
                             )}
                         {message.sender === 'bot' && (
-                            <div className="text-xs text-gray-500 flex ml-12 justify-start mt-2">{currentTime}</div>
+                            <div className="text-xs text-gray-500 flex ml-12 justify-start">{currentTime}</div>
                         )}
                     </div>
                 </div>

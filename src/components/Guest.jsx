@@ -136,11 +136,12 @@ const Guest = () => {
     };
 
     const randomQuestions = getRandomQuestions(arrayofQuestions, 3);
+
     return (
         <>
             <div className='min-h-screen bg-customBGWhite dark:bg-customBGDark'>
                 <Navbar messages={messages} setMessages={setMessages} isTyping={isTyping} />
-                <div className='flex flex-col justify-end md:items-center w-full min-h-screen pb-20 pt-14'>
+                <div className='flex flex-col justify-end md:items-center w-full min-h-screen pb-20'>
                     <div className='mx-10 md:w-[700px]'>
                         <div className="flex flex-col md:w-auto">
                             {
