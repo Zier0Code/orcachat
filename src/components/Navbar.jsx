@@ -236,13 +236,15 @@ const Navbar = ({ messages, isTyping, setMessages }) => {
                                     </div>
                                     <Tooltip title="Give us Feedback" arrow>
                                         <button className=' sm:mr-5 dark:text-white/40 hover:text-white text-gray-400 flex items-center mr-2' onClick={handleFeedbackClick}>
-                                            <FeedbackIcon fontSize='small' />
+                                            <div className='mr-1'>
+                                                <FeedbackIcon fontSize='small' />
+                                            </div>
                                             <span className="md:text-sm text-xs">Feedback</span>
                                         </button>
                                     </Tooltip>
                                     <Tooltip title="Menu" arrow>
                                         <button className='mr-5 sm:mr-20 md:mr-40' onClick={toggleUserDropdown}>
-                                            <img className="h-8 w-8 rounded-full" src={profile} alt="Profile" />
+                                            <img className="h-6 w-6 sm:h-8 sm:w-8 rounded-full" src={profile} alt="Profile" />
                                         </button>
                                     </Tooltip>
                                 </div>
