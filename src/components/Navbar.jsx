@@ -236,8 +236,8 @@ const Navbar = ({ messages, isTyping, setMessages }) => {
                                     </div>
                                     <Tooltip title="Give us Feedback" arrow>
                                         <button className=' sm:mr-5 dark:text-white/40 hover:text-white text-gray-400 flex items-center mr-2' onClick={handleFeedbackClick}>
-                                            <FeedbackIcon className="h-8 w-8" />
-                                            <span className="md:text-sm">Feedback</span>
+                                            <FeedbackIcon fontSize='small' />
+                                            <span className="md:text-sm text-xs">Feedback</span>
                                         </button>
                                     </Tooltip>
                                     <Tooltip title="Menu" arrow>
