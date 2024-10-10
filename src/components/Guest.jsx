@@ -93,13 +93,15 @@ const Guest = () => {
                                 ];
                             });
                             setIsTyping(false);
-                            const timeout = setTimeout(() => {
-                                setShowOnIdle(true);
-                            }, 12000);
-                            if (showOnIdle) {
-                                scrollToBottom();
+                            if (!isTyping) {
+                                const timeout = setTimeout(() => {
+                                    setShowOnIdle(true);
+                                }, 12000);
+                                if (showOnIdle) {
+                                    scrollToBottom();
+                                }
+                                return () => clearTimeout(timeout);
                             }
-                            return () => clearTimeout(timeout);
                         }
                     }, 1);
                 } else {
@@ -141,7 +143,7 @@ const Guest = () => {
         <>
             <div className='min-h-screen bg-customBGWhite dark:bg-customBGDark'>
                 <Navbar messages={messages} setMessages={setMessages} isTyping={isTyping} />
-                <div className='flex flex-col justify-end md:items-center w-full min-h-screen pb-20'>
+                <div className='flex flex-col justify-end md:items-center w-full min-h-screen pb-20 pt-14'>
                     <div className='mx-10 md:w-[700px]'>
                         <div className="flex flex-col md:w-auto">
                             {
@@ -157,12 +159,12 @@ const Guest = () => {
                                 messages.length > 0 && (
                                     !isTyping && (
                                         showOnIdle && (
-                                            <ul className='flex justify-around'>
+                                            <ul className='flex-col pl-8'>
                                                 {
                                                     randomQuestions.map((question, index) => (
                                                         <li key={index}>
                                                             <button
-                                                                className='text-black/60 border-black/60 border mt-2 rounded-lg transition-all p-1 text-sm hover:text-black ml-2 dark:hover:text-white dark:text-white/30 dark:border-white/30'
+                                                                className='text-black/60 border-black/60 border mt-2 rounded-lg transition-all p-1 text-xs sm:text-sm hover:text-black ml-2 dark:hover:text-white dark:text-white/30 dark:border-white/30 '
                                                                 onClick={() => handleSendMessage(question)}
                                                             >
                                                                 {question}
