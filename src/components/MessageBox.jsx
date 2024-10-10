@@ -18,7 +18,7 @@ const MessageBox = ({ messages }) => {
                             <img
                                 src={orca}
                                 alt="Bot"
-                                className="size-10 border-blue-600/60 border-2 rounded-full"
+                                className="size-10 dark:border-white/20 border-blue-200/80 border-2 rounded-full"
                             />
                         )}
                         <NextLine message={message.content} />
