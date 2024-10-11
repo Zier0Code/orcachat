@@ -40,7 +40,7 @@ const SignUpModal = (props) => {
             customer_register(body).then(res => {
                 if (res?.ok) {
                     toast.success(res?.message ?? "Account has been Registered")
-                    setCookie("customer_authToken", res.data.token)
+                    setCookie("customer_authToken", res.data.authToken)
                     dispatch(login(res?.data))
                     navigate('/')
                 } else {
