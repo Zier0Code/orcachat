@@ -178,7 +178,7 @@ const Navbar = ({ messages, isTyping, setMessages }) => {
     const [rating, setRating] = useState(0);
     const [clickAdminSupport, setClickAdminSupport] = useState(false);
     const requestAdminSupport = () => {
-        toast.warning("Admin Support Requested", { autoClose: 2000 });
+        toast.info("This Features in Under Development.", { autoClose: 2000 });
         setClickAdminSupport(true);
         setTimeout(() => {
             setClickAdminSupport(false);
