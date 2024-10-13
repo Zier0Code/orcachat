@@ -2,11 +2,12 @@ import { Box } from "@mui/material";
 import LandingPage from "../pages/LandingPage";
 import PrivacyPolicy from "../pages/PrivacyPolicy";
 import TermsCondition from "../pages/TermsCondition";
+import ServerMaintenance from '../pages/ServerMaintenance';
 
 const appRouter = [
     {
         path: '/',
-        element: <LandingPage />,
+        element: <ServerMaintenance />,
     },
     {
         path: '/privacy-policy',
