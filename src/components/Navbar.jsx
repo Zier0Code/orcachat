@@ -26,6 +26,7 @@ import { create_conversation, storeMessages, user_chat_history } from '../api/co
 import $ from 'jquery'
 import { create_feedback } from '../api/feedback';
 import StarRating from './StarRating';
+import Help from './Help';
 
 
 const Navbar = ({ messages, isTyping, setMessages }) => {
@@ -33,12 +34,14 @@ const Navbar = ({ messages, isTyping, setMessages }) => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(true);
     const [cookies, setCookie, removeCookie] = useCookies()
+    const [openHelp, setOpenHelp] = useState(false);
     const dispatch = useDispatch()
 
     const toggleDropdown = () => {
         setIsDropdownOpen(!isDropdownOpen);
     };
     const toggleUserDropdown = () => {
+        refreshedChatHistory();
         setIsUserDropdownOpen(!isUserDropdownOpen);
     };
 
@@ -97,10 +100,8 @@ const Navbar = ({ messages, isTyping, setMessages }) => {
                 }));
                 storeMessages(updatedMessages, cookies.customer_authToken).then(res => {
                     if (res.ok) {
-                        console.log(res);
                         toast.success(res.message ?? "Message Stored", { position: "bottom-left", autoClose: 2000 });
                     } else {
-                        console.log(res);
                         toast.error(res.message ?? "Something went wrong", { autoClose: 2000 });
                     }
                 }).finally(() => {
@@ -196,6 +197,7 @@ const Navbar = ({ messages, isTyping, setMessages }) => {
         setChatHistoryOpen(!ChatHistoryOpen);
     };
 
+
     const refreshedChatHistory = () => {
         user_chat_history(customer?.id, cookies.customer_authToken).then(res => {
             if (res.ok) {
@@ -206,7 +208,7 @@ const Navbar = ({ messages, isTyping, setMessages }) => {
                 const groupedConversations = groupConversationsByEmail(filteredConversations);
                 setChatHistory(groupedConversations);
             } else {
-                toast.error(res.message ?? "Something went wrong", { autoClose: 2000 });
+                console.log(res.message);
             }
         });
     }
@@ -228,8 +230,13 @@ const Navbar = ({ messages, isTyping, setMessages }) => {
 
         return Object.values(grouped);
     };
+    //// END
 
-    useEffect(refreshedChatHistory, [ChatHistoryOpen]);
+    /// HELP
+    const handleOpenHelp = () => {
+        setOpenHelp(!openHelp);
+    };
+
     return (
         <>
             {
@@ -300,17 +307,17 @@ const Navbar = ({ messages, isTyping, setMessages }) => {
                                                         </button>
                                                     </li>
                                                     <li>
-                                                        <button className='hover:bg-black/20 dark:hover:bg-black/70 w-full p-2 flex justify-start'>
+                                                        <button onClick={() => setOpenHelp(true)} className='hover:bg-black/20 dark:hover:bg-black/70 w-full p-2 flex justify-start'>
                                                             <HelpIcon />
                                                             <p className='ml-2'>Help</p>
                                                         </button>
                                                     </li>
-                                                    <li>
+                                                    {/* <li>
                                                         <button className='hover:bg-black/20 dark:hover:bg-black/70 w-full p-2 flex justify-start'>
                                                             <SettingsIcon />
                                                             <p className='ml-2 '>Settings</p>
                                                         </button>
-                                                    </li>
+                                                    </li> */}
                                                     <li>
                                                         <button onClick={onLogOut} className=' hover:bg-black/20 dark:hover:bg-black/70 w-full p-2 flex justify-start'>
                                                             <LogoutIcon />
@@ -367,7 +374,6 @@ const Navbar = ({ messages, isTyping, setMessages }) => {
                                 <div className='overflow-y-auto max-h-[500px] h-screen sm:h-[500px]'>
                                     {chatHistory[0] ? (
                                         <div>
-                                            {/* {console.log(new Date(chatHistory[0].created_at).toLocaleDateString())} */}
                                             {
                                                 chatHistory[0].messages.map((message, index) => (
 
@@ -413,7 +419,16 @@ const Navbar = ({ messages, isTyping, setMessages }) => {
                                     ) : (
                                         <div className="text-center text-gray-600 dark:text-gray-400">Select a conversation to view messages</div>)}
                                 </div>
-                                <button onClick={handleChatHistoryOpen} className='hover:text-customBtn/50 dark:text-customBtn'>
+                                <button onClick={handleChatHistoryOpen} className='hover:text-customBtn/50 dark:text-customBtn mt-6'>
+                                    Back
+                                </button>
+                            </div>
+                        </div>
+                        <div className={`${openHelp ? "flex" : "hidden"} fixed inset-0 bg-black bg-opacity-50 justify-center items-center z-50`}>
+                            <div className="bg-white dark:bg-customBGDark p-6 rounded-lg shadow-lg w-96">
+                                <h2 className="text-xl font-bold mb-4 text-black dark:text-white">Help</h2>
+                                <Help />
+                                <button onClick={handleOpenHelp} className='hover:text-customBtn/50 dark:text-customBtn'>
                                     Back
                                 </button>
                             </div>

@@ -64,8 +64,8 @@ const LoginModal = (props) => {
                         <form onSubmit={submitForm} className='mt-2 px-8' >
                             {
                                 invalid ? (
-                                    <div className=' border border-red-400 p-2 rounded-md mb-4'>
-                                        <p className='text-red-600 text-center text-[12px] self-start mt-1'>{invalid}</p>
+                                    <div className=' border border-red-400 p-2 rounded-md mb-4 dark:bg-white/10'>
+                                        <p className='text-red-600 dark:text-red-500 text-center text-xs self-start mt-1'>{invalid}</p>
                                     </div>
                                 ) : null
                             }
@@ -105,7 +105,7 @@ const LoginModal = (props) => {
                                 }
                             </div>
                             <div className='flex items-center flex-col'>
-                                <button disabled={loading} type="submit" className={`${loading ? 'cursor-not-allowed bg-gray-700/50' : 'bg-customBlue hover:bg-customBlue/80'} font-bold  dark:bg-customLightBlue p-2 w-full rounded-full dark:hover:bg-customLightBlue/80`}>Login</button>
+                                <button disabled={loading} type="submit" className={`${loading ? 'cursor-not-allowed bg-gray-700/50' : 'bg-customBlue hover:bg-customBlue/80'} font-bold  dark:bg-customBtn p-2 w-full rounded-full dark:hover:bg-customBtn/80`}>Login</button>
                                 {/* <button className="text-white w-full h-[42px] bg-customBtn rounded-xl hover:shadow-customBtn hover:bg-customBtn50" disabled={loading} type="submit"><span className='font-semibold text-[20px] sm:text-2xl tracking-wider'>Login</span></button> */}
                                 <button
                                     type="button"

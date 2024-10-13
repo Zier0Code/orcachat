@@ -68,7 +68,7 @@ const PrivacyPolicy = () => {
                 If you have any questions about this Privacy Policy, please contact us at:
             </p>
             <p className="mb-4 text-gray-700">
-                <strong>Email:</strong> angeloavila030@gmail.com
+                <strong>Email:</strong> momoxsana01@gmail.com
             </p>
             <p className="mb-4 text-gray-700">
                 <strong>Address:</strong> ORCA Chatbot STI - College Ortigas-Cainta
