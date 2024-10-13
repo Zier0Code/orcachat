@@ -1,9 +1,33 @@
 import { Tooltip } from '@mui/material';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const DisclaimerModal = ({ isOpen, onClose }) => {
     if (!isOpen) return null;
+    const [dontShowAgain, setDontShowAgain] = useState(false);
+
+    useEffect(() => {
+        const dontShow = localStorage.getItem('dontShowDisclaimer');
+        if (dontShow) {
+            const dontShowDate = new Date(dontShow);
+            const now = new Date();
+            const oneDay = 24 * 60 * 60 * 1000; // One day in milliseconds
+            if (now - dontShowDate < oneDay) {
+                onClose();
+            }
+        }
+    }, [onClose]);
+
+    const handleDontShowAgainChange = (e) => {
+        setDontShowAgain(e.target.checked);
+    };
+
+    const handleClose = () => {
+        if (dontShowAgain) {
+            localStorage.setItem('dontShowDisclaimer', new Date().toISOString());
+        }
+        onClose();
+    };
 
     return (
         <div className="fixed inset-0 flex items-center justify-center z-50 text-xs sm:text-sm">
@@ -26,9 +50,18 @@ const DisclaimerModal = ({ isOpen, onClose }) => {
                     </Link>. <br /> <br />
                     For example, if you <span className='font-bold'>Sign Up</span> and select to provide your email address, we will use it to store your conversation history for you to access later and may send you marketing communications.
                 </div>
-                <div className="mt-4 flex justify-end">
+                <div className="mt-4 flex justify-between ">
+                    <label className="flex items-center">
+                        <input
+                            type="checkbox"
+                            checked={dontShowAgain}
+                            onChange={handleDontShowAgainChange}
+                            className="mr-2"
+                        />
+                        Don't show this again today
+                    </label>
                     <button
-                        onClick={onClose}
+                        onClick={handleClose}
                         className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700"
                     >
                         Close

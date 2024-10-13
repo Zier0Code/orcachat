@@ -103,6 +103,7 @@ const SignUpModal = (props) => {
                                         type="password"
                                         placeholder='Password'
                                         maxLength="28"
+                                        required
                                     />
                                 </div>
                                 {
@@ -119,6 +120,7 @@ const SignUpModal = (props) => {
                                     type="password"
                                     placeholder='Password Confirmation'
                                     maxLength="28"
+                                    required
                                 />
                             </div>
                             <div className='mb-3 flex items-center'>
@@ -128,13 +130,19 @@ const SignUpModal = (props) => {
                                     checked={acceptedTerms}
                                     onChange={(e) => setAcceptedTerms(e.target.checked)}
                                     className="mr-2"
+                                    required
                                 />
                                 <label htmlFor="terms" className="text-black dark:text-white text-[12px] sm:text-xs">
-                                    I accept the <Link to="/terms-and-conditions" target="_blank" className="text-customBlue">Terms and Conditions</Link> and <Link to="/privacy-policy" target="_blank" className="text-customBlue">Privacy Policy</Link>.
+                                    I accept the <Link to="/terms-and-conditions" target="_blank" className="text-customBlue dark:text-customBtn">Terms and Conditions</Link> and <Link to="/privacy-policy" target="_blank" className="text-customBlue">Privacy Policy</Link>.
                                 </label>
                             </div>
                             <div className='flex items-center flex-col mt-8'>
-                                <button disabled={loading} type="submit" className='font-bold bg-customBlue hover:bg-customBlue/80 dark:bg-customLightBlue p-2 w-full rounded-full dark:hover:bg-customLightBlue/80 '> Sign Up </button>
+                                <button
+                                    disabled={loading}
+                                    type="submit"
+                                    className={`${acceptedTerms ? "bg-customBlue hover:bg-customBlue/80" : "bg-gray-700/50 cursor-not-allowed"} font-bold dark:bg-customLightBlue p-2 w-full rounded-full dark:hover:bg-customLightBlue/80`}>
+                                    Sign Up
+                                </button>
                                 {/* <button className="text-white w-full h-[42px] bg-customBtn rounded-xl hover:shadow-customBtn hover:bg-customBtn50" disabled={loading} type="submit"><span className='font-semibold text-[20px] sm:text-2xl tracking-wider'>Login</span></button> */}
                                 <button
                                     type="button"

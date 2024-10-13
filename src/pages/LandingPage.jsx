@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import checkAuth from '../hoc/checkAuthCustomer';
 import Guest from '../components/Guest';
 import DisclaimerModal from '../components/DsiclaimerModal';
+import ServerMaintenance from './ServerMaintenance';
 
 const LandingPage = () => {
     // GET CUSTOMER FROM REDUX
@@ -17,10 +18,9 @@ const LandingPage = () => {
             <DisclaimerModal isOpen={openModal} onClose={handleCloseModal} />
             {
                 customer ? (
-
                     <Guest />
                 ) : (
-                    <Guest />
+                    <ServerMaintenance />
                 )
             }
         </>

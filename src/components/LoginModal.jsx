@@ -22,6 +22,7 @@ const LoginModal = (props) => {
     const [warnings, setWarnings] = useState({})
     const dispatch = useDispatch()
     const [loading, setLoading] = useState(false)
+    const [invalid, setInvalid] = useState("")
 
     const toggleLogin = () => {
         props.setIsLoginOpen(false)
@@ -41,8 +42,7 @@ const LoginModal = (props) => {
                     toast.success(res?.message ?? "Logged In Successfully", { position: "bottom-left", autoClose: 2000 })
                     navigate('/')
                 } else {
-
-                    toast.error(res?.message ?? "Invalid Input!")
+                    setInvalid(res.message)
                     setWarnings(res?.errors)
                 }
             }).finally(() => {
@@ -62,6 +62,13 @@ const LoginModal = (props) => {
                             <h2 className="animate-pulse text-xl md:text-3xl font-bold nd:mb-4 text-[32px] text-black dark:text-white">Login</h2>
                         </div>
                         <form onSubmit={submitForm} className='mt-2 px-8' >
+                            {
+                                invalid ? (
+                                    <div className=' border border-red-400 p-2 rounded-md mb-4'>
+                                        <p className='text-red-600 text-center text-[12px] self-start mt-1'>{invalid}</p>
+                                    </div>
+                                ) : null
+                            }
                             <div className='mb-3 flex flex-col'>
                                 <div className='flex items-center'>
                                     <MailIcon className="absolute size-2 mt-1 ml-3 text-gray-400" />
@@ -77,7 +84,7 @@ const LoginModal = (props) => {
                                 </div>
                                 {
                                     warnings?.username ? (
-                                        <p className='text-red-500 text-center text-[12px] self-start'>{warnings?.username}</p>
+                                        <p className='text-red-500 text-center text-[12px] self-start mt-1'>{warnings?.username}</p>
                                     ) : null
                                 }
                             </div>
@@ -93,17 +100,18 @@ const LoginModal = (props) => {
                                 </div>
                                 {
                                     warnings?.password ? (
-                                        <p className='text-red-500 text-center text-[12px] self-start'>{warnings?.password}</p>
+                                        <p className='text-red-500 text-center text-[12px] self-start mt-1'>{warnings?.password}</p>
                                     ) : null
                                 }
                             </div>
                             <div className='flex items-center flex-col'>
-                                <button disabled={loading} type="submit" className='font-bold bg-customBlue dark:bg-customLightBlue p-2 w-full rounded-full dark:hover:bg-customLightBlue/80 hover:bg-customBlue/80'>Login</button>
+                                <button disabled={loading} type="submit" className={`${loading ? 'cursor-not-allowed bg-gray-700/50' : 'bg-customBlue hover:bg-customBlue/80'} font-bold  dark:bg-customLightBlue p-2 w-full rounded-full dark:hover:bg-customLightBlue/80`}>Login</button>
                                 {/* <button className="text-white w-full h-[42px] bg-customBtn rounded-xl hover:shadow-customBtn hover:bg-customBtn50" disabled={loading} type="submit"><span className='font-semibold text-[20px] sm:text-2xl tracking-wider'>Login</span></button> */}
                                 <button
                                     type="button"
                                     className="text-gray-500 hover:font-semibold hover:text-gray-70 mt-2 dark:hover:text-white hover:text-black"
                                     onClick={toggleLogin}
+
                                 >
                                     Cancel
                                 </button>
