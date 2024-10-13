@@ -39,11 +39,12 @@ const SignUpModal = (props) => {
             setLoading(true)
             customer_register(body).then(res => {
                 if (res?.ok) {
-                    toast.success(res?.message ?? "Account has been Registered")
+                    toast.success(res?.message ?? "Account has been Registered", { position: "bottom-left", autoClose: 2000 })
                     setCookie("customer_authToken", res.data.authToken)
                     dispatch(login(res?.data))
                     navigate('/')
                 } else {
+                    console.log(res)
                     toast.error(res?.message ?? "Something Went Wrong.")
                     setWarnings(res?.errors)
                 }
@@ -79,7 +80,7 @@ const SignUpModal = (props) => {
 
                                 {
                                     warnings?.username ? (
-                                        <p className='text-red-500 text-center mt-1 text-[12px]'>{warnings?.username}</p>
+                                        <p className='text-red-500 mt-1 text-[12px]'>{warnings?.username}</p>
                                     ) : null
                                 }
                             </div>
@@ -90,7 +91,7 @@ const SignUpModal = (props) => {
                                 </div>
                                 {
                                     warnings?.email ? (
-                                        <p className='text-red-500 text-center mt-1 text-[12px]'>{warnings?.email}</p>
+                                        <p className='text-red-500 mt-1 text-[12px]'>{warnings?.email}</p>
                                     ) : null
                                 }
                             </div>
@@ -108,7 +109,7 @@ const SignUpModal = (props) => {
                                 </div>
                                 {
                                     warnings?.password ? (
-                                        <p className='text-red-500 text-center mt-1 text-[12px]'>{warnings?.password}</p>
+                                        <p className='text-red-500 mt-1 text-[12px]'>{warnings?.password}</p>
                                     ) : null
                                 }
                             </div>
@@ -143,7 +144,6 @@ const SignUpModal = (props) => {
                                     className={`${acceptedTerms ? "bg-customBlue hover:bg-customBlue/80" : "bg-gray-700/50 cursor-not-allowed"} font-bold dark:bg-customLightBlue p-2 w-full rounded-full dark:hover:bg-customLightBlue/80`}>
                                     Sign Up
                                 </button>
-                                {/* <button className="text-white w-full h-[42px] bg-customBtn rounded-xl hover:shadow-customBtn hover:bg-customBtn50" disabled={loading} type="submit"><span className='font-semibold text-[20px] sm:text-2xl tracking-wider'>Login</span></button> */}
                                 <button
                                     type="button"
                                     className="text-gray-500 hover:text-gray-70 mt-2 hover:text-black hover:font-semibold dark:hover:text-white"

@@ -4,7 +4,7 @@ const WelcomeChat = ({ handleGetStartedClick }) => {
 
     return (
         <>
-            <div className='mb-5'>
+            <div className='px-4'>
                 <div className="rounded-full mb-5 text-black dark:text-white/70 self-end text-sm sm:text-base">
                     <p className='font-medium'>
                         Welcome to ORCA Bot! 🐋

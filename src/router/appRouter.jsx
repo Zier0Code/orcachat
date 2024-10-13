@@ -7,7 +7,7 @@ import ServerMaintenance from '../pages/ServerMaintenance';
 const appRouter = [
     {
         path: '/',
-        element: <ServerMaintenance />,
+        element: <LandingPage />,
     },
     {
         path: '/privacy-policy',

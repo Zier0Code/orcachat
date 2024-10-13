@@ -10,6 +10,8 @@ import {
     Logout as LogoutIcon,
     Settings as SettingsIcon,
     Feedback as FeedbackIcon,
+    Help as HelpIcon,
+    Add as AddIcon,
     DriveFileRenameOutline as DriveFileRenameOutlineIcon
 } from '@mui/icons-material';
 import { useCookies } from 'react-cookie';
@@ -97,7 +99,7 @@ const Navbar = ({ messages, isTyping, setMessages }) => {
                         toast.success(res.message ?? "Message Stored", { position: "bottom-left", autoClose: 2000 });
                     } else {
                         console.log(res);
-                        toast.error(res.message ?? "Something went wrong");
+                        toast.error(res.message ?? "Something went wrong", { autoClose: 2000 });
                     }
                 }).finally(() => {
                     onCreateConversations();
@@ -189,55 +191,48 @@ const Navbar = ({ messages, isTyping, setMessages }) => {
             {
                 customer ? (
                     <nav className='fixed top-0 left-0 w-full bg-inherit shadow-md z-50'>
-                        <div className='h-[50px] flex items-center md:pl-36 pl-8 md:justify-between dark:bg-customBGDark shadow-black/20 shadow-md bg-customBlue'>
+                        <div className='h-[50px] flex items-center lg:pl-36 pl-2 sm:pl-8 lg:justify-between dark:bg-customBGDark shadow-black/20 shadow-md bg-customBlue'>
                             <div className="flex items-center justify-between w-full">
                                 <div className='flex'>
-                                    <button onClick={toggleDropdown} className='flex items-center'>
-                                        <Tooltip title="ORCA Version" arrow>
-                                            <div className='flex-shrink-0 flex items-center'>
-                                                <img className="h-8 w-auto hidden dark:block" src={orca} alt="Dark mode Logo" />
-                                                <img className="h-8 w-auto dark:hidden" src={lightlogo} alt="Light mode Logo" />
-                                                <div className='mx-2 flex'>
-                                                    <h1 className='font-lemon mt-1 text-white'>ORCA</h1>
-                                                </div>
-                                            </div>
-                                        </Tooltip>
-                                    </button>
-                                    {
-                                        !isDropdownOpen && (
-                                            <div className="absolute mt-4 left-2 md:left-40 bg-[#303030] rounded-lg shadow-lg w-48 min-w-[154px] min-h-[168] cursor-default top-10 ">
-                                                <div className='flex justify-start py-6 px-4 text-black bg-white shadow-md dark:text-white font-medium dark:bg-inherit'>
-                                                    Orca Version 1.0
-                                                </div>
-                                            </div>
-                                        )
-                                    }
+                                    <div className='flex-shrink-0 flex items-center'>
+                                        <img className="h-8 w-auto hidden dark:block" src={orca} alt="Dark mode Logo" />
+                                        <img className="h-8 w-auto dark:hidden" src={lightlogo} alt="Light mode Logo" />
+                                        <div className='mx-2 flex'>
+                                            <h1 className='font-lemon mt-1 text-white cursor-default'>ORCA</h1>
+                                        </div>
+                                    </div>
                                     {
                                         !isTyping && (
-                                            <button
-                                                disabled={createLoading}
-                                                className={`p-2 bg-inherit text-white/50 hover:text-white rounded-md hover:bg-black/20 hover:font-medium ml-2`}
-                                                onClick={onCreateMessages}
-                                            >
-                                                <Tooltip title="Create New Chat" arrow>
-                                                    <DriveFileRenameOutlineIcon />
-                                                </Tooltip>
-                                            </button>
+                                            <Tooltip title="Create New Chat" arrow>
+                                                <button
+                                                    disabled={createLoading}
+                                                    className={`sm:p-2 mr-2 bg-inherit text-white/50 hover:text-white rounded-md hover:bg-black/20 hover:font-medium ml-2`}
+                                                    onClick={onCreateMessages}
+                                                >
+                                                    <div className='hidden'>
+                                                        <DriveFileRenameOutlineIcon />
+                                                    </div>
+                                                    <div className='text-xs'>
+                                                        <AddIcon fontSize='small' /> New Chat
+                                                    </div>
+                                                </button>
+                                            </Tooltip>
                                         )
                                     }
                                 </div>
                                 <div className='flex'>
-                                    <div className='flex justify-center mr-2'>
+                                    <div className='hidden md:flex justify-center mr-2'>
                                         <button
                                             onClick={requestAdminSupport}
-                                            className={`${clickAdminSupport ? 'cursor-not-allowed bg-gray-500 dark:hover:bg-gray-500' : ""} px-2 border-white/50 border dark:hover:bg-customBlue dark:hover:border-customBlue dark:text-white/60 dark:hover:text-white hover:text-white text-xs text-white/50 hover:bg-black/20 rounded-full font-semibold`}
+                                            className={`${clickAdminSupport ? 'cursor-not-allowed bg-gray-200/50 ' : "dark:hover:text-white hover:text-white hover:bg-black/20 dark:hover:bg-black/50"} px-2 border-white/50 border dark:text-white/60  text-xs text-white/50 rounded-full font-semibold`}
                                             disabled={clickAdminSupport}>
-                                            Admin Support</button>
+                                            Admin Support
+                                        </button>
                                     </div>
                                     <Tooltip title="Give us Feedback" arrow>
-                                        <button className=' sm:mr-5 dark:text-white/40 hover:text-white text-gray-400 flex items-center mr-2' onClick={handleFeedbackClick}>
-                                            <FeedbackIcon fontSize='small' />
-                                            <span className="md:text-sm text-xs">Feedback</span>
+                                        <button className=' sm:mr-5 hover:text-white text-gray-100 flex items-center mr-2 hover:text-white/60' onClick={handleFeedbackClick}>
+                                            <FeedbackIcon fontSize='medium' />
+                                            <span className="hidden md:block md:text-sm text-xs">Feedback</span>
                                         </button>
                                     </Tooltip>
                                     <Tooltip title="Menu" arrow>
@@ -308,7 +303,7 @@ const Navbar = ({ messages, isTyping, setMessages }) => {
                     </nav >
                 ) : (
                     <nav className='fixed top-0 left-0 w-full bg-inherit shadow-md z-50'>
-                        <div className='h-[50px] flex items-center md:pl-36 pl-8 md:justify-between dark:bg-customBGDark bg-customBlue'>
+                        <div className='h-[50px] flex items-center lg:pl-36 pl-2 sm:pl-8 lg:justify-between dark:bg-customBGDark shadow-black/20 shadow-md bg-customBlue'>
                             <div className="flex items-center">
                                 <button onClick={toggleDropdown} className='flex items-center'>
                                     <div className='flex-shrink-0 flex items-center'>
@@ -324,15 +319,20 @@ const Navbar = ({ messages, isTyping, setMessages }) => {
                                 </button>
                                 {
                                     !isTyping && (
-                                        <button
-                                            disabled={createLoading}
-                                            className={`p-2 bg-inherit text-white/50 hover:text-white rounded-md hover:bg-black/20 hover:font-medium ml-2`}
-                                            onClick={handleCreateNewChat}
-                                        >
-                                            <Tooltip title="Create New Chat">
-                                                <DriveFileRenameOutlineIcon />
-                                            </Tooltip>
-                                        </button>
+                                        <Tooltip title="Create New Chat">
+                                            <button
+                                                disabled={createLoading}
+                                                className={`sm:p-2 bg-inherit text-white/50 hover:text-white rounded-md hover:bg-black/20 hover:font-medium sm:ml-2`}
+                                                onClick={handleCreateNewChat}
+                                            >
+                                                <div className='hidden'>
+                                                    <DriveFileRenameOutlineIcon />
+                                                </div>
+                                                <div className='text-xs'>
+                                                    <AddIcon fontSize='small' /> New Chat
+                                                </div>
+                                            </button>
+                                        </Tooltip>
                                     )
                                 }
 

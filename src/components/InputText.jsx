@@ -8,7 +8,7 @@ import { Tooltip } from '@mui/material';
 const InputText = ({ handleSendMessage, isTyping }) => {
     return (
         <>
-            <div className="fixed bottom-0 w-full p-4 shadow-lg pb-6">
+            <div className="fixed bottom-0 w-full p-4 shadow-lg pb-4 bg-customBGWhite dark:bg-customBGDark">
                 <div className="pr-6 md:pr-0 max-w-2xl mx-auto relative">
                     <input
                         autoFocus
@@ -22,28 +22,31 @@ const InputText = ({ handleSendMessage, isTyping }) => {
                             }
                         }}
                     />
-                    <Tooltip title="Send">
-                        <button
-                            className={`absolute right-2 top-1/2 transform -translate-y-1/2 pr-7 md:pr-3 pb-3 text-white hover:bg-customColorIput/50 rounded-full
+
+                    <div
+                        className={`absolute right-2 top-1/2 transform -translate-y-1/2 pr-7 md:pr-3 pb-3 text-white hover:bg-customColorIput/50 rounded-full
                             ${isTyping ? 'cursor-not-allowed' : ''}`}
-                            onClick={() => {
-                                const input = document.querySelector('input');
-                                // optional: sanitize the input value
-                                // const sanitizedValue = DOMPurify.sanitize(input.value);
-                                handleSendMessage(input.value);
-                                input.value = '';
-                            }}
-                            disabled={isTyping}
-                        >
-                            {isTyping ?
-                                <div className='text-gray-400 hover:bg-black/20 p-2 rounded-md mt-1 flex justify-center'>
-                                    <DoDisturbIcon fontSize='small' />
-                                </div>
-                                : <div className='text-gray-400 hover:bg-black/20 p-2 rounded-md mt-1 flex justify-center'>
+                    >
+                        {isTyping ?
+                            <div className='text-gray-400 hover:bg-black/20 p-2 rounded-md mt-1 flex justify-center'>
+                                <DoDisturbIcon fontSize='small' />
+                            </div>
+                            :
+                            <Tooltip title="Send">
+                                <button className='text-gray-400 hover:bg-black/20 p-2 rounded-md mt-1 flex justify-center'
+                                    onClick={() => {
+                                        const input = document.querySelector('input');
+                                        // optional: sanitize the input value
+                                        // const sanitizedValue = DOMPurify.sanitize(input.value);
+                                        handleSendMessage(input.value);
+                                        input.value = '';
+                                    }}
+                                    disabled={isTyping}>
                                     <SendIcon sx={{ fontSize: "large", transform: "rotate(-30deg)" }} />
-                                </div>}
-                        </button>
-                    </Tooltip>
+                                </button>
+                            </Tooltip>
+                        }
+                    </div>
                 </div>
             </div>
         </>

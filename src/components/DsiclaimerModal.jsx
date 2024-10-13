@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const DisclaimerModal = ({ isOpen, onClose }) => {
-    if (!isOpen) return null;
     const [dontShowAgain, setDontShowAgain] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const dontShow = localStorage.getItem('dontShowDisclaimer');
@@ -16,6 +16,7 @@ const DisclaimerModal = ({ isOpen, onClose }) => {
                 onClose();
             }
         }
+        setLoading(false);
     }, [onClose]);
 
     const handleDontShowAgainChange = (e) => {
@@ -28,6 +29,9 @@ const DisclaimerModal = ({ isOpen, onClose }) => {
         }
         onClose();
     };
+
+    if (loading) return null; // Prevent rendering until loading is complete
+    if (!isOpen) return null;
 
     return (
         <div className="fixed inset-0 flex items-center justify-center z-50 text-xs sm:text-sm">

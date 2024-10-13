@@ -6,12 +6,12 @@ const MessageBox = ({ messages }) => {
     return (
         <>
             {messages.map((message, index) => (
-                <div key={index} className='flex flex-col md:w-auto'>
+                <div key={index} className='flex flex-col'>
                     <div
                         key={index}
-                        className={` rounded-full ${message.sender === 'customer'
+                        className={`rounded-full ${message.sender === 'customer'
                             ? 'p-2 mx-2 mt-2 bg-white/50 shadow-md dark:bg-customColorInput px-4 text-black dark:text-white self-end'
-                            : 'pr-2 pt-2 pb-1 md:pb-0 mt-2 text-black/80 dark:text-white/70 self-start flex'
+                            : 'pr-2 pt-2 pb-1 md:pb-0 mt-2 text-black/80 dark:text-white/70 self-start flex text-sm sm:text-base'
                             }`}
                     >
                         {message.sender === 'bot' && (
