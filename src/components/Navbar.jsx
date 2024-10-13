@@ -371,7 +371,7 @@ const Navbar = ({ messages, isTyping, setMessages }) => {
                             <div className="bg-white dark:bg-customBGDark p-6 rounded-lg shadow-lg w-96">
                                 <h2 className="text-xl font-bold mb-4 text-black dark:text-white">My Chat History</h2>
                                 <h2 className='dark:text-white mb-2'>My Email: {customer?.email} </h2>
-                                <div className='overflow-y-auto max-h-[500px] h-screen sm:h-[500px]'>
+                                <div className='overflow-y-auto max-h-[500px] h-80 sm:h-[500px]'>
                                     {chatHistory[0] ? (
                                         <div>
                                             {
@@ -462,8 +462,11 @@ const Navbar = ({ messages, isTyping, setMessages }) => {
                                                 <div className='hidden'>
                                                     <DriveFileRenameOutlineIcon />
                                                 </div>
-                                                <div className='text-xs'>
-                                                    <AddIcon fontSize='small' /> New Chat
+                                                <div className='text-xs flex items-center '>
+                                                    <AddIcon fontSize='small' />
+                                                    <p>
+                                                        New Chat
+                                                    </p>
                                                 </div>
                                             </button>
                                         </Tooltip>
