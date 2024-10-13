@@ -5,10 +5,12 @@ import Down from '../assets/svgs/Down';
 import Up from '../assets/svgs/Up';
 import LoginDropdown from './LoginDropdown';
 import checkAuth from '../hoc/checkAuthCustomer';
+import logo from '../assets/svgs/orca.svg'
 import { useDispatch, useSelector } from 'react-redux';
 import {
     Logout as LogoutIcon,
     Settings as SettingsIcon,
+    History as HistoryIcon,
     Feedback as FeedbackIcon,
     Help as HelpIcon,
     Add as AddIcon,
@@ -20,7 +22,7 @@ import { logout } from '../redux/customerAuthSlice';
 import { Rating, Tooltip } from '@mui/material';
 import DarkButton from './DarkButton';
 import lightlogo from '../assets/images/Light Mode.png'
-import { create_conversation, storeMessages } from '../api/conversation';
+import { create_conversation, storeMessages, user_chat_history } from '../api/conversation';
 import $ from 'jquery'
 import { create_feedback } from '../api/feedback';
 import StarRating from './StarRating';
@@ -186,6 +188,48 @@ const Navbar = ({ messages, isTyping, setMessages }) => {
             setClickAdminSupport(false);
         }, 100000);
     };
+
+    // CHAT HISTORY
+    const [ChatHistoryOpen, setChatHistoryOpen] = useState(false);
+    const [chatHistory, setChatHistory] = useState([]);
+    const handleChatHistoryOpen = () => {
+        setChatHistoryOpen(!ChatHistoryOpen);
+    };
+
+    const refreshedChatHistory = () => {
+        user_chat_history(customer?.id, cookies.customer_authToken).then(res => {
+            if (res.ok) {
+                const conversations = res.data
+                const filteredConversations = conversations.filter(conversation =>
+                    conversation.customer_id !== null && conversation.messages.length > 0
+                );
+                const groupedConversations = groupConversationsByEmail(filteredConversations);
+                setChatHistory(groupedConversations);
+            } else {
+                toast.error(res.message ?? "Something went wrong", { autoClose: 2000 });
+            }
+        });
+    }
+
+    const groupConversationsByEmail = (conversations) => {
+        const grouped = conversations.reduce((acc, conversation) => {
+            const email = conversation.customer.email;
+            if (!acc[email]) {
+                acc[email] = {
+                    customer: conversation.customer,
+                    messages: [],
+                    id: conversation.id,
+                    created_at: conversation.created_at
+                };
+            }
+            acc[email].messages.push(...conversation.messages);
+            return acc;
+        }, {});
+
+        return Object.values(grouped);
+    };
+
+    useEffect(refreshedChatHistory, [ChatHistoryOpen]);
     return (
         <>
             {
@@ -244,10 +288,23 @@ const Navbar = ({ messages, isTyping, setMessages }) => {
 
                                 {
                                     !isUserDropdownOpen && (
-
-                                        <div className="absolute mt-4 right-2 md:right-10 bg-white dark:bg-customBGDark rounded-lg shadow-lg w-48 min-w-[154px] min-h-[168] cursor-default top-10">
+                                        <div className="absolute mt-4 right-2 md:right-16 bg-white dark:bg-customBGDark rounded-lg shadow-lg w-48 min-w-[154px] min-h-[168] cursor-default top-10">
                                             <div className='flex justify-start py-6 px-4 text-black dark:text-white'>
                                                 <ul className='w-full'>
+                                                    <li>
+                                                        <button className='hover:bg-black/20 dark:hover:bg-black/70 w-full p-2 flex justify-start'
+                                                            onClick={handleChatHistoryOpen}
+                                                        >
+                                                            <HistoryIcon />
+                                                            <p className='ml-2 '>Chat History</p>
+                                                        </button>
+                                                    </li>
+                                                    <li>
+                                                        <button className='hover:bg-black/20 dark:hover:bg-black/70 w-full p-2 flex justify-start'>
+                                                            <HelpIcon />
+                                                            <p className='ml-2'>Help</p>
+                                                        </button>
+                                                    </li>
                                                     <li>
                                                         <button className='hover:bg-black/20 dark:hover:bg-black/70 w-full p-2 flex justify-start'>
                                                             <SettingsIcon />
@@ -262,7 +319,8 @@ const Navbar = ({ messages, isTyping, setMessages }) => {
                                                             </p>
                                                         </button>
                                                     </li>
-                                                    <li>
+                                                    <hr className='border-1 border-black dark:border-white' />
+                                                    <li className='mt-2'>
                                                         <DarkButton />
                                                     </li>
                                                 </ul>
@@ -285,13 +343,13 @@ const Navbar = ({ messages, isTyping, setMessages }) => {
                                 <StarRating setRating={setRating} rating={rating} />
                                 <div className="flex justify-end mt-4">
                                     <button
-                                        className="bg-gray-500 text-white px-4 py-2 rounded-lg mr-2"
+                                        className="hover:bg-black/10 text-black px-4 py-2 rounded-lg mr-2 hover:text-red-600 dark:text-white dark:hover:bg-white/10"
                                         onClick={feedbackClose}
                                     >
                                         Cancel
                                     </button>
                                     <button
-                                        className={`${feedbackSubmitLoading ? 'bg-white text-gray-400 border-2 border-gray-400' : 'bg-customBlue text-white'}  px-4 py-2 rounded-lg`}
+                                        className={`${feedbackSubmitLoading ? 'bg-white text-gray-400 border-2 border-gray-400' : 'bg-customBlue hover:bg-customBlue/70 text-white'}  px-4 py-2 rounded-lg`}
                                         onClick={handleSendFeedback}
                                         disabled={feedbackSubmitLoading}
                                     >
@@ -300,7 +358,68 @@ const Navbar = ({ messages, isTyping, setMessages }) => {
                                 </div>
                             </div>
                         </div>
+                        {/* CHAT HISTORY */}
+
+                        <div className={`${ChatHistoryOpen ? "flex" : "hidden"} fixed inset-0 bg-black bg-opacity-50 justify-center items-center z-50`}>
+                            <div className="bg-white dark:bg-customBGDark p-6 rounded-lg shadow-lg w-96">
+                                <h2 className="text-xl font-bold mb-4 text-black dark:text-white">My Chat History</h2>
+                                <h2 className='dark:text-white mb-2'>My Email: {customer?.email} </h2>
+                                <div className='overflow-y-auto max-h-[500px] h-screen sm:h-[500px]'>
+                                    {chatHistory[0] ? (
+                                        <div>
+                                            {/* {console.log(new Date(chatHistory[0].created_at).toLocaleDateString())} */}
+                                            {
+                                                chatHistory[0].messages.map((message, index) => (
+
+                                                    <div key={index} className='flex flex-col md:w-auto'>
+                                                        {index === 0 || chatHistory[0].messages[index - 1].conversation_id !== message.conversation_id ? (
+                                                            <div className="text-sm text-gray-600 dark:text-gray-100 font-semibold mt-4 grid grid-cols-2">
+                                                                Conversation ID: {message.conversation_id} - {new Date(message.created_at).toLocaleDateString()}
+                                                                <hr className='border-2 border-black/50 flex self-center dark:border-white/50 dark:border' />
+                                                            </div>
+                                                        ) : null}
+
+                                                        <div
+                                                            key={index}
+                                                            className={` rounded-full ${message.sender === 'customer'
+                                                                ? 'p-2 mx-2 mt-2 bg-white/50 shadow-md dark:bg-[#303030] px-4 text-black dark:text-white self-end'
+                                                                : 'pr-2 py-2 mt-2 text-black/80 dark:text-white/70 self-start flex'
+                                                                }`}
+                                                        >
+                                                            {message.sender === 'bot' && (
+                                                                <img
+                                                                    src={logo}
+                                                                    alt="Bot"
+                                                                    className="size-6 md:mr-2 rounded-full"
+                                                                />
+                                                            )}
+                                                            <div className="text-sm">
+                                                                <span dangerouslySetInnerHTML={{ __html: message.content.replace(/\n/g, '<br />') }} />
+                                                            </div>
+                                                        </div>
+                                                        <div>
+                                                            {message.sender === 'customer' && (
+                                                                <div className="text-xs text-gray-200 ml-2 flex mr-4 mt-2 justify-end">{new Date(message.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
+                                                            )}
+                                                            {message.sender === 'bot' && (
+                                                                <div className="text-xs text-gray-200 mt-2 flex ml-8 justify-start">{new Date(message.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
+                                                            )}
+                                                        </div>
+                                                    </div>
+                                                ))
+                                            }
+                                        </div>
+
+                                    ) : (
+                                        <div className="text-center text-gray-600 dark:text-gray-400">Select a conversation to view messages</div>)}
+                                </div>
+                                <button onClick={handleChatHistoryOpen} className='hover:text-customBtn/50 dark:text-customBtn'>
+                                    Back
+                                </button>
+                            </div>
+                        </div>
                     </nav >
+
                 ) : (
                     <nav className='fixed top-0 left-0 w-full bg-inherit shadow-md z-50'>
                         <div className='h-[50px] flex items-center lg:pl-36 pl-2 sm:pl-8 lg:justify-between dark:bg-customBGDark shadow-black/20 shadow-md bg-customBlue'>

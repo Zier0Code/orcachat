@@ -10,7 +10,7 @@ const MessageBox = ({ messages }) => {
                     <div
                         key={index}
                         className={`rounded-full ${message.sender === 'customer'
-                            ? 'p-2 mx-2 mt-2 bg-white/50 shadow-md dark:bg-customColorInput px-4 text-black dark:text-white self-end'
+                            ? 'p-2 mx-2 mt-2 bg-white/50 shadow-md dark:bg-customColorInput px-4 text-black dark:text-white/70 self-end flex'
                             : 'pr-2 pt-2 pb-1 md:pb-0 mt-2 text-black/80 dark:text-white/70 self-start flex text-sm sm:text-base'
                             }`}
                     >

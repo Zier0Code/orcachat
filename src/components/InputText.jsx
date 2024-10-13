@@ -24,11 +24,11 @@ const InputText = ({ handleSendMessage, isTyping }) => {
                     />
 
                     <div
-                        className={`absolute right-2 top-1/2 transform -translate-y-1/2 md:pr-3 pb-3 text-white hover:bg-customColorIput/50 rounded-full
+                        className={`absolute right-2 top-1/2 transform -translate-y-1/2 pb-3 text-white hover:bg-customColorIput/50 rounded-full
                             ${isTyping ? 'cursor-not-allowed' : ''}`}
                     >
                         {isTyping ?
-                            <div className='text-gray-400 hover:bg-black/20 p-2 rounded-md mt-1 flex justify-center'>
+                            <div className={`${isTyping ? '' : 'hover:bg-black/20'} p-2 text-gray-400 rounded-md mt-1 flex justify-center`}>
                                 <DoDisturbIcon fontSize='small' />
                             </div>
                             :

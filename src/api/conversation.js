@@ -29,3 +29,18 @@ export const create_conversation = async (id) => {
     // This will get the response from api
     return await response.json()
 }
+
+export const user_chat_history = async (id, token) => {
+    const response = await fetch(`${url}/conversations/customer`, {
+        method: "POST",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+        },
+        // this convert the object to json string 
+        body: JSON.stringify({ customer_id: id })
+    })
+    // This will get the response from api
+    return await response.json()
+}

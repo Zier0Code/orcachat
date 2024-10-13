@@ -13,7 +13,7 @@ const WelcomeChat = ({ handleGetStartedClick }) => {
                     I’m here to answer your inquiries instantly. Whether it’s about admissions, programs, registrar, just ask away! Let’s get started!
                 </div>
                 <button
-                    className='bg-customBlue text-white px-4 py-2 rounded-lg hover:bg-customBlue/80 transition-all w-40'
+                    className='bg-customBlue text-white px-4 py-2 rounded-lg hover:bg-customBlue/80 transition-all w-40 dark:bg-customBtn dark:hover:bg-customBtn/50'
                     onClick={handleGetStartedClick}
                 >
                     Get Started

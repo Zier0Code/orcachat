@@ -44,8 +44,6 @@ const SignUpModal = (props) => {
                     dispatch(login(res?.data))
                     navigate('/')
                 } else {
-                    console.log(res)
-                    toast.error(res?.message ?? "Something Went Wrong.")
                     setWarnings(res?.errors)
                 }
             }).finally(() => {
@@ -99,7 +97,7 @@ const SignUpModal = (props) => {
                                 <div>
                                     <LockIcon className="absolute mt-2 ml-3 text-gray-400" />
                                     <input
-                                        className=" dark:border-customColorInput  bg-white w-full p-2 sm:text-base text-black dark:text-white border text-[12px] rounded-full pl-12 darkfocus:border-customBtn focus:outline-none shadow-lg focus:border-customBlue dark:bg-[#303030]"
+                                        className=" dark:border-customColorInput  bg-white w-full p-2 sm:text-base text-black dark:text-white border text-[12px] rounded-full pl-12 darkfocus:border-customBtn focus:outline-none shadow-lg focus:border-customBlue dark:focus:border-customBtn dark:bg-[#303030]"
                                         id='password'
                                         type="password"
                                         placeholder='Password'
@@ -109,7 +107,17 @@ const SignUpModal = (props) => {
                                 </div>
                                 {
                                     warnings?.password ? (
-                                        <p className='text-red-500 mt-1 text-[12px]'>{warnings?.password}</p>
+                                        warnings.password.length === 1 ? (
+                                            <p className='text-red-500 mt-1 text-[12px]'>
+                                                Password must have 1 Uppercase Letter and Character or Symbol.
+                                                <br />
+                                                <span className='text-[12px]'>E.g. Password@1</span>
+                                            </p>
+                                        ) : warnings.password.map((warning, index) => (
+                                            <p key={index} className='text-red-500 mt-1 text-[12px]'>
+                                                {warning}
+                                            </p>
+                                        ))
                                     ) : null
                                 }
                             </div>
@@ -134,14 +142,19 @@ const SignUpModal = (props) => {
                                     required
                                 />
                                 <label htmlFor="terms" className="text-black dark:text-white text-[12px] sm:text-xs">
-                                    I accept the <Link to="/terms-and-conditions" target="_blank" className="text-customBlue dark:text-customBtn">Terms and Conditions</Link> and <Link to="/privacy-policy" target="_blank" className="text-customBlue">Privacy Policy</Link>.
+                                    I accept the <Link to="/terms-and-conditions" target="_blank" className="text-customBlue dark:text-customBtn">Terms and Conditions</Link> and <Link to="/privacy-policy" target="_blank" className="text-customBlue dark:text-customBtn">Privacy Policy</Link>.
                                 </label>
+                                {
+                                    warnings?.terms ? (
+                                        <p className='text-red-500 mt-1 text-[12px]'>{warnings?.terms}</p>
+                                    ) : null
+                                }
                             </div>
                             <div className='flex items-center flex-col mt-8'>
                                 <button
                                     disabled={loading}
                                     type="submit"
-                                    className={`${acceptedTerms ? "bg-customBlue hover:bg-customBlue/80" : "bg-gray-700/50 cursor-not-allowed"} font-bold dark:bg-customLightBlue p-2 w-full rounded-full dark:hover:bg-customLightBlue/80`}>
+                                    className={`${acceptedTerms ? "bg-customBlue hover:bg-customBlue/80 dark:bg-customLightBlue dark:hover:bg-customLightBlue/80" : "bg-gray-700/50 cursor-not-allowed dark:text-gray-500"} font-bold  p-2 w-full rounded-full `}>
                                     Sign Up
                                 </button>
                                 <button
