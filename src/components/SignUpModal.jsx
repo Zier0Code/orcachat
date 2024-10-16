@@ -22,6 +22,8 @@ const SignUpModal = (props) => {
     const [warnings, setWarnings] = useState({})
     const dispatch = useDispatch()
     const [loading, setLoading] = useState(false)
+
+    // PASSWORD VARIABLES STATES
     const [password, setPassword] = useState('');
     const [acceptedTerms, setAcceptedTerms] = useState(false);
     const [validationStatus, setValidationStatus] = useState({
@@ -30,6 +32,7 @@ const SignUpModal = (props) => {
         hasSpecialChar: false,
     });
 
+    // Validate password
     const validatePassword = (password) => {
         const minLength = /.{8,}/;
         const hasUpperCase = /[A-Z]/;
@@ -42,11 +45,13 @@ const SignUpModal = (props) => {
         });
     };
 
+    // Handle password change
     const handlePasswordChange = (e) => {
         const newPassword = e.target.value;
         setPassword(newPassword);
         validatePassword(newPassword);
     };
+
     const toggleSignUp = () => {
         props.setIsSignUpOpen(false)
     };
