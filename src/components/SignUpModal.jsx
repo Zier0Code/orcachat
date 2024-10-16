@@ -1,6 +1,11 @@
 import React, { useState } from 'react'
 import logo from "../assets/svgs/orca.svg"
-import { Mail as MailIcon, Lock as LockIcon, Person as PersonIcon } from "@mui/icons-material"
+import {
+    Mail as MailIcon, Lock as LockIcon,
+    Person as PersonIcon,
+    CheckCircle as CheckCircleIcon,
+    Cancel as CancelIcon
+} from "@mui/icons-material"
 import { toast } from 'react-toastify';
 import { customer_register } from '../api/auth';
 import $ from 'jquery'
@@ -9,14 +14,39 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import { login } from '../redux/customerAuthSlice';
 
+
+
 const SignUpModal = (props) => {
     const [cookies, setCookie, removeCookies] = useCookies()
     const navigate = useNavigate()
     const [warnings, setWarnings] = useState({})
     const dispatch = useDispatch()
     const [loading, setLoading] = useState(false)
+    const [password, setPassword] = useState('');
     const [acceptedTerms, setAcceptedTerms] = useState(false);
+    const [validationStatus, setValidationStatus] = useState({
+        minLength: false,
+        hasUpperCase: false,
+        hasSpecialChar: false,
+    });
 
+    const validatePassword = (password) => {
+        const minLength = /.{8,}/;
+        const hasUpperCase = /[A-Z]/;
+        const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/;
+
+        setValidationStatus({
+            minLength: minLength.test(password),
+            hasUpperCase: hasUpperCase.test(password),
+            hasSpecialChar: hasSpecialChar.test(password),
+        });
+    };
+
+    const handlePasswordChange = (e) => {
+        const newPassword = e.target.value;
+        setPassword(newPassword);
+        validatePassword(newPassword);
+    };
     const toggleSignUp = () => {
         props.setIsSignUpOpen(false)
     };
@@ -97,27 +127,37 @@ const SignUpModal = (props) => {
                                 <div>
                                     <LockIcon className="absolute mt-2 ml-3 text-gray-400" />
                                     <input
-                                        className=" dark:border-customColorInput  bg-white w-full p-2 sm:text-base text-black dark:text-white border text-[12px] rounded-full pl-12 darkfocus:border-customBtn focus:outline-none shadow-lg focus:border-customBlue dark:focus:border-customBtn dark:bg-[#303030]"
+                                        className="dark:border-customColorInput bg-white w-full p-2 sm:text-base text-black dark:text-white border text-[12px] rounded-full pl-12 darkfocus:border-customBtn focus:outline-none shadow-lg focus:border-customBlue dark:focus:border-customBtn dark:bg-[#303030]"
                                         id='password'
                                         type="password"
                                         placeholder='Password'
                                         maxLength="28"
+                                        value={password}
+                                        onChange={handlePasswordChange}
                                         required
                                     />
                                 </div>
+                                <div className="mt-2 text-xs">
+                                    <p className='font-bold'>
+                                        Password must have:
+                                    </p>
+                                    <ul className="mt-2 text-xs ml-4 mb-2">
+                                        <li className={validationStatus.minLength ? 'text-green-500' : 'text-red-500'}>
+                                            {validationStatus.minLength ? <CheckCircleIcon fontSize='small' /> : <CancelIcon fontSize='small' />} 8 Characters
+                                        </li>
+                                        <li className={validationStatus.hasUpperCase ? 'text-green-500' : 'text-red-500'}>
+                                            {validationStatus.hasUpperCase ? <CheckCircleIcon fontSize='small' /> : <CancelIcon fontSize='small' />} 1 Uppercase Letter
+                                        </li>
+                                        <li className={validationStatus.hasSpecialChar ? 'text-green-500' : 'text-red-500'}>
+                                            {validationStatus.hasSpecialChar ? <CheckCircleIcon fontSize='small' /> : <CancelIcon fontSize='small' />} 1 Character or Symbol
+                                        </li>
+                                    </ul>
+                                    <span className='text-[12px] font-semibold text-green-500'>E.g. Password@1</span>
+                                </div>
+
                                 {
                                     warnings?.password ? (
-                                        warnings.password.length === 1 ? (
-                                            <p className='text-red-500 mt-1 text-[12px]'>
-                                                Password must have 1 Uppercase Letter and Character or Symbol.
-                                                <br />
-                                                <span className='text-[12px]'>E.g. Password@1</span>
-                                            </p>
-                                        ) : warnings.password.map((warning, index) => (
-                                            <p key={index} className='text-red-500 mt-1 text-[12px]'>
-                                                {warning}
-                                            </p>
-                                        ))
+                                        <p className='text-red-500 mt-1 text-[12px]'>{warnings?.password}</p>
                                     ) : null
                                 }
                             </div>

@@ -14,7 +14,6 @@ import { login } from '../redux/customerAuthSlice';
 
 
 const LoginModal = (props) => {
-    const [isLoginOpen, setIsLoginOpen] = useState(true);
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [cookies, setCookie, removeCookies] = useCookies()
@@ -65,7 +64,7 @@ const LoginModal = (props) => {
                             {
                                 invalid ? (
                                     <div className=' border border-red-400 p-2 rounded-md mb-4 dark:bg-white/10'>
-                                        <p className='text-red-600 dark:text-red-500 text-center text-xs self-start mt-1'>{invalid}</p>
+                                        <p className='text-red-600 dark:text-red-500 text-center text-xs self-start mt-1 font-semibold'><span className='font-bold'> ! </span>{invalid}</p>
                                     </div>
                                 ) : null
                             }

@@ -380,7 +380,7 @@ const Navbar = ({ messages, isTyping, setMessages }) => {
                                                     <div key={index} className='flex flex-col md:w-auto'>
                                                         {index === 0 || chatHistory[0].messages[index - 1].conversation_id !== message.conversation_id ? (
                                                             <div className="text-sm text-gray-600 dark:text-gray-100 font-semibold mt-4 grid grid-cols-2">
-                                                                Conversation ID: {message.conversation_id} - {new Date(message.created_at).toLocaleDateString()}
+                                                                Date - {new Date(message.created_at).toLocaleDateString()}
                                                                 <hr className='border-2 border-black/50 flex self-center dark:border-white/50 dark:border' />
                                                             </div>
                                                         ) : null}
