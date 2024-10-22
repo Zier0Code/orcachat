@@ -15,3 +15,15 @@ export const create_feedback = async (body, token) => {
     // This will get the response from api
     return await response.json()
 }
+
+export const index_all = async () => {
+    const response = await fetch(`${url}/conversations`, {
+        method: "GET",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+        },
+    })
+    // This will get the response from api
+    return await response.json()
+}

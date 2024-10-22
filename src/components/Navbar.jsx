@@ -43,6 +43,7 @@ const Navbar = ({ messages, isTyping, setMessages }) => {
     const toggleUserDropdown = () => {
         refreshedChatHistory();
         setIsUserDropdownOpen(!isUserDropdownOpen);
+        console.log(chatHistory)
     };
 
     const onLogOut = () => {
@@ -417,7 +418,7 @@ const Navbar = ({ messages, isTyping, setMessages }) => {
                                         </div>
 
                                     ) : (
-                                        <div className="text-center text-gray-600 dark:text-gray-400">Select a conversation to view messages</div>)}
+                                        <div className="text-center text-gray-600 dark:text-gray-400">No Conversations</div>)}
                                 </div>
                                 <button onClick={handleChatHistoryOpen} className='hover:text-customBtn/50 dark:text-customBtn mt-6'>
                                     Back
@@ -472,6 +473,7 @@ const Navbar = ({ messages, isTyping, setMessages }) => {
                                         </Tooltip>
                                     )
                                 }
+
 
                                 {isDropdownOpen && (
                                     <LoginDropdown />

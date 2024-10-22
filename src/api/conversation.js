@@ -31,7 +31,7 @@ export const create_conversation = async (id) => {
 }
 
 export const user_chat_history = async (id, token) => {
-    const response = await fetch(`${url}/conversations/customer`, {
+    const response = await fetch(`${url}/conversations/customer/chathistory`, {
         method: "POST",
         headers: {
             Accept: "application/json",

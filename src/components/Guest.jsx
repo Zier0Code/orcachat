@@ -8,6 +8,8 @@ import MessageBox from './MessageBox';
 import BotImage from './BotImage';
 import WelcomeChat from './WelcomeChat';
 import { arrayofQuestions } from '../api/BadWords';
+import { index_all } from '../api/feedback';
+import { error } from 'jquery';
 
 const Guest = () => {
     const [darkMode, setDarkMode] = useState(false);
@@ -49,6 +51,12 @@ const Guest = () => {
         // CHECK IF MESSAGE IS NOT VALID
         if (cleanMessage !== message) {
             setMessages([...messages, { content: 'Your message is not valid as it contains illegal words. \n Try Asking again', sender: 'bot' }]);
+            return;
+        }
+
+        // ANOTHER LAYER FOR VALIDATION MUST NOT CONTAIN RANDOM WORDS OR CHARACTERS
+        if (cleanMessage.length < 2) {
+            setMessages([...messages, { content: 'Your message is not valid. \n Try Asking again', sender: 'bot' }]);
             return;
         }
 
@@ -127,6 +135,19 @@ const Guest = () => {
         }
     };
 
+    const refreshTags = () => {
+
+        index_all()
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((error) => {
+
+            });
+
+    }
+
+    useEffect(refreshTags, [])
     const handleGetStartedClick = () => {
         const greeting = ['Hello!', "Hi There!", "Hey Bot!", "What's Up!",][Math.floor(Math.random() * 3)];
         handleSendMessage(greeting);
@@ -139,7 +160,8 @@ const Guest = () => {
     };
 
     const randomQuestions = getRandomQuestions(arrayofQuestions, 3);
-
+    // Get the last message
+    const lastMessage = messages.slice(-1)[0];
     return (
         <>
             <div className='min-h-screen bg-customBGWhite dark:bg-customBGDark'>
@@ -157,6 +179,15 @@ const Guest = () => {
                                 <BotImage message={typingMessage} />
                             )}
                             {
+                                // messages.map((obj, idx) => {
+                                //     console.log(obj)
+                                //     const department = departments.find(dept => "Greeting" === obj.tag);
+                                //     if (department) {
+                                //         console.log(`Message ${idx} is related to the ${obj.tag} department.`);
+                                //         // You can perform additional actions here if needed
+                                //     }
+                                //     return null; // Return null or any JSX element if needed
+                                // })
                                 messages.length > 0 && (
                                     !isTyping && (
                                         showOnIdle && (
