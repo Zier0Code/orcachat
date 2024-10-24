@@ -121,7 +121,7 @@ const LoginModal = (props) => {
                                 <button disabled={loading} type="submit" className={`${loading ? 'cursor-not-allowed bg-gray-700/50' : 'bg-customBlue hover:bg-customBlue/80'} font-bold  dark:bg-customBtn p-2 w-full rounded-full dark:hover:bg-customBtn/80`}>Login</button>
                                 {/* <button className="text-white w-full h-[42px] bg-customBtn rounded-xl hover:shadow-customBtn hover:bg-customBtn50" disabled={loading} type="submit"><span className='font-semibold text-[20px] sm:text-2xl tracking-wider'>Login</span></button> */}
 
-                                <div className='mt-2 text-black dark:text-white'>
+                                <div className='mt-2 text-black dark:text-white text-xs lg:text-base'>
                                     No Account yet? <span onClick={toggleSignUp} className="text-customBtn cursor-pointer hover:font-semibold hover:text-customBtn/80 underline">Sign Up</span>
                                 </div>
                             </div>
