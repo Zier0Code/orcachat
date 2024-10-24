@@ -4,7 +4,9 @@ import {
     Mail as MailIcon, Lock as LockIcon,
     Person as PersonIcon,
     CheckCircle as CheckCircleIcon,
-    Cancel as CancelIcon
+    Cancel as CancelIcon,
+    Close as CloseIcon
+
 } from "@mui/icons-material"
 import { toast } from 'react-toastify';
 import { customer_register } from '../api/auth';
@@ -92,7 +94,15 @@ const SignUpModal = (props) => {
         <>{
             props.isSignUpOpen && (
                 <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50">
-                    <div className="bg-white dark:bg-customBGDark rounded-lg p-2 md:p-6 w-80 md:w-96 text-white">
+                    <div className="bg-white dark:bg-customBGDark rounded-lg p-2 md:p-6 w-80 md:w-96 text-white relative">
+                        <button
+                            type="button"
+                            className="text-gray-500 hover:font-semibold hover:text-gray-70 mt-2 dark:hover:text-white hover:text-black absolute right-4 top-4"
+                            onClick={toggleSignUp}
+
+                        >
+                            <CloseIcon />
+                        </button>
                         <div className='flex items-center flex-col'>
                             <img className="size-16 md:size-20" src={logo} alt="Logo Orca" />
                             <h2 className="text-xl md:text-2xl font-bold mb-4 text-[28px] dark:text-white  text-black animate-pulse">Create An Account</h2>
@@ -166,7 +176,7 @@ const SignUpModal = (props) => {
                                     ) : null
                                 }
                             </div>
-                            <div className='mb-8 flex'>
+                            <div className='mb-4 flex'>
                                 <LockIcon className="absolute mt-2 ml-3 text-gray-400" />
                                 <input
                                     className=" dark:border-customColorInput  bg-white w-full p-2 sm:text-base  text-black dark:text-white border text-[12px] rounded-full pl-12 dark:focus:border-customBtn focus:outline-none shadow-lg focus:border-customBlue dark:bg-[#303030]"
@@ -187,7 +197,7 @@ const SignUpModal = (props) => {
                                     required
                                 />
                                 <label htmlFor="terms" className="text-black dark:text-white text-[12px] sm:text-xs">
-                                    I accept the <Link to="/terms-and-conditions" target="_blank" className="text-customBlue dark:text-customBtn">Terms and Conditions</Link> and <Link to="/privacy-policy" target="_blank" className="text-customBlue dark:text-customBtn">Privacy Policy</Link>.
+                                    I accept the <Link to="/terms-and-conditions" target="_blank" className="text-customBlue hover:text-customBlue/80 dark:text-customBtn dark:hover:text-customBtn/80 underline italic">Terms and Conditions</Link> and <Link to="/privacy-policy" target="_blank" className="text-customBlue dark:text-customBtn underline italic hover:text-customBlue/80 dark:text-customBtn/80">Privacy Policy</Link>.
                                 </label>
                                 {
                                     warnings?.terms ? (
@@ -195,20 +205,14 @@ const SignUpModal = (props) => {
                                     ) : null
                                 }
                             </div>
-                            <div className='flex items-center flex-col mt-8'>
+                            <div className='flex items-center flex-col mt-2'>
                                 <button
                                     disabled={loading}
                                     type="submit"
                                     className={`${acceptedTerms ? "bg-customBlue hover:bg-customBlue/80 dark:bg-customLightBlue dark:hover:bg-customLightBlue/80" : "bg-gray-700/50 cursor-not-allowed dark:text-gray-500"} font-bold  p-2 w-full rounded-full `}>
                                     Sign Up
                                 </button>
-                                <button
-                                    type="button"
-                                    className="text-gray-500 hover:text-gray-70 mt-2 hover:text-black hover:font-semibold dark:hover:text-white"
-                                    onClick={toggleSignUp}
-                                >
-                                    Cancel
-                                </button>
+
                             </div>
                         </form>
                     </div>

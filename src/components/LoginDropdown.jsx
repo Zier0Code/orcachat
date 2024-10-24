@@ -30,9 +30,11 @@ const LoginDropdown = () => {
                     </div>
                 </div>
             </div>
-            {isLoginOpen && (
-                <LoginModal isLoginOpen={isLoginOpen} setIsLoginOpen={setIsLoginOpen} />
-            )}
+            {
+                isLoginOpen && (
+                    <LoginModal isLoginOpen={isLoginOpen} setIsLoginOpen={setIsLoginOpen} />
+                )
+            }
             {
                 isSignUpOpen && (
                     <SignUpModal isSignUpOpen={isSignUpOpen} setIsSignUpOpen={setIsSignUpOpen} />

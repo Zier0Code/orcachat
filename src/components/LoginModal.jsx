@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import logo from '../assets/svgs/orca.svg'
 import {
     Mail as MailIcon,
-    Lock as LockIcon
+    Lock as LockIcon,
+    Close as CloseIcon
 } from "@mui/icons-material"
 import { Button } from '@mui/material';
 import { useCookies } from 'react-cookie';
@@ -11,6 +12,7 @@ import { useDispatch } from 'react-redux';
 import { customer_login as CustomerLoginAPI } from '../api/auth';
 import { toast } from 'react-toastify';
 import { login } from '../redux/customerAuthSlice';
+import SignUpModal from './SignUpModal';
 
 
 const LoginModal = (props) => {
@@ -51,11 +53,23 @@ const LoginModal = (props) => {
             })
         }
     }
+    const [isSignUpOpen, setIsSignUpOpen] = useState(false);
+    const toggleSignUp = () => {
+        setIsSignUpOpen(!isSignUpOpen)
+    };
     return (
         <>{
             props.isLoginOpen && (
                 <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50">
-                    <div className="dark:bg-customBGDark bg-white shadow-lg shadow-black/50 rounded-lg p-2 md:p-6 w-80 md:w-96 text-white">
+                    <div className="dark:bg-customBGDark bg-white shadow-lg shadow-black/50 rounded-lg p-2 md:p-6 w-80 md:w-96 text-white relative">
+                        <button
+                            type="button"
+                            className="text-gray-500 hover:font-semibold hover:text-gray-70 mt-2 dark:hover:text-white hover:text-black absolute right-4 top-4"
+                            onClick={toggleLogin}
+
+                        >
+                            <CloseIcon />
+                        </button>
                         <div className='flex items-center flex-col'>
                             <img className="size-16 md:size-20" src={logo} alt="Logo Orca" />
                             <h2 className="animate-pulse text-xl md:text-3xl font-bold nd:mb-4 text-[32px] text-black dark:text-white">Login</h2>
@@ -106,19 +120,19 @@ const LoginModal = (props) => {
                             <div className='flex items-center flex-col'>
                                 <button disabled={loading} type="submit" className={`${loading ? 'cursor-not-allowed bg-gray-700/50' : 'bg-customBlue hover:bg-customBlue/80'} font-bold  dark:bg-customBtn p-2 w-full rounded-full dark:hover:bg-customBtn/80`}>Login</button>
                                 {/* <button className="text-white w-full h-[42px] bg-customBtn rounded-xl hover:shadow-customBtn hover:bg-customBtn50" disabled={loading} type="submit"><span className='font-semibold text-[20px] sm:text-2xl tracking-wider'>Login</span></button> */}
-                                <button
-                                    type="button"
-                                    className="text-gray-500 hover:font-semibold hover:text-gray-70 mt-2 dark:hover:text-white hover:text-black"
-                                    onClick={toggleLogin}
 
-                                >
-                                    Cancel
-                                </button>
+                                <div className='mt-2 text-black dark:text-white'>
+                                    No Account yet? <span onClick={toggleSignUp} className="text-customBtn cursor-pointer hover:font-semibold hover:text-customBtn/80 underline">Sign Up</span>
+                                </div>
                             </div>
-
                         </form>
-                        
+
                     </div>
+                    {
+                        isSignUpOpen && (
+                            <SignUpModal isSignUpOpen={isSignUpOpen} setIsSignUpOpen={setIsSignUpOpen} />
+                        )
+                    }
                 </div>
             )
         }

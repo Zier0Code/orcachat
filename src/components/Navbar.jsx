@@ -27,6 +27,7 @@ import $ from 'jquery'
 import { create_feedback } from '../api/feedback';
 import StarRating from './StarRating';
 import Help from './Help';
+import LoginModal from './LoginModal';
 
 
 const Navbar = ({ messages, isTyping, setMessages }) => {
@@ -238,6 +239,12 @@ const Navbar = ({ messages, isTyping, setMessages }) => {
         setOpenHelp(!openHelp);
     };
 
+    // Login
+    const [isLoginOpen, setIsLoginOpen] = useState(false);
+
+    const toggleLogin = () => {
+        setIsLoginOpen(!isLoginOpen)
+    };
     return (
         <>
             {
@@ -438,7 +445,7 @@ const Navbar = ({ messages, isTyping, setMessages }) => {
 
                 ) : (
                     <nav className='fixed top-0 left-0 w-full bg-inherit shadow-md z-50'>
-                        <div className='h-[50px] flex items-center lg:pl-36 pl-2 sm:pl-8 lg:justify-between dark:bg-customBGDark shadow-black/20 shadow-md bg-customBlue'>
+                        <div className='h-[50px] flex justify-between lg:justify-around items-center  pl-2 sm:pl-8 dark:bg-customBGDark shadow-black/20 shadow-md bg-customBlue'>
                             <div className="flex items-center">
                                 <button onClick={toggleDropdown} className='flex items-center'>
                                     <div className='flex-shrink-0 flex items-center'>
@@ -478,6 +485,18 @@ const Navbar = ({ messages, isTyping, setMessages }) => {
                                 {isDropdownOpen && (
                                     <LoginDropdown />
                                 )}
+                            </div>
+                            <div>
+                                <button
+                                    onClick={(toggleLogin)}
+                                    className='px-5 py-1 bg-white text-xs sm:text-base hover:bg-white/60 text-customBlue mr-4 lg:mr-0 dark:hover:bg-[#D9D9D9]/70 dark:bg-[#D9D9D9] dark:text-black rounded-full font-semibold'>
+                                    Login
+                                </button>
+                                {
+                                    isLoginOpen && (
+                                        <LoginModal isLoginOpen={isLoginOpen} setIsLoginOpen={setIsLoginOpen} />
+                                    )
+                                }
                             </div>
                         </div>
                     </nav>
