@@ -128,6 +128,8 @@ const Guest = () => {
                     console.error('Error fetching response from server');
                 }
             } catch (error) {
+                setIsTyping(false);
+                setMessages([...messages, { content: " 𝑺𝒐𝒓𝒓𝒚! 𝑶𝒓𝒄𝒂 𝑪𝒉𝒂𝒕𝒃𝒐𝒕 𝒔𝒆𝒓𝒗𝒆𝒓 𝑬𝒓𝒓𝒐𝒓. \n𝑃𝑙𝑒𝑎𝑠𝑒 𝑇𝑟𝑦 𝑎𝑠𝑘𝑖𝑛𝑔 𝑎𝑔𝑎𝑖𝑛 𝑙𝑎𝑡𝑒𝑟.", sender: 'bot' }]);
                 console.error('Error:', error);
             } finally {
                 // finally code here
