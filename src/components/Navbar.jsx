@@ -199,9 +199,6 @@ const Navbar = ({ messages, isTyping, setMessages }) => {
         setChatHistoryOpen(!ChatHistoryOpen);
     };
 
-    if (customer) {
-        refreshedChatHistory();
-    }
     const refreshedChatHistory = () => {
         user_chat_history(customer?.id, cookies.customer_authToken).then(res => {
             if (res.ok) {
@@ -217,6 +214,9 @@ const Navbar = ({ messages, isTyping, setMessages }) => {
         });
     }
 
+    if (customer) {
+        refreshedChatHistory();
+    }
     const groupConversationsByEmail = (conversations) => {
         const grouped = conversations.reduce((acc, conversation) => {
             const email = conversation.customer.email;

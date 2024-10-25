@@ -10,11 +10,9 @@ import WelcomeChat from './WelcomeChat';
 import { arrayofQuestions } from '../api/BadWords';
 import { index_all } from '../api/feedback';
 import { error } from 'jquery';
-import { useCookies } from 'react-cookie';
 
 const Guest = () => {
     const [darkMode, setDarkMode] = useState(false);
-    const [cookie, setCookie] = useCookies(['customer_authToken']);
 
     useEffect(() => {
         if (localStorage.getItem('theme') === 'dark') {
@@ -127,13 +125,9 @@ const Guest = () => {
                         }
                     }, 1);
                 } else {
-                    setIsTyping(false);
-                    // Handle server error response
-                    setMessages([...messages, { content: 'Server error. Please try again later.', sender: 'bot' }]);
+                    console.error('Error fetching response from server');
                 }
             } catch (error) {
-                setIsTyping(false);
-                setMessages([...messages, { content: '𝗦𝗧𝗜 𝗢𝗥𝗖𝗔 𝗖𝗵𝗮𝘁𝗯𝗼𝘁 𝗦𝗲𝗿𝘃𝗲𝗿 𝗲𝗿𝗿𝗼𝗿. 𝗣𝗹𝗲𝗮𝘀𝗲 𝘁𝗿𝘆 𝗮𝗴𝗮𝗶𝗻 𝗹𝗮𝘁𝗲𝗿.', sender: 'bot' }]);
                 console.error('Error:', error);
             } finally {
                 // finally code here
@@ -141,10 +135,19 @@ const Guest = () => {
         }
     };
 
+    const refreshTags = () => {
 
+        index_all()
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((error) => {
 
+            });
 
+    }
 
+    useEffect(refreshTags, [])
     const handleGetStartedClick = () => {
         const greeting = ['Hello!', "Hi There!", "Hey Bot!", "What's Up!",][Math.floor(Math.random() * 3)];
         handleSendMessage(greeting);
