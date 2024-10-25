@@ -48,9 +48,9 @@ const Help = () => {
                     <p className="text-black dark:text-white/50 mb-4">
                         If you have any other questions or need further assistance, please feel free to reach out to us.
                     </p>
-                    <a href="mailto:momoxsana02@gmail.com" className="inline-block px-6 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-500/60">
-                        Email Support
-                    </a>
+                    <p className="text-black dark:text-white/50 mb-4 font-bold">
+                        Telephone No: 8812-1784 loc 851/852
+                    </p>
                 </div>
             </div>
         </>
