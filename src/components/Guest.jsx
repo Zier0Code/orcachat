@@ -7,7 +7,7 @@ import InputText from './InputText';
 import MessageBox from './MessageBox';
 import BotImage from './BotImage';
 import WelcomeChat from './WelcomeChat';
-import { arrayofQuestions } from '../api/BadWords';
+import { objectofQuestions } from '../api/BadWords';
 import { index_all } from '../api/feedback';
 import { error } from 'jquery';
 
@@ -136,34 +136,63 @@ const Guest = () => {
             }
         }
     };
+    const [segmentedTags, setSegmentedTags] = useState({})
 
     const refreshTags = () => {
-
         index_all()
             .then((res) => {
-                console.log(res);
+                const intents = res.intents;
+
+                // Segment the intents based on topic_id
+                const segmentedIntents = intents.reduce((acc, intent) => {
+                    const { topic_id, tag } = intent;
+                    if (!acc[topic_id]) {
+                        acc[topic_id] = [];
+                    }
+                    acc[topic_id].push(tag);
+                    return acc;
+                }, {});
+                setSegmentedTags(segmentedIntents);
             })
             .catch((error) => {
-
+                console.log(error);
             });
-
-    }
+    };
 
     useEffect(refreshTags, [])
+
     const handleGetStartedClick = () => {
         const greeting = ['Hello!', "Hi There!", "Hey Bot!", "What's Up!",][Math.floor(Math.random() * 3)];
         handleSendMessage(greeting);
     };
 
 
-    const getRandomQuestions = (arr, num) => {
-        const shuffled = [...arr].sort(() => 0.5 - Math.random());
-        return shuffled.slice(0, num);
+    const getRandomQuestions = (obj, num) => {
+        // get the last message and tag
+        const lastMessage = messages.slice(-1)[0];
+        const lastTag = lastMessage?.tag;
+        const intents = {
+            1: obj.random,
+            2: obj.admission,
+            3: obj.registrar,
+            4: obj.cashier,
+            5: obj.itsupport,
+            6: obj.others
+        }
+        // Check if segmentedTags is available and lastTag exists in it
+        if (lastTag) {
+            for (const [key, tags] of Object.entries(segmentedTags)) {
+                if (tags.includes(lastTag)) {
+                    console.log(`Tag ${lastTag} found in segmentedTags under key ${key}:`); // Log the found tag and key
+                    const shuffled = [...(intents[key] || obj.random)].sort(() => 0.5 - Math.random());
+                    return shuffled.slice(0, num);
+                }
+            }
+        }
+        return [];
     };
 
-    const randomQuestions = getRandomQuestions(arrayofQuestions, 3);
-    // Get the last message
-    const lastMessage = messages.slice(-1)[0];
+    const randomQuestions = getRandomQuestions(objectofQuestions, 3);
     return (
         <>
             <div className='min-h-screen bg-customBGWhite dark:bg-customBGDark'>
@@ -181,15 +210,6 @@ const Guest = () => {
                                 <BotImage message={typingMessage} />
                             )}
                             {
-                                // messages.map((obj, idx) => {
-                                //     console.log(obj)
-                                //     const department = departments.find(dept => "Greeting" === obj.tag);
-                                //     if (department) {
-                                //         console.log(`Message ${idx} is related to the ${obj.tag} department.`);
-                                //         // You can perform additional actions here if needed
-                                //     }
-                                //     return null; // Return null or any JSX element if needed
-                                // })
                                 messages.length > 0 && (
                                     !isTyping && (
                                         showOnIdle && (

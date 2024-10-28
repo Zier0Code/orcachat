@@ -17,7 +17,7 @@ export const create_feedback = async (body, token) => {
 }
 
 export const index_all = async () => {
-    const response = await fetch(`${url}/conversations`, {
+    const response = await fetch(`${url}/intentall`, {
         method: "GET",
         headers: {
             Accept: "application/json",
