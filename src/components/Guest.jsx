@@ -183,7 +183,6 @@ const Guest = () => {
         if (lastTag) {
             for (const [key, tags] of Object.entries(segmentedTags)) {
                 if (tags.includes(lastTag)) {
-                    console.log(`Tag ${lastTag} found in segmentedTags under key ${key}:`); // Log the found tag and key
                     const shuffled = [...(intents[key] || obj.random)].sort(() => 0.5 - Math.random());
                     return shuffled.slice(0, num);
                 }
