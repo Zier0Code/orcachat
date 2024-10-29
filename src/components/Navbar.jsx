@@ -282,14 +282,14 @@ const Navbar = ({ messages, isTyping, setMessages }) => {
                                     }
                                 </div>
                                 <div className='flex'>
-                                    <div className='hidden md:flex justify-center mr-2'>
+                                    {/* <div className='hidden md:flex justify-center mr-2'>
                                         <button
                                             onClick={requestAdminSupport}
                                             className={`${clickAdminSupport ? 'cursor-not-allowed bg-gray-200/50 ' : "dark:hover:text-white hover:text-white hover:bg-black/20 dark:hover:bg-black/50"} px-2 border-white/50 border dark:text-white/60  text-xs text-white/50 rounded-full font-semibold`}
                                             disabled={clickAdminSupport}>
                                             Admin Support
                                         </button>
-                                    </div>
+                                    </div> */}
                                     <Tooltip title="Give us Feedback" arrow>
                                         <button className=' sm:mr-5 hover:text-white text-gray-100 flex items-center mr-2 hover:text-white/60' onClick={handleFeedbackClick}>
                                             <FeedbackIcon fontSize='medium' />
