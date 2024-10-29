@@ -44,7 +44,6 @@ const Navbar = ({ messages, isTyping, setMessages }) => {
     const toggleUserDropdown = () => {
         refreshedChatHistory();
         setIsUserDropdownOpen(!isUserDropdownOpen);
-        console.log(chatHistory)
     };
 
     const onLogOut = () => {
@@ -214,9 +213,6 @@ const Navbar = ({ messages, isTyping, setMessages }) => {
         });
     }
 
-    if (customer) {
-        refreshedChatHistory();
-    }
     const groupConversationsByEmail = (conversations) => {
         const grouped = conversations.reduce((acc, conversation) => {
             const email = conversation.customer.email;
